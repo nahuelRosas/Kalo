@@ -1,26 +1,28 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Avatar,
+  Icon,
   IconButton,
   Menu,
   MenuButton,
-  useToast,
   MenuItem,
   MenuList,
-  useColorModeValue,
-  useColorMode,
   Text,
+  useBreakpointValue,
+  useColorMode,
+  useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
-import { User } from "firebase/auth";
+import { signOut, User } from "firebase/auth";
+import Link from "next/link";
 import React from "react";
 import { BsMoonFill, BsSunFill } from "react-icons/bs";
-import { MdLogout } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { IoBagCheckOutline } from "react-icons/io5";
-import Link from "next/link";
-import { signOut } from "firebase/auth";
+import { MdLogout } from "react-icons/md";
 import { auth } from "../../../firebase/clientApp";
-import { useBreakpointValue } from "@chakra-ui/react";
+import Cart from "../../Cart";
+import ButtonCart from "../../Cart/ButtonCart";
 
 type UserMenuProps = {
   user?: User | null;
@@ -30,12 +32,34 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
   const { toggleColorMode } = useColorMode();
   const toast = useToast();
   const text = useColorModeValue("Dark", "Light");
+  const logOut = () => {
+    signOut(auth)
+      .then(() => {
+        toast({
+          title: "Logged out",
+          description: "You have been logged out",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      })
+      .catch((error) => {
+        toast({
+          title: "Error",
+          description: error.message,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      });
+  };
 
   const src =
     user?.photoURL ||
     "https://res.cloudinary.com/dlcilp6vw/image/upload/v1667478654/avatars/isemxk5z1opyiwbu9fao.svg";
   return (
     <>
+      <Cart />
       <Menu
         isLazy
         placement="bottom-end"
@@ -54,40 +78,85 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
         />
         <MenuList>
           <Link href="/profile">
-            <MenuItem
-              icon={useBreakpointValue({
-                base: <Avatar size="xs" src={src} />,
-                md: <CgProfile size={20} />,
-              })}>
+            <MenuItem width="100%" aria-label="profile">
+              <Icon
+                as={CgProfile}
+                display={
+                  useBreakpointValue({
+                    base: "none",
+                    md: "block",
+                  }) as string
+                }
+                boxSize={useBreakpointValue({ base: 4, md: 5 })}
+                color={
+                  useColorModeValue("purple.600", "purple.400") as
+                    | "purple.600"
+                    | "purple.400"
+                }
+                mr={2}
+              />
+              <Avatar
+                size="sm"
+                src={src}
+                mr={2}
+                display={
+                  useBreakpointValue({
+                    base: "block",
+                    md: "none",
+                  }) as string
+                }
+              />
               Profile
             </MenuItem>
           </Link>
           <Link href="/orders">
-            <MenuItem icon={<IoBagCheckOutline size={20} />}>Orders</MenuItem>
+            <MenuItem>
+              <Icon
+                as={IoBagCheckOutline}
+                boxSize={useBreakpointValue({ base: 4, md: 5 })}
+                color={
+                  useColorModeValue("purple.600", "purple.400") as
+                    | "purple.600"
+                    | "purple.400"
+                }
+                mr={2}
+              />
+              Orders
+            </MenuItem>
           </Link>
           <MenuItem
             onClick={toggleColorMode}
             width="100%"
             aria-label="colorMode">
-            {text === "Dark" ? (
-              <BsMoonFill size={20} />
-            ) : (
-              <BsSunFill size={20} />
-            )}
-            <Text ml="2">{text}</Text>
+            <Icon
+              as={text === "Dark" ? BsMoonFill : BsSunFill}
+              boxSize={useBreakpointValue({ base: 4, md: 5 })}
+              color={
+                useColorModeValue("purple.600", "purple.400") as
+                  | "purple.600"
+                  | "purple.400"
+              }
+              mr={2}
+            />
+            <Text>{text}</Text>
           </MenuItem>
+          <ButtonCart />
           <MenuItem
-            icon={<MdLogout size={20} />}
+            width="100%"
+            aria-label="logout"
             onClick={() => {
-              signOut(auth);
-              toast({
-                title: "Signed Out",
-                description: "You have signed out successfully",
-                status: "success",
-                duration: 3000,
-                isClosable: true,
-              });
+              logOut();
             }}>
+            <Icon
+              as={MdLogout}
+              boxSize={useBreakpointValue({ base: 4, md: 5 })}
+              color={
+                useColorModeValue("purple.600", "purple.400") as
+                  | "purple.600"
+                  | "purple.400"
+              }
+              mr={2}
+            />
             Logout
           </MenuItem>
         </MenuList>

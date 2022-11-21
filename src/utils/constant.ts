@@ -54,9 +54,11 @@ import Cell3 from "../../public/assets/images/3Cell.png";
 import PC1 from "../../public/assets/images/1PC.png";
 import PC2 from "../../public/assets/images/2PC.png";
 import PC3 from "../../public/assets/images/3PC.png";
+import PC4 from "../../public/assets/images/4PC.png";
+import PC5 from "../../public/assets/images/5PC.png";
 
 export const cellImages = [Cell1, Cell2, Cell3];
-export const pcImages = [PC1, PC2, PC3];
+export const pcImages = [PC1, PC2, PC3, PC4, PC5];
 
 export type NavItem = {
   label: string;
@@ -99,12 +101,12 @@ export const NAV_ITEMS: Array<NavItem> = [
       {
         label: "Shoes",
         subLabel: "Shop for shoes",
-        href:"/men/shoes",
+        href: "/men/shoes",
       },
       {
         label: "Accessories",
         subLabel: "Shop for accessories",
-        href:"/men/accessories",
+        href: "/men/accessories",
       },
     ],
   },
@@ -115,17 +117,17 @@ export const NAV_ITEMS: Array<NavItem> = [
       {
         label: "Clothing",
         subLabel: "Shop for clothing",
-        href:"/women/clothing",
+        href: "/women/clothing",
       },
       {
         label: "Shoes",
         subLabel: "Shop for shoes",
-        href:"/women/shoes",
+        href: "/women/shoes",
       },
       {
         label: "Accessories",
         subLabel: "Shop for accessories",
-        href:"/women/accessories",
+        href: "/women/accessories",
       },
     ],
   },
@@ -136,17 +138,17 @@ export const NAV_ITEMS: Array<NavItem> = [
       {
         label: "Clothing",
         subLabel: "Shop for clothing",
-        href:"/kids/clothing",
+        href: "/kids/clothing",
       },
       {
         label: "Shoes",
         subLabel: "Shop for shoes",
-        href:"/kids/shoes",
+        href: "/kids/shoes",
       },
       {
         label: "Accessories",
         subLabel: "Shop for accessories",
-        href:"/kids/accessories",
+        href: "/kids/accessories",
       },
     ],
   },
@@ -157,34 +159,28 @@ export const NAV_ITEMS: Array<NavItem> = [
       {
         label: "Adidas",
         subLabel: "Shop for Adidas",
-        href:"/brands/adidas",
+        href: "/brands/adidas",
       },
       {
         label: "Nike",
         subLabel: "Shop for Nike",
-        href:"/brands/nike",
+        href: "/brands/nike",
       },
       {
         label: "Puma",
         subLabel: "Shop for Puma",
-        href:"/brands/puma",
+        href: "/brands/puma",
       },
       {
         label: "Reebok",
         subLabel: "Shop for Reebok",
-        href:"/brands/reebok",
+        href: "/brands/reebok",
       },
       {
         label: "Vans",
         subLabel: "Shop for Vans",
-        href:"/brands/vans",
+        href: "/brands/vans",
       },
     ],
   },
 ];
-
-
-
-
-  
-  

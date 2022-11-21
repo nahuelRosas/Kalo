@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, useColorModeValue } from "@chakra-ui/react";
-import logoDark from "../../../public/logoDark.png";
-import logoLight from "../../../public/logoLight.png";
+import logoDark from "../../../public/assets/logo/logoDark.png";
+import logoLight from "../../../public/assets/logo/logoLight.png";
 import Image from "next/image";
 import Link from "next/link";
 

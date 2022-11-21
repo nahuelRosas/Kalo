@@ -47,3 +47,144 @@ export {
   termsOfService,
   returnPolicy,
 };
+
+import Cell1 from "../../public/assets/images/1Cell.png";
+import Cell2 from "../../public/assets/images/2Cell.png";
+import Cell3 from "../../public/assets/images/3Cell.png";
+import PC1 from "../../public/assets/images/1PC.png";
+import PC2 from "../../public/assets/images/2PC.png";
+import PC3 from "../../public/assets/images/3PC.png";
+
+export const cellImages = [Cell1, Cell2, Cell3];
+export const pcImages = [PC1, PC2, PC3];
+
+export type NavItem = {
+  label: string;
+  subLabel?: string;
+  children?: Array<NavItem>;
+  href?: string;
+};
+
+export const NAV_ITEMS: Array<NavItem> = [
+  //New & Featured
+  {
+    label: "New & Featured",
+    children: [
+      {
+        label: "New Arrivals",
+        subLabel: "Newest items",
+        href: "/new-arrivals",
+      },
+      {
+        label: "Best Sellers",
+        subLabel: "Best selling items",
+        href: "/best-sellers",
+      },
+      {
+        label: "Sale",
+        subLabel: "On sale items",
+        href: "/sale",
+      },
+    ],
+  },
+  //Men
+  {
+    label: "Men",
+    children: [
+      {
+        label: "Clothing",
+        subLabel: "Shop for clothing",
+        href: "/men/clothing",
+      },
+      {
+        label: "Shoes",
+        subLabel: "Shop for shoes",
+        href:"/men/shoes",
+      },
+      {
+        label: "Accessories",
+        subLabel: "Shop for accessories",
+        href:"/men/accessories",
+      },
+    ],
+  },
+  //Women
+  {
+    label: "Women",
+    children: [
+      {
+        label: "Clothing",
+        subLabel: "Shop for clothing",
+        href:"/women/clothing",
+      },
+      {
+        label: "Shoes",
+        subLabel: "Shop for shoes",
+        href:"/women/shoes",
+      },
+      {
+        label: "Accessories",
+        subLabel: "Shop for accessories",
+        href:"/women/accessories",
+      },
+    ],
+  },
+  //Kids
+  {
+    label: "Kids",
+    children: [
+      {
+        label: "Clothing",
+        subLabel: "Shop for clothing",
+        href:"/kids/clothing",
+      },
+      {
+        label: "Shoes",
+        subLabel: "Shop for shoes",
+        href:"/kids/shoes",
+      },
+      {
+        label: "Accessories",
+        subLabel: "Shop for accessories",
+        href:"/kids/accessories",
+      },
+    ],
+  },
+  //Brands
+  {
+    label: "Brands",
+    children: [
+      {
+        label: "Adidas",
+        subLabel: "Shop for Adidas",
+        href:"/brands/adidas",
+      },
+      {
+        label: "Nike",
+        subLabel: "Shop for Nike",
+        href:"/brands/nike",
+      },
+      {
+        label: "Puma",
+        subLabel: "Shop for Puma",
+        href:"/brands/puma",
+      },
+      {
+        label: "Reebok",
+        subLabel: "Shop for Reebok",
+        href:"/brands/reebok",
+      },
+      {
+        label: "Vans",
+        subLabel: "Shop for Vans",
+        href:"/brands/vans",
+      },
+    ],
+  },
+];
+
+
+
+
+  
+  

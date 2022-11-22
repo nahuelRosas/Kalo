@@ -12,6 +12,8 @@ import React from "react";
 import SubMenuDirectory from "./SubMenuDirectory";
 
 const PopoverDirectory: React.FC = () => {
+  const bg = useColorModeValue("white", "gray.800");
+  const color = useColorModeValue("purple.600", "purple.200");
   return (
     <Stack
       direction="row"
@@ -34,7 +36,7 @@ const PopoverDirectory: React.FC = () => {
                 fontWeight={700}
                 _hover={{
                   textDecoration: "none",
-                  color: useColorModeValue("purple.600", "purple.200"),
+                  color: color,
                 }}>
                 {navItem.label}
               </Text>
@@ -47,7 +49,7 @@ const PopoverDirectory: React.FC = () => {
                 w={"100vw"}
                 border={0}
                 boxShadow={"xl"}
-                bg={useColorModeValue("white", "gray.800")}
+                bg={bg}
                 p={4}
                 rounded={"xl"}
                 minW={"sm"}>

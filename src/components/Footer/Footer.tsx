@@ -11,6 +11,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FaFacebook, FaYoutube, FaInstagram } from "react-icons/fa";
+import { copyright, kalo } from "../../utils/constant";
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
@@ -69,6 +70,7 @@ export default function Footer() {
               <ListHeader>Support</ListHeader>
               <Link href={"/helpCenter"}>Help Center</Link>
               <Link href={"/refundPolicy"}>Refund Policy</Link>
+              <Link href={"/size"}>How to measure your size?</Link>
             </Stack>
 
             <Stack align={"flex-start"}>
@@ -97,7 +99,7 @@ export default function Footer() {
               fontSize="sm"
               color={useColorModeValue("gray.700", "gray.200")}
               textAlign="center">
-              {/* {copyright} &copy; {new Date().getFullYear()} {kalu} */}
+              {copyright} &copy; {new Date().getFullYear()} {kalo}
             </Text>
             <Stack direction={"row"} spacing={6} justify={"center"}>
               <SocialButton

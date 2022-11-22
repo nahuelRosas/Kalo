@@ -7,7 +7,7 @@ const homePage = "Home Page";
 const aboutUs = "About Us";
 const contactUs = "Contact Us";
 const copyright = "copyright";
-const kalu = "Kalú, Inc. All rights reserved.";
+const kalo = "Kalo, Inc. All rights reserved.";
 const newsletter = "Subscribe to our newsletter";
 const blog = "Blog";
 const careers = "Careers";
@@ -32,7 +32,7 @@ export {
   aboutUs,
   contactUs,
   copyright,
-  kalu,
+  kalo,
   newsletter,
   blog,
   careers,
@@ -59,7 +59,6 @@ import PC5 from "../../public/assets/images/5PC.png";
 
 export const cellImages = [Cell1, Cell2, Cell3];
 export const pcImages = [PC1, PC2, PC3, PC4, PC5];
-
 export type NavItem = {
   label: string;
   subLabel?: string;
@@ -94,11 +93,6 @@ export const NAV_ITEMS: Array<NavItem> = [
     label: "Men",
     children: [
       {
-        label: "Clothing",
-        subLabel: "Shop for clothing",
-        href: "/men/clothing",
-      },
-      {
         label: "Shoes",
         subLabel: "Shop for shoes",
         href: "/men/shoes",
@@ -114,11 +108,6 @@ export const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Women",
     children: [
-      {
-        label: "Clothing",
-        subLabel: "Shop for clothing",
-        href: "/women/clothing",
-      },
       {
         label: "Shoes",
         subLabel: "Shop for shoes",
@@ -136,11 +125,6 @@ export const NAV_ITEMS: Array<NavItem> = [
     label: "Kids",
     children: [
       {
-        label: "Clothing",
-        subLabel: "Shop for clothing",
-        href: "/kids/clothing",
-      },
-      {
         label: "Shoes",
         subLabel: "Shop for shoes",
         href: "/kids/shoes",
@@ -149,6 +133,21 @@ export const NAV_ITEMS: Array<NavItem> = [
         label: "Accessories",
         subLabel: "Shop for accessories",
         href: "/kids/accessories",
+      },
+    ],
+  },
+  {
+    label: "Unisex",
+    children: [
+      {
+        label: "Shoes",
+        subLabel: "Shop for shoes",
+        href: "/unisex/shoes",
+      },
+      {
+        label: "Accessories",
+        subLabel: "Shop for accessories",
+        href: "/unisex/accessories",
       },
     ],
   },
@@ -172,14 +171,19 @@ export const NAV_ITEMS: Array<NavItem> = [
         href: "/brands/puma",
       },
       {
-        label: "Reebok",
-        subLabel: "Shop for Reebok",
-        href: "/brands/reebok",
+        label: "Lotto",
+        subLabel: "Shop for Lotto",
+        href: "/brands/loto",
       },
       {
-        label: "Vans",
-        subLabel: "Shop for Vans",
-        href: "/brands/vans",
+        label: "Converse",
+        subLabel: "Shop for Converse",
+        href: "/brands/converse",
+      },
+      {
+        label: "Topper",
+        subLabel: "Shop for Topper",
+        href: "/brands/topper",
       },
     ],
   },

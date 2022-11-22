@@ -96,7 +96,7 @@ const SignUp: React.FC = () => {
 
     setPasswordError("");
     setEmailError("");
-  }, [SignUpForm, userError, user]);
+  }, [SignUpForm, userError, user, toast]);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

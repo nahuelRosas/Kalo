@@ -77,7 +77,7 @@ const Login: React.FC = () => {
     }
 
     setErrors("");
-  }, [loginForm, error, user]);
+  }, [loginForm, error, user, toast]);
 
   return (
     <form onSubmit={onSubmit} style={{ width: "100%" }}>

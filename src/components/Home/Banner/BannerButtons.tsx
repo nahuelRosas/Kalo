@@ -10,7 +10,7 @@ type BannerButtonsProps = {
 
 const BannerButtons: React.FC<BannerButtonsProps> = ({ slider, type }) => {
   const top = useBreakpointValue({ base: "90%", md: "50%" });
-  const side = useBreakpointValue({ base: "30%", md: "10px" });
+  const side = useBreakpointValue({ base: "50%", md: "10px" });
 
   return (
     <IconButton

@@ -20,11 +20,9 @@ function Banner() {
   return (
     <Flex
       w={{ base: "100%", md: "95%" }}
-      h={useBreakpointValue({
-        base: "300px",
-        md: "500px",
-      })}
       mb="10rem"
+      h={"50vh"}
+      overflow={"hidden"}
       mt={"0rem"}>
       <Box position={"relative"} width={"full"}>
         {useBreakpointValue({ base: false, md: true }) ? (
@@ -36,7 +34,11 @@ function Banner() {
         <Slider ref={(c) => setSlider(c)} {...settings}>
           {useBreakpointValue({ base: cellImages, md: pcImages })?.map(
             (url, index) => (
-              <Flex key={index} w={"full"} h={"100vh"} position={"relative"}>
+              <Flex
+                key={index}
+                w={"full"}
+                overflow={"hidden"}
+                position={"relative"}>
                 <Image
                   src={url}
                   alt="banner"
@@ -45,7 +47,7 @@ function Banner() {
                     objectFit: "cover",
                     width: "100%",
                     height: "50%",
-                    transform: "translateY(-5%)",
+                    transform: "translateY(-22%)",
                   }}
                 />
               </Flex>

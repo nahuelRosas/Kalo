@@ -1,11 +1,12 @@
 import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
-import PopoverDirectory from "../Popover/PopoverDirectory";
+import PopoverDirectory from "../Popover/Directory/PopoverDirectory";
 
 const Directory = () => {
   return (
     <Box>
       <Flex
+        display={{ base: "none", md: "flex" }}
         bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
         minH={"60px"}

@@ -28,7 +28,7 @@ const OAuthButtons: React.FC = () => {
         isClosable: true,
       });
     }
-  }, [googleUser]);
+  }, [googleUser, toast]);
 
   return (
     <Flex direction="column" align="center" width={"100%"}>

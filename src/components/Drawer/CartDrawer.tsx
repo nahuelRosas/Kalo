@@ -13,7 +13,7 @@ import {
   Box,
   IconButton,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BsCaretDown, BsCaretUp } from "react-icons/bs";
 import { useRecoilState } from "recoil";
@@ -24,16 +24,14 @@ const CartDrawer: React.FC = () => {
   const [drawerState, setDrawerState] = useRecoilState(CartDrawerAtom);
   const [user] = useAuthState(auth);
 
-  const handleClose = () => {
-    setDrawerState((prev) => ({ ...prev, isOpen: false }));
-  };
-  useEffect(() => {
-    if (user !== null) {
-      handleClose();
-    }
-  }, [user]);
+  const handleClose = useCallback(() => {
+    return setDrawerState((prev) => ({ ...prev, isOpen: false }));
+  }, [setDrawerState]);
+
   const totalItems = 2;
   const cartItems: any[] = [];
+
+  const bg = useColorModeValue("white", "gray.800");
 
   return (
     <>
@@ -59,11 +57,7 @@ const CartDrawer: React.FC = () => {
                     {cartItems.map((item: any) => {
                       if (item.quantity > 0) {
                         return (
-                          <Box
-                            key={item.product._id}
-                            p={5}
-                            shadow="md"
-                            bg={useColorModeValue("white", "gray.800")}>
+                          <Box key={item.product._id} p={5} shadow="md" bg={bg}>
                             <Grid templateColumns="repeat(2, 1fr)">
                               <Text fontSize="xl" fontWeight="bold">
                                 {item.product.name}
@@ -82,7 +76,7 @@ const CartDrawer: React.FC = () => {
                               mt={2}
                               gap={2}>
                               <IconButton
-                                colorScheme="teal"
+                                colorScheme="purple"
                                 variant={"ghost"}
                                 size="2xl"
                                 borderRadius={"999px"}
@@ -93,7 +87,7 @@ const CartDrawer: React.FC = () => {
                                 {item.quantity}
                               </Text>
                               <IconButton
-                                colorScheme="teal"
+                                colorScheme="purple"
                                 variant={"ghost"}
                                 size="2xl"
                                 borderRadius={"999px"}

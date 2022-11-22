@@ -11,14 +11,21 @@ const settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
   autoplay: true,
-  autoplaySpeed: 3000,
+  autoplaySpeed: 2000,
   arrows: false,
 };
 function Banner() {
   const [slider, setSlider] = React.useState<Slider | null>(null);
 
   return (
-    <Flex w={{ base: "100%", md: "95%" }} mb="10rem" mt={"0rem"}>
+    <Flex
+      w={{ base: "100%", md: "95%" }}
+      h={useBreakpointValue({
+        base: "300px",
+        md: "500px",
+      })}
+      mb="10rem"
+      mt={"0rem"}>
       <Box position={"relative"} width={"full"}>
         {useBreakpointValue({ base: false, md: true }) ? (
           <>
@@ -29,7 +36,19 @@ function Banner() {
         <Slider ref={(c) => setSlider(c)} {...settings}>
           {useBreakpointValue({ base: cellImages, md: pcImages })?.map(
             (url, index) => (
-              <Image key={index} alt="Banner" src={url} priority />
+              <Flex key={index} w={"full"} h={"100vh"} position={"relative"}>
+                <Image
+                  src={url}
+                  alt="banner"
+                  priority
+                  style={{
+                    objectFit: "cover",
+                    width: "100%",
+                    height: "50%",
+                    transform: "translateY(-5%)",
+                  }}
+                />
+              </Flex>
             )
           )}
         </Slider>

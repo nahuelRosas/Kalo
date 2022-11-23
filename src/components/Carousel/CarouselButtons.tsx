@@ -3,17 +3,23 @@ import React from "react";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import Slider from "react-slick";
 
-type BannerButtonsProps = {
+type CarouselButtonProps = {
   slider: Slider | null;
   type: string;
+  display?: object;
 };
 
-const BannerButtons: React.FC<BannerButtonsProps> = ({ slider, type }) => {
+const CarouselButton: React.FC<CarouselButtonProps> = ({
+  slider,
+  type,
+  display,
+}) => {
   const top = useBreakpointValue({ base: "90%", md: "50%" });
   const side = useBreakpointValue({ base: "50%", md: "10px" });
 
   return (
     <IconButton
+      display={display}
       aria-label="left-arrow"
       colorScheme="purple"
       isRound={true}
@@ -30,4 +36,4 @@ const BannerButtons: React.FC<BannerButtonsProps> = ({ slider, type }) => {
     </IconButton>
   );
 };
-export default BannerButtons;
+export default CarouselButton;

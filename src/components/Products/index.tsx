@@ -3,7 +3,8 @@ import { DocumentData } from "@firebase/firestore-types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import PriceTag from "./Price/priceTag";
+import PriceTag from "./Price";
+import Rating from "./Rating";
 
 type ProductCardProps = {
   product: DocumentData;
@@ -37,10 +38,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           }}
         />
       </Box>
-
       <Link href={`/product/${product?.id}`}>
-        <Stack p={"10px"}>
-          <Stack spacing="1" p={"10px"}>
+        <Stack
+          p={"10px"}
+          spacing="0.5"
+          alignItems="flex-start"
+          justifyContent="space-between">
+          <Stack
+            spacing="0.5"
+            alignItems="flex-start"
+            justifyContent="space-between">
             <Text
               fontWeight="bold"
               fontSize="lg"
@@ -54,13 +61,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               currency={product?.prices[0].currency}
             />
           </Stack>
-          <HStack>
-            {/* <Rating defaultValue={1} size="sm" /> */}
-            {/* <Text
-              fontSize="sm"
-              color={useColorModeValue("gray.600", "gray.400")}>
-              {1} reviews
-            </Text> */}
+          <HStack
+            spacing="0.5"
+            alignItems="flex-start"
+            justifyContent="space-between">
+            <Rating defaultValue={0} size="sm" value={0} />
           </HStack>
         </Stack>
       </Link>
@@ -68,30 +73,3 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   );
 };
 export default ProductCard;
-
-// interface Props {
-//   defaultValue?: number;
-//   max?: number;
-//   size?: "sm" | "md" | "lg" | "xl";
-//   rootProps?: StackProps;
-// }
-
-// export const Rating = (props: Props) => {
-//   const { defaultValue = 0, max = 5, size = "md", rootProps } = props;
-//   const color = useColorModeValue("gray.200", "gray.600");
-//   const activeColor = useColorModeValue("teal.500", "teal.200");
-//   return (
-//     <HStack spacing="0.5" {...rootProps}>
-//       {Array.from({ length: max })
-//         .map((_, index) => index + 1)
-//         .map((index) => (
-//           <Icon
-//             key={index}
-//             as={FaStar}
-//             fontSize={size}
-//             color={index <= defaultValue ? activeColor : color}
-//           />
-//         ))}
-//     </HStack>
-//   );
-// };

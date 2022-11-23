@@ -35,7 +35,7 @@ const Products: React.FC = () => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1.02,
           slidesToScroll: 1,
         },
       },

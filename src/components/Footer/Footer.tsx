@@ -10,8 +10,8 @@ import {
   chakra,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { FaFacebook, FaYoutube, FaInstagram } from "react-icons/fa";
 import { copyright, kalo } from "../../utils/constant";
+import { FiInstagram, FiFacebook, FiYoutube } from "react-icons/fi";
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
@@ -32,8 +32,9 @@ const SocialButton = ({
 }) => {
   return (
     <chakra.button
-      bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
+      bg={useColorModeValue("purple.100", "purple.100")}
       rounded={"full"}
+      color={useColorModeValue("gray.900", "gray.900")}
       w={8}
       h={8}
       cursor={"pointer"}
@@ -44,7 +45,7 @@ const SocialButton = ({
       justifyContent={"center"}
       transition={"background 0.3s ease"}
       _hover={{
-        bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
+        bg: useColorModeValue("purple.200", "purple.200"),
       }}>
       <VisuallyHidden>{label}</VisuallyHidden>
       {children}
@@ -105,15 +106,15 @@ export default function Footer() {
               <SocialButton
                 label={"Instagram"}
                 href={"https://www.instagram.com"}>
-                <FaInstagram />
+                <FiInstagram />
               </SocialButton>
               <SocialButton
                 label={"Facebook"}
                 href={"https://www.facebook.com"}>
-                <FaFacebook />
+                <FiFacebook />
               </SocialButton>
               <SocialButton label={"YouTube"} href={"https://www.youtube.com"}>
-                <FaYoutube />
+                <FiYoutube />
               </SocialButton>
             </Stack>
           </Container>

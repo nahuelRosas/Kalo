@@ -1,15 +1,19 @@
-import {
-  Avatar,
-  Box,
-  Flex,
-  Icon,
-  Text,
-  Link,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
-import { FiUser } from "react-icons/fi";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import {
+  FiCheckSquare,
+  FiCreditCard,
+  FiEdit,
+  FiFilePlus,
+  FiGrid,
+  FiHeart,
+  FiPackage,
+  FiSettings,
+  FiUser,
+  FiUsers,
+} from "react-icons/fi";
+import ItemMenu from "./itemMenu";
+import TitleMenu from "./titleMenu";
 
 const LateralMenu: React.FC = () => {
   return (
@@ -20,33 +24,23 @@ const LateralMenu: React.FC = () => {
       bg={useColorModeValue("white", "gray.800")}
       borderBottomWidth={1}
       borderColor={useColorModeValue("gray.200", "gray.700")}>
-      <Text
-        fontSize="sm"
-        fontWeight="semibold"
-        color={useColorModeValue("gray.600", "gray.400")}>
-        Account
-      </Text>
-
-      <Flex
-        mt={2}
-        justify="space-between"
-        align="center"
-        color={useColorModeValue("gray.600", "gray.400")}
-        cursor="pointer"
-        as={Link}
-        to="/profile"
-        borderRadius="md"
-        _hover={{
-          bg: useColorModeValue("gray.100", "gray.700"),
-        }}>
-        <Flex align="center">
-          <Icon as={FiUser} w={5} h={5} />
-          <Text ml={4} fontSize="sm">
-            Profile
-          </Text>
-        </Flex>
-        <Icon as={MdOutlineKeyboardArrowRight} w={5} h={5} />
-      </Flex>
+      <TitleMenu title="General" />
+      <ItemMenu title="Profile" icon={FiUser} href="/profile" />
+      <ItemMenu title="Settings" icon={FiSettings} href="/settings" />
+      <ItemMenu title="Orders" icon={FiCheckSquare} href="/orders" />
+      <ItemMenu title="Payments" icon={FiCreditCard} href="/payments" />
+      <ItemMenu title="Wishlist" icon={FiHeart} href="/wishlist" />
+      <TitleMenu title="Admin" />
+      <ItemMenu title="Products" icon={FiPackage} href="/products" />
+      <ItemMenu
+        title="Create Product"
+        icon={FiFilePlus}
+        href="/create-product"
+      />
+      <ItemMenu title="Update Product" icon={FiEdit} href="/update-product" />
+      <ItemMenu title="Categories" icon={FiGrid} href="/categories" />
+      <ItemMenu title="Orders" icon={FiCheckSquare} href="/orders" />
+      <ItemMenu title="Users" icon={FiUsers} href="/users" />
     </Box>
   );
 };

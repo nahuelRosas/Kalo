@@ -20,7 +20,10 @@ const DataProfile: React.FC<dataProfileProps> = ({ user }) => {
       <Text fontSize="2xl" fontWeight="bold">
         {user?.displayName}
       </Text>
-      <Text fontSize="sm" color={useColorModeValue("gray.600", "gray.400")}>
+      <Text
+        fontSize="sm"
+        color={useColorModeValue("gray.600", "gray.400")}
+        p={2}>
         {user?.email}
       </Text>
     </Flex>

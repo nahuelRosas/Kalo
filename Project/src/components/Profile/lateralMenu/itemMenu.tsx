@@ -20,7 +20,7 @@ const ItemMenu: React.FC<itemMenuProps> = ({ title, icon, href, state }) => {
         justify="space-between"
         align="center"
         padding={2}
-        color={state ? "white" : color}
+        color={state ? { base: "white", md: "black" } : color}
         bg={state ? bgActive : "transparent"}
         cursor="pointer"
         borderRadius="md"

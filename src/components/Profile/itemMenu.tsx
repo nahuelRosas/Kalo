@@ -1,7 +1,6 @@
 import { As, Flex, Icon, Text, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
-import { FiUser } from "react-icons/fi";
 
 type itemMenuProps = {
   title: string;
@@ -12,7 +11,6 @@ type itemMenuProps = {
 const ItemMenu: React.FC<itemMenuProps> = ({ title, icon, href }) => {
   const color = useColorModeValue("gray.600", "gray.400");
   const bg = useColorModeValue("purple.100", "purple.700");
-  console.log(typeof icon);
   return (
     <Link href={href} passHref>
       <Flex

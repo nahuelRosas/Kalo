@@ -17,11 +17,11 @@ import React, { useCallback, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { FiArrowDownCircle, FiArrowUpCircle } from "react-icons/fi";
 import { useRecoilState } from "recoil";
-import { CartDrawerAtom } from "../../atoms/cartDrawerAtom";
+import { WishListDrawerAtom } from "../../atoms/wishListDrawerAtom";
 import { auth } from "../../firebase/clientApp";
 
-const CartDrawer: React.FC = () => {
-  const [drawerState, setDrawerState] = useRecoilState(CartDrawerAtom);
+const WishListDrawer: React.FC = () => {
+  const [drawerState, setDrawerState] = useRecoilState(WishListDrawerAtom);
   const [user] = useAuthState(auth);
 
   const handleClose = useCallback(() => {
@@ -44,10 +44,9 @@ const CartDrawer: React.FC = () => {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader textAlign={"center"}>
-            {drawerState.type === "cart" && `Your order (${totalItems})`}
-            {drawerState.type === "checkout" && `Complete your order`}
+            {drawerState.type === "wishList" && `Complete your order`}
           </DrawerHeader>
-          {drawerState.type === "cart" && (
+          {drawerState.type === "wishList" && (
             <>
               <DrawerBody>
                 {cartItems.length === 0 ? (
@@ -121,4 +120,4 @@ const CartDrawer: React.FC = () => {
     </>
   );
 };
-export default CartDrawer;
+export default WishListDrawer;

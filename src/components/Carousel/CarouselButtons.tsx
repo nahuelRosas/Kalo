@@ -1,6 +1,6 @@
-import { IconButton, useBreakpointValue } from "@chakra-ui/react";
+import { IconButton, useBreakpointValue, Icon } from "@chakra-ui/react";
 import React from "react";
-import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
+import { FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 import Slider from "react-slick";
 
 type CarouselButtonProps = {
@@ -32,7 +32,11 @@ const CarouselButton: React.FC<CarouselButtonProps> = ({
       onClick={() =>
         type === "slickPrev" ? slider?.slickPrev() : slider?.slickNext()
       }>
-      {type === "slickPrev" ? <BiLeftArrow /> : <BiRightArrow />}
+      {type === "slickPrev" ? (
+        <Icon as={FiArrowLeftCircle} w={6} h={6} />
+      ) : (
+        <Icon as={FiArrowRightCircle} w={6} h={6} />
+      )}
     </IconButton>
   );
 };

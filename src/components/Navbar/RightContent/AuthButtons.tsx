@@ -10,9 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { AuthModalState } from "../../../atoms/authModalAtom";
 import { useSetRecoilState } from "recoil";
-import { HamburgerIcon } from "@chakra-ui/icons";
-import { FiLogIn } from "react-icons/fi";
-import { SiFirebase } from "react-icons/si";
+import { FiLogIn, FiUserPlus, FiMenu } from "react-icons/fi";
+import ItemMenu from "./itemMenu";
 const AuthButtons: React.FC = () => {
   const setAuthModalState = useSetRecoilState(AuthModalState);
 
@@ -57,31 +56,31 @@ const AuthButtons: React.FC = () => {
             <MenuButton
               as={IconButton}
               aria-label="Options"
-              icon={<HamburgerIcon />}
+              icon={<FiMenu />}
               variant="ghost"
               isRound={true}
               colorScheme="purple"></MenuButton>
             <MenuList>
-              <MenuItem
+              <ItemMenu
+                title="Login"
+                icon={FiLogIn}
                 onClick={() =>
                   setAuthModalState({
                     isOpen: true,
                     type: "login",
                   })
                 }
-                icon={<FiLogIn size={20} />}>
-                Log In
-              </MenuItem>
-              <MenuItem
+              />
+              <ItemMenu
+                title="SingUp"
+                icon={FiUserPlus}
                 onClick={() =>
                   setAuthModalState({
                     isOpen: true,
                     type: "SignUp",
                   })
                 }
-                icon={<SiFirebase size={20} />}>
-                Sign Up
-              </MenuItem>
+              />
             </MenuList>
           </Menu>
         ),

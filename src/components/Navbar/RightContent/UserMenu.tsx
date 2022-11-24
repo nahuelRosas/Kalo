@@ -1,28 +1,33 @@
-import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Avatar,
-  Icon,
   IconButton,
   Menu,
   MenuButton,
-  MenuItem,
   MenuList,
-  Text,
   useBreakpointValue,
   useColorMode,
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
 import { signOut, User } from "firebase/auth";
-import Link from "next/link";
 import React from "react";
-import { BsMoonFill, BsSunFill } from "react-icons/bs";
-import { CgProfile } from "react-icons/cg";
-import { IoBagCheckOutline } from "react-icons/io5";
-import { MdLogout } from "react-icons/md";
+import {
+  FiCheckSquare,
+  FiHeart,
+  FiLogOut,
+  FiMoon,
+  FiShoppingCart,
+  FiSun,
+  FiUser,
+} from "react-icons/fi";
+import { useSetRecoilState } from "recoil";
+import { CartDrawerAtom } from "../../../atoms/cartDrawerAtom";
+import { WishListDrawerAtom } from "../../../atoms/wishListDrawerAtom";
 import { auth } from "../../../firebase/clientApp";
-import Cart from "../../Cart";
-import ButtonCart from "../../Cart/ButtonCart";
+import CartDrawer from "../../Drawer/CartDrawer";
+import WishListDrawer from "../../Drawer/WishListDrawer";
+import ButtonContent from "./buttonContent";
+import ItemMenu from "./itemMenu";
 
 type UserMenuProps = {
   user?: User | null;
@@ -30,8 +35,8 @@ type UserMenuProps = {
 
 const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
   const { toggleColorMode } = useColorMode();
-  const toast = useToast();
   const text = useColorModeValue("Dark", "Light");
+  const toast = useToast();
   const logOut = () => {
     signOut(auth)
       .then(() => {
@@ -53,13 +58,26 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
         });
       });
   };
-
+  const display = useBreakpointValue({
+    base: "flex",
+    md: "none",
+  }) as string;
+  const setCartDrawerState = useSetRecoilState(CartDrawerAtom);
   const src =
     user?.photoURL ||
     "https://res.cloudinary.com/dlcilp6vw/image/upload/v1667478654/avatars/isemxk5z1opyiwbu9fao.svg";
+
   return (
     <>
-      <Cart />
+      <ButtonContent state={CartDrawerAtom} icon={FiShoppingCart} type={"cart"}>
+        <CartDrawer />
+      </ButtonContent>
+      <ButtonContent
+        state={WishListDrawerAtom}
+        icon={FiHeart}
+        type={"wishList"}>
+        <WishListDrawer />
+      </ButtonContent>
       <Menu
         isLazy
         placement="bottom-end"
@@ -68,97 +86,42 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
         <MenuButton
           as={IconButton}
           aria-label="Options"
-          icon={useBreakpointValue({
-            base: <HamburgerIcon />,
-            md: <Avatar size="sm" src={src} />,
-          })}
+          icon={<Avatar size="sm" src={src} />}
           variant="ghost"
           isRound={true}
           colorScheme="purple"
         />
         <MenuList>
-          <Link href="/profile">
-            <MenuItem width="100%" aria-label="profile">
-              <Icon
-                as={CgProfile}
-                display={
-                  useBreakpointValue({
-                    base: "none",
-                    md: "block",
-                  }) as string
-                }
-                boxSize={useBreakpointValue({ base: 4, md: 5 })}
-                color={
-                  useColorModeValue("purple.600", "purple.400") as
-                    | "purple.600"
-                    | "purple.400"
-                }
-                mr={2}
-              />
-              <Avatar
-                size="sm"
-                src={src}
-                mr={2}
-                display={
-                  useBreakpointValue({
-                    base: "block",
-                    md: "none",
-                  }) as string
-                }
-              />
-              Profile
-            </MenuItem>
-          </Link>
-          <Link href="/orders">
-            <MenuItem>
-              <Icon
-                as={IoBagCheckOutline}
-                boxSize={useBreakpointValue({ base: 4, md: 5 })}
-                color={
-                  useColorModeValue("purple.600", "purple.400") as
-                    | "purple.600"
-                    | "purple.400"
-                }
-                mr={2}
-              />
-              Orders
-            </MenuItem>
-          </Link>
-          <MenuItem
+          <ItemMenu icon={FiUser} title="Profile" href="/profile" />
+          <ItemMenu icon={FiCheckSquare} title="Orders" href="/orders" />
+          <ItemMenu
+            icon={FiHeart}
+            title="Wishlist"
+            href="/wishlist"
+            ItemMenuProp={{
+              display: display,
+            }}
+          />
+          <ItemMenu
+            icon={text === "Dark" ? FiMoon : FiSun}
+            title={text}
             onClick={toggleColorMode}
-            width="100%"
-            aria-label="colorMode">
-            <Icon
-              as={text === "Dark" ? BsMoonFill : BsSunFill}
-              boxSize={useBreakpointValue({ base: 4, md: 5 })}
-              color={
-                useColorModeValue("purple.600", "purple.400") as
-                  | "purple.600"
-                  | "purple.400"
-              }
-              mr={2}
-            />
-            <Text>{text}</Text>
-          </MenuItem>
-          <ButtonCart />
-          <MenuItem
-            width="100%"
-            aria-label="logout"
+          />
+          <ItemMenu
+            icon={FiShoppingCart}
+            title={"Cart"}
+            onClick={() => setCartDrawerState({ isOpen: true, type: "cart" })}
+            ItemMenuProp={{
+              display: display,
+            }}
+          />
+          <ItemMenu
+            title="LogOut"
+            icon={FiLogOut}
             onClick={() => {
               logOut();
-            }}>
-            <Icon
-              as={MdLogout}
-              boxSize={useBreakpointValue({ base: 4, md: 5 })}
-              color={
-                useColorModeValue("purple.600", "purple.400") as
-                  | "purple.600"
-                  | "purple.400"
-              }
-              mr={2}
-            />
-            Logout
-          </MenuItem>
+            }}
+          />
         </MenuList>
       </Menu>
     </>

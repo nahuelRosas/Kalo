@@ -27,7 +27,7 @@ const Index: React.FC<indexProps> = ({ type }) => {
         direction={{ base: "column", md: "row" }}
         shadow={{ md: "xl" }}
         rounded={{ md: "lg" }}>
-        <Base user={user} />
+        <Base user={user} currentComponent={type} />
 
         <BaseComponent title={type}>
           {type === "Create Product" ? <CreateProduct /> : null}

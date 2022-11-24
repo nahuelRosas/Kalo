@@ -6,11 +6,13 @@ type itemMenuProps = {
   title: string;
   icon: As<any> | undefined;
   href: string;
+  state: boolean;
 };
 
-const ItemMenu: React.FC<itemMenuProps> = ({ title, icon, href }) => {
+const ItemMenu: React.FC<itemMenuProps> = ({ title, icon, href, state }) => {
   const color = useColorModeValue("gray.600", "gray.400");
   const bg = useColorModeValue("purple.100", "purple.700");
+  const bgActive = useColorModeValue("purple.200", "purple.600");
   return (
     <Link href={href} passHref>
       <Flex
@@ -18,7 +20,8 @@ const ItemMenu: React.FC<itemMenuProps> = ({ title, icon, href }) => {
         justify="space-between"
         align="center"
         padding={2}
-        color={color}
+        color={state ? "white" : color}
+        bg={state ? bgActive : "transparent"}
         cursor="pointer"
         borderRadius="md"
         _hover={{

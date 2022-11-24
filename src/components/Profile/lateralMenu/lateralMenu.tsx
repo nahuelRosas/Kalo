@@ -14,8 +14,11 @@ import {
 } from "react-icons/fi";
 import ItemMenu from "./itemMenu";
 import TitleMenu from "./titleMenu";
+type LateralMenuProps = {
+  currentComponent: string;
+};
 
-const LateralMenu: React.FC = () => {
+const LateralMenu: React.FC<LateralMenuProps> = ({ currentComponent }) => {
   return (
     <Box
       display={{ base: "none", md: "block" }}
@@ -25,22 +28,73 @@ const LateralMenu: React.FC = () => {
       borderBottomWidth={1}
       borderColor={useColorModeValue("gray.200", "gray.700")}>
       <TitleMenu title="General" />
-      <ItemMenu title="Profile" icon={FiUser} href="/profile" />
-      <ItemMenu title="Settings" icon={FiSettings} href="/settings" />
-      <ItemMenu title="Orders" icon={FiCheckSquare} href="/orders" />
-      <ItemMenu title="Payments" icon={FiCreditCard} href="/payments" />
-      <ItemMenu title="Wishlist" icon={FiHeart} href="/wishlist" />
+      <ItemMenu
+        title="Profile"
+        icon={FiUser}
+        href="/profile"
+        state={currentComponent === "Profile"}
+      />
+      <ItemMenu
+        title="Settings"
+        icon={FiSettings}
+        href="/settings"
+        state={currentComponent === "Settings"}
+      />
+      <ItemMenu
+        title="Orders"
+        icon={FiCheckSquare}
+        href="/orders"
+        state={currentComponent === "Orders"}
+      />
+      <ItemMenu
+        title="Payments"
+        icon={FiCreditCard}
+        href="/payments"
+        state={currentComponent === "Payments"}
+      />
+      <ItemMenu
+        title="Wishlist"
+        icon={FiHeart}
+        href="/wishlist"
+        state={currentComponent === "Wishlist"}
+      />
       <TitleMenu title="Admin" />
-      <ItemMenu title="Products" icon={FiPackage} href="/admin/products" />
+      <ItemMenu
+        title="Products"
+        icon={FiPackage}
+        href="/admin/products"
+        state={currentComponent === "Products"}
+      />
       <ItemMenu
         title="Create Product"
         icon={FiFilePlus}
         href="/admin/createProduct"
+        state={currentComponent === "Create Product"}
       />
-      <ItemMenu title="Edit Product" icon={FiEdit} href="/admin/editProduct" />
-      <ItemMenu title="Categories" icon={FiGrid} href="/admin/categories" />
-      <ItemMenu title="Orders" icon={FiCheckSquare} href="/admin/orders" />
-      <ItemMenu title="Users" icon={FiUsers} href="/admin/users" />
+      <ItemMenu
+        title="Edit Product"
+        icon={FiEdit}
+        href="/admin/editProduct"
+        state={currentComponent === "Edit Product"}
+      />
+      <ItemMenu
+        title="Categories"
+        icon={FiGrid}
+        href="/admin/categories"
+        state={currentComponent === "Categories"}
+      />
+      <ItemMenu
+        title="Orders"
+        icon={FiCheckSquare}
+        href="/admin/orders"
+        state={currentComponent === "Orders"}
+      />
+      <ItemMenu
+        title="Users"
+        icon={FiUsers}
+        href="/admin/users"
+        state={currentComponent === "Users"}
+      />
     </Box>
   );
 };

@@ -9,7 +9,7 @@ import {
   InputLeftElement,
   Text,
   Textarea,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { CreatableSelect, Select } from "chakra-react-select";
 import React from "react";

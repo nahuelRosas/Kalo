@@ -2,11 +2,13 @@ import React from "react";
 import DataProfile from "./dataProfile";
 import LateralMenu from "./lateralMenu";
 import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import { User } from "firebase/auth";
 type indexProps = {
-  user: any;
+  user: User | undefined | null;
+  currentComponent: string;
 };
 
-const Base: React.FC<indexProps> = ({ user }) => {
+const Base: React.FC<indexProps> = ({ user, currentComponent }) => {
   return (
     <Box
       w={{ base: "100%", md: "20%" }}
@@ -14,7 +16,7 @@ const Base: React.FC<indexProps> = ({ user }) => {
       bg={useColorModeValue("white", "gray.800")}
       overflow="hidden">
       <DataProfile user={user} />
-      <LateralMenu />
+      <LateralMenu currentComponent={currentComponent} />
     </Box>
   );
 };

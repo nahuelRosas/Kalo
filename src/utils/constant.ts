@@ -188,3 +188,20 @@ export const NAV_ITEMS: Array<NavItem> = [
     ],
   },
 ];
+
+export const itemMenuTitle = {
+  profile: "Profile",
+  settings: "Settings",
+  orders: "Orders",
+  payments: "Payments",
+  wishlist: "Wishlist",
+  products: "Products",
+  createProduct: "Create Product",
+  editProduct: "Edit Product",
+  categories: "Categories",
+  users: "Users",
+  createCategory: "Create Category",
+  editCategory: "Edit Category",
+  createOrder: "Create Order",
+  editOrder: "Edit Order",
+};

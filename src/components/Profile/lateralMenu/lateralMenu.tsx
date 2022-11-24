@@ -31,16 +31,16 @@ const LateralMenu: React.FC = () => {
       <ItemMenu title="Payments" icon={FiCreditCard} href="/payments" />
       <ItemMenu title="Wishlist" icon={FiHeart} href="/wishlist" />
       <TitleMenu title="Admin" />
-      <ItemMenu title="Products" icon={FiPackage} href="/products" />
+      <ItemMenu title="Products" icon={FiPackage} href="/admin/products" />
       <ItemMenu
         title="Create Product"
         icon={FiFilePlus}
-        href="/create-product"
+        href="/admin/createProduct"
       />
-      <ItemMenu title="Update Product" icon={FiEdit} href="/update-product" />
-      <ItemMenu title="Categories" icon={FiGrid} href="/categories" />
-      <ItemMenu title="Orders" icon={FiCheckSquare} href="/orders" />
-      <ItemMenu title="Users" icon={FiUsers} href="/users" />
+      <ItemMenu title="Edit Product" icon={FiEdit} href="/admin/editProduct" />
+      <ItemMenu title="Categories" icon={FiGrid} href="/admin/categories" />
+      <ItemMenu title="Orders" icon={FiCheckSquare} href="/admin/orders" />
+      <ItemMenu title="Users" icon={FiUsers} href="/admin/users" />
     </Box>
   );
 };

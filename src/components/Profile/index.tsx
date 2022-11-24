@@ -1,21 +1,40 @@
-import React from "react";
-import DataProfile from "./dataProfile";
-import LateralMenu from "./lateralMenu";
-import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
-type indexProps = {
-  user: any;
-};
+import { Container, Flex, useColorModeValue } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/clientApp";
+import BaseComponent from "./Components";
+import CreateProduct from "./Components/CreateProduct";
+import Base from "./lateralMenu/Base";
 
-const Base: React.FC<indexProps> = ({ user }) => {
+type indexProps = {
+  type: string;
+};
+const Index: React.FC<indexProps> = ({ type }) => {
+  const [user] = useAuthState(auth);
+  const router = useRouter();
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  }, [router, user]);
   return (
-    <Box
-      w={{ base: "100%", md: "20%" }}
-      h={{ base: "100%", md: "100%" }}
-      bg={useColorModeValue("white", "gray.800")}
-      overflow="hidden">
-      <DataProfile user={user} />
-      <LateralMenu />
-    </Box>
+    <Container
+      maxW="container.xxl"
+      bg={useColorModeValue("gray.100", "gray.900")}
+      minH="100vh">
+      <Flex
+        direction={{ base: "column", md: "row" }}
+        shadow={{ md: "xl" }}
+        rounded={{ md: "lg" }}>
+        <Base user={user} />
+
+        <BaseComponent title={type}>
+          {type === "Create Product" ? <CreateProduct /> : null}
+        </BaseComponent>
+      </Flex>
+    </Container>
   );
 };
-export default Base;
+
+export default Index;

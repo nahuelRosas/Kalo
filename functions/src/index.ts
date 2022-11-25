@@ -13,28 +13,46 @@ export const onUserCreate = functions.auth.user().onCreate(async (user) => {
     phoneNumber,
     disabled,
     emailVerified,
-    metadata,
     providerData,
-    customClaims,
   } = user;
-
-  const newUser = {
-    uid,
-    email,
-    displayName,
-    photoURL,
-    phoneNumber,
-    disabled,
-    emailVerified,
-    metadata,
-    providerData,
-    customClaims: customClaims || {
-      admin: false,
-      editor: false,
-    },
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    updateAt: admin.firestore.FieldValue.serverTimestamp(),
-  };
-
-  await firestore.collection("users").doc(uid).set(newUser);
+  const userDoc = firestore.collection("customers").doc(uid);
+  const userDocSnapshot = await userDoc.get();
+  if (userDocSnapshot.exists) {
+    await userDoc.update({
+      uid,
+      email,
+      displayName,
+      photoURL,
+      phoneNumber,
+      disabled,
+      emailVerified,
+      providerData,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      userType: {
+        admin: false,
+        user: true,
+        editor: false,
+      },
+    });
+  } else {
+    await new Promise((resolve) => setTimeout(resolve, 60000));
+    await userDoc.update({
+      uid,
+      email,
+      displayName,
+      photoURL,
+      phoneNumber,
+      disabled,
+      emailVerified,
+      providerData,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      userType: {
+        admin: false,
+        user: true,
+        editor: false,
+      },
+    });
+  }
 });

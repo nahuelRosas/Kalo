@@ -8,7 +8,6 @@ import { auth } from "../../firebase/clientApp";
 
 const Navbar: React.FC = () => {
   const [user] = useAuthState(auth);
-  console.log(user);
   return (
     <Flex
       as="nav"

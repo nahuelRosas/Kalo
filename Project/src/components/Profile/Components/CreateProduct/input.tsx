@@ -1,12 +1,13 @@
 import {
   Flex,
-  FlexProps,
   FormControl,
+  FormControlProps,
   FormLabel,
   Icon,
   Input,
   InputGroup,
   InputLeftElement,
+  Switch,
   Text,
   Textarea,
   useColorModeValue,
@@ -14,18 +15,30 @@ import {
 import { CreatableSelect, Select } from "chakra-react-select";
 import React from "react";
 import { FiImage } from "react-icons/fi";
+import { RecoilState, useRecoilState } from "recoil";
+import FlexPropComponent from "./FlexProp";
 
 type inputProps = {
   label: string;
   typeInput?: string;
   placeholder?: string;
-  typePrototype: string;
+  typePrototype:
+    | "input"
+    | "textarea"
+    | "switch"
+    | "images"
+    | "select"
+    | "createSelect";
   compound?: boolean;
   options?: { value: string; label: string }[];
   isMulti?: boolean;
   colorScheme?: string;
   withText?: boolean;
   text?: string;
+  stateAtom: RecoilState<any>;
+  isRequired?: boolean;
+  configFormControl?: FormControlProps;
+  subTypeFrom?: "none" | "metadata" | "features";
 };
 
 const InputComponent: React.FC<inputProps> = ({
@@ -39,60 +52,63 @@ const InputComponent: React.FC<inputProps> = ({
   colorScheme = "purple",
   withText = false,
   text = "",
+  stateAtom,
+  isRequired = false,
+  configFormControl,
+  subTypeFrom = "none",
 }) => {
-  const bg = useColorModeValue("gray.50", "gray.700");
+  const configFlex = FlexPropComponent({ compound, typePrototype });
   const bgInput = useColorModeValue("alphaWhite", "gray.800");
+  const [state, setState] = useRecoilState(stateAtom);
 
-  let configFlex: FlexProps = {};
-
-  if (!compound) {
-    configFlex = {
-      ...configFlex,
-      justify: "space-between",
-      px: 6,
-      py: 4,
-      align: "center",
-      bg: { bg },
-      borderBottomWidth: "1px",
-      width: "100%",
-    };
-  }
-  if (typePrototype === "images" && !compound)
-    configFlex = {
-      width: "100%",
-    };
-  if (typePrototype === "select" || typePrototype === "createSelect") {
-    configFlex = {
-      ...configFlex,
-      zIndex: 1000,
-    };
-  }
+  const handleChange = (value: any) => {
+    if (subTypeFrom === "features") {
+      setState({ ...state, features: value });
+    }
+    setState((prevState: any) => ({
+      ...prevState,
+      [label.toLowerCase()]: value,
+    }));
+  };
 
   return (
-    <Flex {...configFlex}>
-      <FormControl id={label.toLowerCase()} isRequired>
-        <FormLabel>{label}</FormLabel>
-        <Text
-          bg={bg}
-          display={withText ? "block" : "none"}
-          p={2}
-          borderRadius="md"
-          color="gray.500"
-          fontSize="sm"
-          fontWeight="medium"
-          lineHeight="short">
-          {text}
-        </Text>
-        {typePrototype === "input" && (
-          <Input type={typeInput} placeholder={placeholder} bg={bgInput} />
+    <Flex {...configFlex} alignItems={"end"}>
+      <FormControl
+        id={label.toLowerCase()}
+        isRequired={isRequired}
+        {...configFormControl}>
+        <FormLabel fontWeight={600}>{label}</FormLabel>
+        {withText && (
+          <Text
+            p={2}
+            borderRadius="md"
+            color="gray.500"
+            fontSize="sm"
+            fontWeight="medium"
+            lineHeight="short">
+            {text}
+          </Text>
         )}
+
+        {typePrototype === "input" && (
+          <Input
+            type={typeInput}
+            placeholder={placeholder}
+            bg={bgInput}
+            value={state.label?.toLowerCase()}
+            onChange={(e) => handleChange(e.target.value)}
+          />
+        )}
+
         {typePrototype === "textarea" && (
           <Textarea
             bg={bgInput}
             placeholder={placeholder}
-            display={typePrototype === "textarea" ? "block" : "none"}
+            value={state.label?.toLowerCase()}
+            onChange={(e) => handleChange(e.target.value)}
           />
         )}
+
         {typePrototype === "createSelect" && (
           <CreatableSelect
             isMulti={isMulti}
@@ -137,6 +153,13 @@ const InputComponent: React.FC<inputProps> = ({
               }}
             />
           </InputGroup>
+        )}
+        {typePrototype === "switch" && (
+          <Switch
+            colorScheme={colorScheme}
+            isChecked={state.label?.toLowerCase()}
+            onChange={(e) => handleChange(e.target.checked)}
+          />
         )}
       </FormControl>
     </Flex>

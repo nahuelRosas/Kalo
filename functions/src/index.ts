@@ -17,7 +17,7 @@ export const onUserCreate = functions.auth.user().onCreate(async (user) => {
   } = user;
   const userDoc = firestore.collection("customers").doc(uid);
   const userDocSnapshot = await userDoc.get();
-  if (!userDocSnapshot.exists) {
+  while (!userDocSnapshot.exists) {
     await new Promise((resolve) => setTimeout(resolve, 60000));
   }
   await userDoc.update({

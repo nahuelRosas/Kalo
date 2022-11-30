@@ -23,6 +23,7 @@ const Banner: React.FC = () => {
           <Flex
             key={index}
             w={"full"}
+            h={"100%"}
             overflow={"hidden"}
             position={"relative"}>
             <Image
@@ -32,8 +33,8 @@ const Banner: React.FC = () => {
               style={{
                 objectFit: "cover",
                 width: "100%",
-                height: "50%",
-                transform: "translateY(-22%)",
+                height: "100%",
+                /* transform: "translateY(-22%)", */
               }}
             />
           </Flex>

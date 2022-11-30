@@ -17,14 +17,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       mt="2rem"
       mb="2rem"
       bg={bg}
-      h="110%"
+      maxH={"480px"}
+      h="auto"
       borderRadius="lg"
       overflow="hidden"
       boxShadow="lg"
-      _hover={{ transform: "scale(1.1)" }}
+      _hover={{ transform: "scale(1.05)" }}
       transition="all 0.2s"
       cursor="pointer"
-      ml="1rem">
+      ml="1rem"
+    >
       <Box position="relative">
         <Image
           src={product?.images[0]}
@@ -32,28 +34,31 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           width={500}
           height={500}
           style={{
-            objectFit: "cover",
+            objectFit:"cover",
             width: "100%",
             height: "100%",
           }}
         />
       </Box>
-      <Link href={`/product/${product?.id}`}>
+      <Link href={`/Product/${product?.id}`}>
         <Stack
           p={"10px"}
           spacing="0.5"
           alignItems="flex-start"
-          justifyContent="space-between">
+          justifyContent="space-between"
+        >
           <Stack
             spacing="0.5"
             alignItems="flex-start"
-            justifyContent="space-between">
+            justifyContent="space-between"
+          >
             <Text
               fontWeight="bold"
               fontSize="lg"
               overflowY={"hidden"}
               textOverflow="ellipsis"
-              h={"1.5rem"}>
+              h={"1.5rem"}
+            >
               {product?.name}
             </Text>
             <PriceTag
@@ -64,7 +69,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <HStack
             spacing="0.5"
             alignItems="flex-start"
-            justifyContent="space-between">
+            justifyContent="space-between"
+          >
             <Rating defaultValue={0} size="sm" value={0} />
           </HStack>
         </Stack>

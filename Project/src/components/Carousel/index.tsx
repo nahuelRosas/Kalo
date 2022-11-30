@@ -18,8 +18,9 @@ const Carousel: React.FC<CarouselProps> = ({
 
   return (
     <Flex
+      mt={"4em"}
       w={{ base: "100%", md: "95%" }}
-      h={"50vh"}
+      h={"auto"}
       overflow={"hidden"}
       mb={"0rem"}
       {...carouselProps}>

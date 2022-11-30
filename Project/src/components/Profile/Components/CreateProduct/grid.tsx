@@ -7,6 +7,7 @@ type gridProps = {
   spacing?: number;
   typeGrid?: "grid" | "simpleGrid";
   templateColumns?: string;
+  noFormat?: boolean;
 };
 
 const GridComponent: React.FC<gridProps> = ({
@@ -15,16 +16,25 @@ const GridComponent: React.FC<gridProps> = ({
   spacing = 4,
   typeGrid = "simpleGrid",
   templateColumns = "repeat(2, 1fr)",
+  noFormat = false,
 }) => {
+  const bg = useColorModeValue("gray.50", "gray.700");
+
+  let propsFlex = {};
+  if (!noFormat) {
+    propsFlex = {
+      justify: "space-between",
+      align: "center",
+      alignItems: "center",
+      px: 6,
+      py: 4,
+      bg,
+      borderBottomWidth: "1px",
+    };
+  }
+
   return (
-    <Flex
-      justify="space-between"
-      align="center"
-      alignItems={"center"}
-      px={6}
-      py={4}
-      bg={useColorModeValue("gray.50", "gray.700")}
-      borderBottomWidth="1px">
+    <Flex {...propsFlex}>
       {typeGrid === "simpleGrid" && (
         <SimpleGrid columns={columns} spacing={spacing} width="100%">
           {children}

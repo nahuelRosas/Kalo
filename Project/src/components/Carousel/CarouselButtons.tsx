@@ -14,7 +14,7 @@ const CarouselButton: React.FC<CarouselButtonProps> = ({
   type,
   display,
 }) => {
-  const top = useBreakpointValue({ base: "90%", md: "50%" });
+  const top = useBreakpointValue({ base: "100%", md: "50%" });
   const side = useBreakpointValue({ base: "50%", md: "10px" });
 
   return (

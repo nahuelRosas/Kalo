@@ -13,11 +13,12 @@ type indexProps = {
 const Index: React.FC<indexProps> = ({ type }) => {
   const [user] = useAuthState(auth);
   const router = useRouter();
-  useEffect(() => {
-    if (!user) {
-      router.push("/");
-    }
-  }, [router, user]);
+  // useEffect(() => {
+  //   new Promise((resolve) => setTimeout(resolve, 5000));
+  //   if (!user) {
+  //     router.push("/");
+  //   }
+  // }, [router, user]);
   return (
     <Container
       maxW="container.xxl"

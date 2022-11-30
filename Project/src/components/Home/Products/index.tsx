@@ -2,6 +2,8 @@ import React from "react";
 import useProductsData from "../../../hooks/useProductsData";
 import Carousel from "../../Carousel";
 import ProductCard from "../../Products";
+import { Heading, Image, Link, Flex } from "@chakra-ui/react";
+import { images } from "../images";
 const Products: React.FC = () => {
   const { productsActive } = useProductsData();
 
@@ -44,15 +46,32 @@ const Products: React.FC = () => {
 
   return (
     <>
+      <Heading mt={8}>Recomended for you</Heading>
       <Carousel
         settings={settings}
         carouselProps={{
-          mt: "2rem",
+          mt: "1rem",
           mb: "5rem",
           h: "80%",
         }}>
         {productsActive.map((product) => (
           <ProductCard key={product.id} product={product} />
+        ))}
+      </Carousel>
+
+      <Heading>Search your Brand!</Heading>
+      <Carousel
+        settings={settings}
+        carouselProps={{
+          mt: "4rem",
+          mb: "5rem",
+          h: "80%",
+        }}>
+        {images.map((data, i) => (
+          // eslint-disable-next-line react/jsx-key
+          <Link>
+            <Image ml={10} key={i} src={data.value} />
+          </Link>
         ))}
       </Carousel>
     </>

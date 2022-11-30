@@ -30,11 +30,12 @@ const SearchInput: React.FC<SearchInputProps> = () => {
         display={useBreakpointValue({
           base: "none",
           md: "flex",
-        })}>
+        })}
+      >
         <Input
           borderRadius={"999px"}
           focusBorderColor={"primary"}
-          placeholder="Search"
+          placeholder="Search..."
           value={search}
           bg={useColorModeValue("gray.100", "gray.700")}
           _focus={{
@@ -49,7 +50,8 @@ const SearchInput: React.FC<SearchInputProps> = () => {
             icon={<SearchIcon />}
             variant="ghost"
             isRound={true}
-            colorScheme="purple"></IconButton>
+            colorScheme="purple"
+          ></IconButton>
         </InputRightElement>
       </InputGroup>
 
@@ -60,19 +62,22 @@ const SearchInput: React.FC<SearchInputProps> = () => {
         })}
         flexGrow={1}
         align="center"
-        justify="right">
+        justify="right"
+      >
         <IconButton
           aria-label="Search database"
           icon={<SearchIcon />}
           variant="ghost"
           isRound={true}
           colorScheme="purple"
-          onClick={onOpen}></IconButton>
+          onClick={onOpen}
+        ></IconButton>
         <Drawer
           placement={"top"}
           blockScrollOnMount={true}
           isOpen={isOpen}
-          onClose={onClose}>
+          onClose={onClose}
+        >
           <DrawerOverlay />
           <DrawerContent>
             <DrawerBody className="searchBar">
@@ -91,7 +96,7 @@ const SearchInput: React.FC<SearchInputProps> = () => {
                 <Input
                   focusBorderColor={"primary"}
                   borderRadius={"999px"}
-                  placeholder="BusKalo.."
+                  placeholder="Search..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
@@ -101,7 +106,8 @@ const SearchInput: React.FC<SearchInputProps> = () => {
                     icon={<SearchIcon />}
                     variant="ghost"
                     isRound={true}
-                    colorScheme="purple"></IconButton>
+                    colorScheme="purple"
+                  ></IconButton>
                 </InputRightElement>
               </InputGroup>
             </DrawerBody>

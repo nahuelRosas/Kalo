@@ -5,7 +5,7 @@
     "build": "yarn --cwd ./Project/ run build",
     "start": "yarn --cwd ./Project/ run start",
     "lint": "yarn --cwd ./Project/ run lint",
-    "install": "yarn --cwd ./Project run install"
+    "install": "yarn --cwd ./Project install"
   },
   "dependencies": {
     "firebase-functions": "^4.1.0"

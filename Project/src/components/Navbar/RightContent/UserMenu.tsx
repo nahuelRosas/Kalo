@@ -62,6 +62,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
     base: "flex",
     md: "none",
   }) as string;
+  
   const setCartDrawerState = useSetRecoilState(CartDrawerAtom);
   const src =
     user?.photoURL ||
@@ -69,7 +70,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
 
   return (
     <>
-      <ButtonContent state={CartDrawerAtom} icon={FiShoppingCart} type={"cart"}>
+     {/*  <ButtonContent state={CartDrawerAtom} icon={FiShoppingCart} type={"cart"}>
         <CartDrawer />
       </ButtonContent>
       <ButtonContent
@@ -77,7 +78,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
         icon={FiHeart}
         type={"wishList"}>
         <WishListDrawer />
-      </ButtonContent>
+      </ButtonContent> */}
       <Menu
         isLazy
         placement="bottom-end"

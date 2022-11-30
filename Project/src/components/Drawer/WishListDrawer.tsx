@@ -50,7 +50,7 @@ const WishListDrawer: React.FC = () => {
             <>
               <DrawerBody>
                 {cartItems.length === 0 ? (
-                  <Text>Your cart is empty</Text>
+                  <Text>Your WishList is Empty</Text>
                 ) : (
                   <Grid templateColumns="repeat(1, 1fr)">
                     {cartItems.map((item: any) => {
@@ -101,7 +101,7 @@ const WishListDrawer: React.FC = () => {
                   </Grid>
                 )}
               </DrawerBody>
-              <DrawerFooter>
+              {/* <DrawerFooter>
                 <Button
                   variant="outline"
                   colorScheme="purple"
@@ -112,7 +112,7 @@ const WishListDrawer: React.FC = () => {
                 <Button colorScheme="purple" onClick={handleClose}>
                   Checkout
                 </Button>
-              </DrawerFooter>
+              </DrawerFooter> */}
             </>
           )}
         </DrawerContent>

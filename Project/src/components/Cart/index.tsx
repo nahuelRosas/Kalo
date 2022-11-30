@@ -1,6 +1,6 @@
 import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { useSetRecoilState } from "recoil";
 import { CartDrawerAtom } from "../../atoms/cartDrawerAtom";
@@ -12,18 +12,8 @@ const Cart = () => {
   return (
     <>
       <CartDrawer />
-      <Box
-        display={
-          useBreakpointValue({
-            base: "none",
-            md: "flex",
-          }) as string
-        }
-        position="relative"
-        alignItems="center"
-        justifyContent="center"
-        width="100%"
-        height="100%"
+      <Flex
+        display={{ base: "none", md: "flex" }}
         mr={4}>
         <IconButton
           onClick={() => setCartDrawerState({ isOpen: true, type: "cart" })}
@@ -34,7 +24,7 @@ const Cart = () => {
           aria-label="cart">
           <FiShoppingCart />
         </IconButton>
-      </Box>
+      </Flex>
     </>
   );
 };

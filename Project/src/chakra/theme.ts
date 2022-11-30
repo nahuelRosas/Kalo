@@ -18,4 +18,4 @@ export const theme = extendTheme({
     fonts: {
         body: 'Montserrat, sans-serif'
     },
-})
+});

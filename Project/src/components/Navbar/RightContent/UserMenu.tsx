@@ -102,7 +102,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
           <ItemMenu
             icon={FiHeart}
             title="Wishlist"
-            href="/wishlist"
+            href="/configuration/wishlist"
             ItemMenuProp={{
               display: display,
             }}

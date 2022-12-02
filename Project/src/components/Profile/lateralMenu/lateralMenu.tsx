@@ -31,69 +31,69 @@ const LateralMenu: React.FC<LateralMenuProps> = ({ currentComponent }) => {
       <ItemMenu
         title="Profile"
         icon={FiUser}
-        href="/profile"
+        href="/configuration/profile"
         state={currentComponent === "Profile"}
       />
       <ItemMenu
         title="Settings"
         icon={FiSettings}
-        href="/settings"
+        href="/configuration/settings"
         state={currentComponent === "Settings"}
       />
       <ItemMenu
         title="Orders"
         icon={FiCheckSquare}
-        href="/orders"
+        href="/configuration/orders"
         state={currentComponent === "Orders"}
       />
       <ItemMenu
         title="Payments"
         icon={FiCreditCard}
-        href="/payments"
+        href="/configuration/payments"
         state={currentComponent === "Payments"}
       />
       <ItemMenu
         title="Wishlist"
         icon={FiHeart}
-        href="/wishlist"
+        href="/configuration/wishlist"
         state={currentComponent === "Wishlist"}
       />
       <TitleMenu title="Admin" />
       <ItemMenu
         title="Products"
         icon={FiPackage}
-        href="/admin/products"
-        state={currentComponent === "Products"}
+        href="/configuration/admin/Admproducts"
+        state={currentComponent === "ADMIN — Products"}
       />
       <ItemMenu
         title="Create Product"
         icon={FiFilePlus}
-        href="/admin/createProduct"
-        state={currentComponent === "Create Product"}
+        href="/configuration/admin/AdmcreateProduct"
+        state={currentComponent === "ADMIN — Create Product"}
       />
       <ItemMenu
         title="Edit Product"
         icon={FiEdit}
-        href="/admin/editProduct"
-        state={currentComponent === "Edit Product"}
+        href="/configuration/admin/AdmeditProduct"
+        state={currentComponent === "ADMIN — Edit Product"}
       />
       <ItemMenu
         title="Categories"
         icon={FiGrid}
-        href="/admin/categories"
-        state={currentComponent === "Categories"}
+        href="/configuration/admin/Admcategories"
+        state={currentComponent === "ADMIN — Categories"}
       />
       <ItemMenu
         title="Orders"
         icon={FiCheckSquare}
-        href="/admin/orders"
-        state={currentComponent === "Orders"}
+        href="/configuration/admin/Admorders"
+        state={currentComponent === "ADMIN — Orders"}
       />
       <ItemMenu
         title="Users"
         icon={FiUsers}
-        href="/admin/users"
-        state={currentComponent === "Users"}
+        href="/configuration/admin/Admusers"
+        state={currentComponent === "ADMIN — Users"}
       />
     </Box>
   );

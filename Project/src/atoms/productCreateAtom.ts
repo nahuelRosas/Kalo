@@ -1,31 +1,33 @@
 import { atom } from "recoil";
 
-type metaDataType = {
-  color: string;
-  size: string;
-  stock: number;
-  discount: number;
-  price: number;
-}[];
-
-type featuresType = {
-  Gender: string;
-  Material: string;
-  SuitableFor: string;
-  Occasion: string;
-  Pattern: string;
-  Fit: string;
-};
-
 export interface ProductCreateAtom {
   name: string;
   description: string;
   brand: string;
   active: boolean;
-  
   images: string[];
-  metadata: metaDataType;
-  features: featuresType;
+  unitofmeasurement: {
+    label: "ARG" | "UK" | "US" | "EUR";
+    value: "ARG" | "UK" | "US" | "EUR";
+  };
+  size: { label: string; value: string }[];
+  stock: number;
+  color: string;
+  discount: number;
+  price: number;
+  style: string;
+  recommendedsport: string;
+  exteriormaterials: string;
+  solematerials: string;
+  fittype: string;
+  genres: {
+    label: "Men" | "Women" | "Kids" | "Unisex";
+    value: "Men" | "Women" | "Kids" | "Unisex";
+  };
+  agegroup: {
+    label: "Adult" | "Kids" | "Baby";
+    value: "Adult" | "Kids" | "Baby";
+  };
   rating: number;
   reviews: {
     name: string;
@@ -33,29 +35,38 @@ export interface ProductCreateAtom {
     comment: string;
   }[];
   numReviews: number;
+  quantity: number;
 }
 
-const defaultProductCreateState: ProductCreateAtom = {
-  active: false,
+export const defaultProductCreateAtom: ProductCreateAtom = {
   name: "",
-  images: [],
   description: "",
   brand: "",
-  metadata: [],
-  features: {
-    Fit: "",
-    Gender: "",
-    Material: "",
-    Occasion: "",
-    Pattern: "",
-    SuitableFor: "",
+  active: false,
+  images: [],
+  unitofmeasurement: {
+    label: "ARG",
+    value: "ARG",
   },
+  size: [],
+  color: "",
+  stock: 0,
+  discount: 0,
+  price: 0,
+  style: "",
+  recommendedsport: "",
+  exteriormaterials: "",
+  solematerials: "",
+  fittype: "",
+  genres: { label: "Men", value: "Men" },
+  agegroup: { label: "Adult", value: "Adult" },
   rating: 0,
   reviews: [],
   numReviews: 0,
+  quantity: 1,
 };
 
 export const ProductCreateAtom = atom<ProductCreateAtom>({
-  key: "productCreateState",
-  default: defaultProductCreateState,
+  key: "productCreateAtom",
+  default: defaultProductCreateAtom,
 });

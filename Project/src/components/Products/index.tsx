@@ -1,43 +1,34 @@
-import { Box, HStack, Stack, Text, useColorModeValue, Button } from '@chakra-ui/react';
+import {
+  Box,
+  HStack,
+  Stack,
+  Text,
+  useColorModeValue,
+  Button,
+} from "@chakra-ui/react";
 import { DocumentData } from "@firebase/firestore-types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import PriceTag from "./Price";
 import Rating from "./Rating";
-import { useRecoilState } from "recoil";
-import { cartState, ItemCart } from '../../atoms/cartItemAtom';
-import { useToast } from "@chakra-ui/react";
-
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { cartState, cartItem, addToCart } from '../../atoms/cartItemAtom';
 
 type ProductCardProps = {
-  product: DocumentData;
+  product: any;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const [cartItems, setCartItems] = useRecoilState(cartState);
-  const toast = useToast();
+
+  const [cart, setCart] = useRecoilState(cartState);
+ 
 
 
-  const handleClick = () => {
-    if(!cartItems.includes(product as ItemCart)){
-      setCartItems((prevState:any)  => [...prevState, product])
-      toast({
-        title: "Item added",
-        description: "product was added to your cart",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-    }else{
-      toast({
-        title: "Item already exists",
-        description: "the selected product already exists in your cart",
-        status: "warning",
-        duration: 4000,
-        isClosable: true,
-      });
-    }
+  const handleAddToCart = (item:any) => {
+    const newCart = addToCart(cart, product); 
+    setCart(newCart as never[]); 
+   
   };
 
   const bg = useColorModeValue("white", "gray.700");
@@ -102,12 +93,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           >
             <Rating defaultValue={0} size="sm" value={0} />
           </HStack>
-
-          {/* <Button onClick={handleClick} colorScheme="teal" variant="outline">
-            Add to cart
-          </Button> */}
         </Stack>
       </Link>
+      <Button onClick={()=>handleAddToCart(product)}>Add Cart</Button>
     </Stack>
   );
 };

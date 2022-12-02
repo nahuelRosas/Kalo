@@ -1,15 +1,15 @@
 /* eslint-disable react/jsx-no-undef */
-import React from "react";
 import {
   Box,
-  VStack,
-  Heading,
-  useColorModeValue,
   Center,
-  useBreakpointValue,
-  Text,
+  Flex,
+  Heading,
   Image,
+  Text,
+  useColorModeValue,
+  VStack,
 } from "@chakra-ui/react";
+import React from "react";
 import useProductsData from "../../../hooks/useProductsData";
 import PriceTag from "../Price";
 
@@ -27,18 +27,17 @@ const ProductDetailComponent: React.FC<ProductCardProps> = ({ id }) => {
         {" "}
         <Box>
           <Heading>
-            {productsActive.map((product) => {
+            {productsActive.map((product, index) => {
               if (product.id === id) {
                 return (
-                  <>
+                  <Flex key={index}>
                     <Box>
                       <Text
                         fontWeight="bold"
                         fontSize="lg"
                         overflowY={"hidden"}
                         textOverflow="ellipsis"
-                        h={"1.5rem"}
-                      >
+                        h={"1.5rem"}>
                         {product?.name}
                       </Text>
                       <Image
@@ -57,7 +56,7 @@ const ProductDetailComponent: React.FC<ProductCardProps> = ({ id }) => {
                         currency={product?.prices[0].currency}
                       />
                     </Box>
-                  </>
+                  </Flex>
                 );
               }
             })}

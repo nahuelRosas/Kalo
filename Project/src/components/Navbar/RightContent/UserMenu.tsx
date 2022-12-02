@@ -62,7 +62,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
     base: "flex",
     md: "none",
   }) as string;
-  
+
   const setCartDrawerState = useSetRecoilState(CartDrawerAtom);
   const src =
     user?.photoURL ||
@@ -70,7 +70,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
 
   return (
     <>
-     {/*  <ButtonContent state={CartDrawerAtom} icon={FiShoppingCart} type={"cart"}>
+      {/*  <ButtonContent state={CartDrawerAtom} icon={FiShoppingCart} type={"cart"}>
         <CartDrawer />
       </ButtonContent>
       <ButtonContent
@@ -93,7 +93,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
           colorScheme="purple"
         />
         <MenuList>
-          <ItemMenu icon={FiUser} title="Profile" href="/profile" />
+          <ItemMenu
+            icon={FiUser}
+            title="Profile"
+            href="/configuration/profile"
+          />
           <ItemMenu icon={FiCheckSquare} title="Orders" href="/orders" />
           <ItemMenu
             icon={FiHeart}

@@ -12,31 +12,37 @@ import { DocumentData } from "@firebase/firestore-types";
 import { Divider, IconButton } from '@chakra-ui/react';
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useRecoilState } from "recoil";
-import { cartState } from "../../atoms/cartItemAtom";
+import { addToCart, cartState, DecreaseQuantity } from '../../atoms/cartItemAtom';
 import { useToast } from "@chakra-ui/react";
 
 type CardCartProps = {
-  product: DocumentData;
-
+  product: any;
+  index: number
 };
 
-const CardCart: React.FC<CardCartProps> = ({ product }) => {
-  const [cartItems, setCartItems] = useRecoilState(cartState);
-  const [quantity, setQuantity] = useState(1);
+const CardCart: React.FC<CardCartProps> = ({ product, index}) => {
+  const [cart, setCart] = useRecoilState(cartState);
+  
   const bg = useColorModeValue("white", "gray.800");
   const toast = useToast();
+  
 
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+  const increaseQuantity = (item:any) => {
+    const newCart = addToCart(cart, product); 
+    setCart(newCart as never[]); 
+       
   };
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
+
+
+  
+  const decreaseQuantity = (item:any) => {
+    
+    const newCart = DecreaseQuantity(cart,product);
+    setCart(newCart as never[])
   };
   const handleDelete = () => {
-    // return partialTotal
-    const newCartItems = cartItems.filter((item) => item.id !== product.id);
+    
+    const newCartItems = cart.filter(item=> item.id !== product.id);
     toast({
       title: "Item removed.",
       description: "We've removed the item from your cart.",
@@ -45,15 +51,16 @@ const CardCart: React.FC<CardCartProps> = ({ product }) => {
       isClosable: true,
     });
     
-    setCartItems(newCartItems);
+    setCart(newCartItems);
   };
-  const partialTotal = (product?.prices[0].unit_amount * quantity) / 100;
+  
+  const partialTotal = (product.item.prices[0].unit_amount * product.quantity ) ;
 
   return (
-    <Box key={product?.id} p={5} shadow="md" bg={bg} borderRadius={"md"}>
+    <Box key={product.item.id} p={5} shadow="md" bg={bg} borderRadius={"md"}>
       <Grid templateColumns="repeat(2, 1fr)">
         <Image
-          src={product?.images[0]}
+          src={product.item.images[0]}
           borderRadius="md"
           alt="product"
           maxHeight={{ base: "5rem", md: "7rem" }}
@@ -76,7 +83,7 @@ const CardCart: React.FC<CardCartProps> = ({ product }) => {
             justifyContent={"center"}
             mt={-2.5}
           >
-            {product?.name}
+            {product.item.name}
           </Text>
           <Flex
             justifyContent={{ base: "flex-end", md: "flex-start" }}
@@ -92,7 +99,7 @@ const CardCart: React.FC<CardCartProps> = ({ product }) => {
               -
             </Button>
             <Text ml={2} mr={2} mt={1.5} fontSize="md">
-              {quantity}
+              {product.quantity}
             </Text>
             <Button
               onClick={increaseQuantity}
@@ -105,7 +112,7 @@ const CardCart: React.FC<CardCartProps> = ({ product }) => {
           </Flex>
           <Flex justifyContent={"flex-end"}>
             <Text fontWeight="semibold" mt={{ base: "6", md: "none" }}>
-              Price: €{partialTotal}.00
+              Price: ${partialTotal}.00
             </Text>
           </Flex>
         </Flex>

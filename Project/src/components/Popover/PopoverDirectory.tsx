@@ -1,14 +1,9 @@
 import {
-  useColorModeValue,
-  Stack,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Text,
+  Popover, PopoverContent, PopoverTrigger, Stack, Text, useColorModeValue
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { NAV_ITEMS } from "../../utils/constant";
 import React from "react";
+import { NAV_ITEMS } from "../../utils/constant";
 import SubMenuDirectory from "./SubMenuDirectory";
 
 const PopoverDirectory: React.FC = () => {
@@ -58,8 +53,8 @@ const PopoverDirectory: React.FC = () => {
                   align={"center"}
                   justify={"center"}
                   spacing={20}>
-                  {navItem.children.map((child) => (
-                    <SubMenuDirectory key={child.label} {...child} />
+                  {navItem.children.map((child, index) => (
+                    <SubMenuDirectory key={index} {...child} />
                   ))}
                 </Stack>
               </PopoverContent>

@@ -1,29 +1,17 @@
-import React from "react";
 import {
-  Box,
-  VStack,
-  Heading,
-  useColorModeValue,
-  Center,
-  Text,
-  Image,
-  Flex,
-  Divider,
-  Grid,
-  Button,
-  IconButton,
-  useToast,
+  Box, Button, Center, Divider, Flex, Grid, Heading, IconButton, Image, Text, useColorModeValue, useToast, VStack
 } from "@chakra-ui/react";
+import React from "react";
 import useProductsData from "../../../hooks/useProductsData";
 import PriceTag from "../Price";
 //import MobileCategories from "../../Navbar/Categories/MobileCategories/index";
-import Sizes from "./Sizes";
 import { MdFavoriteBorder } from "react-icons/md";
+import Sizes from "./Sizes";
 //import Carousel from "../../Carousel/index";
 import { DocumentData } from "@firebase/firestore-types";
-import { cartState, ItemCart } from "../../../atoms/cartItemAtom";
 import { useRecoilState } from "recoil";
 import ProductCard from "..";
+import { cartItem, cartState } from "../../../atoms/cartItemAtom";
 import Carousel from "../../Carousel";
 
 type ProductCardProps = {
@@ -43,7 +31,7 @@ const ProductDetailComponent: React.FC<ProductCardProps> = ({
   const sizesNumber = [35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
 
   const handleClick = () => {
-    if (!cartItems.includes(product as ItemCart)) {
+    if (!cartItems.includes(product as cartItem)) {
       setCartItems((prevState: any) => [...prevState, product]);
       toast({
         title: "Item added",
@@ -104,14 +92,13 @@ const ProductDetailComponent: React.FC<ProductCardProps> = ({
     <Center>
       <VStack
         w={{ sm: "80%", lg: "70%" }}
-        bg={useColorModeValue("white", "gray.700")}
-      >
+        bg={useColorModeValue("white", "gray.700")}>
         <Box>
           <Heading>
-            {productsActive.map((product: any) => {
+            {productsActive.map((product: any, index: number) => {
               if (product.id === id) {
                 return (
-                  <>
+                  <Flex key={index}>
                     {/* IMAGE */}
                     <Flex flexDirection={"row"}>
                       <Image
@@ -135,8 +122,7 @@ const ProductDetailComponent: React.FC<ProductCardProps> = ({
                               base: "3xl",
                               md: "4xl",
                               lg: "5xl",
-                            }}
-                          >
+                            }}>
                             {product?.name}
                           </Text>
                         </Box>
@@ -151,8 +137,7 @@ const ProductDetailComponent: React.FC<ProductCardProps> = ({
                               md: "xs",
                               lg: "md",
                               xl: "lg",
-                            }}
-                          >
+                            }}>
                             {`Product ID: ${product?.id}`}
                           </Text>
                         </Box>
@@ -163,7 +148,6 @@ const ProductDetailComponent: React.FC<ProductCardProps> = ({
                           <PriceTag
                             price={product?.prices[0].unit_amount}
                             currency={product?.prices[0].currency}
-                            
                           />
                         </Text>
 
@@ -175,8 +159,7 @@ const ProductDetailComponent: React.FC<ProductCardProps> = ({
                               md: "xs",
                               lg: "md",
                               xl: "lg",
-                            }}
-                          >
+                            }}>
                             Sizes:
                           </Text>
                           <Flex
@@ -184,13 +167,12 @@ const ProductDetailComponent: React.FC<ProductCardProps> = ({
                             gap={3}
                             mt={2}
                             mb={2}
-                            flexWrap={"wrap"}
-                          >
-                            {sizesNumber.map((size) => {
+                            flexWrap={"wrap"}>
+                            {sizesNumber.map((size, index) => {
                               return (
                                 <Sizes
                                   sizesNumber={size}
-                                  key={size}
+                                  key={index}
                                   size={0}
                                   setSize={function (): void {
                                     throw new Error(
@@ -208,8 +190,7 @@ const ProductDetailComponent: React.FC<ProductCardProps> = ({
                         <Flex
                           flexDirection={"row"}
                           w={"100%"}
-                          justifyContent={"space-between"}
-                        >
+                          justifyContent={"space-between"}>
                           <IconButton
                             mt={"1rem"}
                             mx={"1rem"}
@@ -226,8 +207,7 @@ const ProductDetailComponent: React.FC<ProductCardProps> = ({
                             colorScheme="purple"
                             size="lg"
                             width={"100%"}
-                            onClick={handleClick}
-                          >
+                            onClick={handleClick}>
                             Add to cart
                           </Button>
                         </Flex>
@@ -245,8 +225,7 @@ const ProductDetailComponent: React.FC<ProductCardProps> = ({
                         md: "md",
                         lg: "lg",
                         xl: "xl",
-                      }}
-                    >
+                      }}>
                       <Text fontWeight={"bold"}>Description:</Text>
                       <Text mt={"1rem"} fontWeight={"light"}>
                         {product?.description}
@@ -278,24 +257,23 @@ const ProductDetailComponent: React.FC<ProductCardProps> = ({
                     </Box>
 
                     {/* Carousel */}
-                  </>
+                  </Flex>
                 );
               }
             })}
           </Heading>
         </Box>
-            <Carousel
-              settings={settings}
-              carouselProps={{
-                mt: "1rem",
-                mb: "5rem",
-                h: "80%",
-              }}
-            >
-              {productsActive.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </Carousel>
+        <Carousel
+          settings={settings}
+          carouselProps={{
+            mt: "1rem",
+            mb: "5rem",
+            h: "80%",
+          }}>
+          {productsActive.map((product, index) => (
+            <ProductCard key={index} product={product} />
+          ))}
+        </Carousel>
       </VStack>
     </Center>
   );

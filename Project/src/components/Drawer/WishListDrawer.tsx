@@ -51,10 +51,10 @@ const WishListDrawer: React.FC = () => {
                   <Text>Your WishList is Empty</Text>
                 ) : (
                   <Grid templateColumns="repeat(1, 1fr)">
-                    {cartItems.map((item: any) => {
+                    {cartItems.map((item: any, index: number) => {
                       if (item.quantity > 0) {
                         return (
-                          <Box key={item.product._id} p={5} shadow="md" bg={bg}>
+                          <Box key={index} p={5} shadow="md" bg={bg}>
                             <Grid templateColumns="repeat(2, 1fr)">
                               <Text fontSize="xl" fontWeight="bold">
                                 {item.product.name}

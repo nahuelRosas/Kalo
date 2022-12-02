@@ -27,8 +27,8 @@ const ProductsC: React.FC = () => {
     <Flex>
       <SimpleGrid columns={[1, 2, 3, 4]} spacing="40px">
         {filteredProducts.length ? (
-          filteredProducts?.map((product: any) => (
-            <ProductCard product={product} key={product.id} />
+          filteredProducts?.map((product: any, index: number) => (
+            <ProductCard product={product} key={index} />
           ))
         ) : (
           <Text>No products found</Text>

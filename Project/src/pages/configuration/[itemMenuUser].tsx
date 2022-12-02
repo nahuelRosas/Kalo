@@ -1,7 +1,7 @@
 import React from "react";
-import Index from "../components/Profile";
+import Index from "../../components/Profile";
 import { useRouter } from "next/router";
-import { itemMenuTitle } from "../utils/constant";
+import { itemMenuTitle } from "../../utils/constant";
 
 const ItemMenu: React.FC = () => {
   const router = useRouter();

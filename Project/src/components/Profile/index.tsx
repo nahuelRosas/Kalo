@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/clientApp";
+import { itemMenuTitle } from "../../utils/constant";
 import BaseComponent from "./Components";
 import CreateProduct from "./Components/CreateProduct";
-import Profile from "./Components/Profile/index";
 import Base from "./lateralMenu/Base";
 
 type indexProps = {
@@ -14,11 +14,12 @@ type indexProps = {
 const Index: React.FC<indexProps> = ({ type }) => {
   const [user] = useAuthState(auth);
   const router = useRouter();
-  useEffect(() => {
-    if (!user) {
-      router.push("/");
-    }
-  }, [router, user]);
+  // useEffect(() => {
+  //   new Promise((resolve) => setTimeout(resolve, 5000));
+  //   if (!user) {
+  //     router.push("/");
+  //   }
+  // }, [router, user]);
   return (
     <Container
       maxW="container.xxl"
@@ -31,8 +32,9 @@ const Index: React.FC<indexProps> = ({ type }) => {
         <Base user={user} currentComponent={type} />
 
         <BaseComponent title={type}>
-          {type === "Create Product" ? <CreateProduct /> : null}
-          {type === "Profile" ? <Profile /> : null}
+          {type === itemMenuTitle["AdmcreateProduct"] ? (
+            <CreateProduct />
+          ) : null}
         </BaseComponent>
       </Flex>
     </Container>

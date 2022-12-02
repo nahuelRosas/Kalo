@@ -46,8 +46,8 @@ const ProductsDashBoard = () => {
             </Thead>
             <Tbody>
               {CurrentProducts &&
-                CurrentProducts.map((product) => (
-                  <Tr key={product.id}>
+                CurrentProducts.map((product, index) => (
+                  <Tr key={index}>
                     <Td>{product.name}</Td>
                     <Td>${product.prices[0].unit_amount}</Td>
                     <Td>

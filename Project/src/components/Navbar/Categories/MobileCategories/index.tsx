@@ -1,28 +1,11 @@
-import {
-  Flex,
-  useDisclosure,
-  Drawer,
-  Button,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerBody,
-  useColorModeValue,
-  Text,
-  Link,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  List,
-  ListItem,
-  DrawerFooter,
-} from "@chakra-ui/react";
-import React from "react";
 import { ArrowForwardIcon, HamburgerIcon } from "@chakra-ui/icons";
+import {
+  Accordion, AccordionButton, AccordionItem, AccordionPanel, Button, Drawer, DrawerBody, DrawerCloseButton,
+  DrawerContent, DrawerFooter, DrawerHeader,
+  DrawerOverlay, Flex, Link, List,
+  ListItem, Text, useColorModeValue, useDisclosure
+} from "@chakra-ui/react";
 import { NAV_ITEMS } from "../../../../utils/constant";
-
 
 const MobileCategories = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -35,8 +18,7 @@ const MobileCategories = () => {
           variant={"ghost"}
           colorScheme="purple"
           onClick={onOpen}
-          fontSize="1.5rem"
-        >
+          fontSize="1.5rem">
           <HamburgerIcon />
         </Button>
 
@@ -45,8 +27,7 @@ const MobileCategories = () => {
           isOpen={isOpen}
           placement="left"
           onClose={onClose}
-          colorScheme="purple"
-        >
+          colorScheme="purple">
           <HamburgerIcon />
           <DrawerOverlay />
           <DrawerContent>
@@ -56,8 +37,7 @@ const MobileCategories = () => {
               color={"white"}
               fontWeight={"bold"}
               fontSize={"xl"}
-              py={8}
-            >
+              py={8}>
               Categories
             </DrawerHeader>
 
@@ -72,13 +52,11 @@ const MobileCategories = () => {
                         <AccordionButton
                           display={"flex"}
                           justifyContent={"space-between"}
-                          alignItems={"center"}
-                        >
-                          
-                            <Text fontSize={"md"} fontWeight={700}>
-                              {navItem.label}
-                            </Text>
-                       
+                          alignItems={"center"}>
+                          <Text fontSize={"md"} fontWeight={700}>
+                            {navItem.label}
+                          </Text>
+
                           <ArrowForwardIcon
                             transition={"all .25s ease-in-out"}
                             transform={isExpanded ? "rotate(90deg)" : ""}
@@ -87,8 +65,8 @@ const MobileCategories = () => {
 
                         <AccordionPanel p={1}>
                           <List>
-                            {navItem?.children?.map((child) => (
-                              <ListItem key={child.label}>
+                            {navItem?.children?.map((child, index) => (
+                              <ListItem key={index}>
                                 <Link href={`/AllProducts/${child.label}`}>
                                   <Text
                                     p={2}
@@ -97,8 +75,7 @@ const MobileCategories = () => {
                                     _hover={{
                                       textDecoration: "none",
                                       color: color,
-                                    }}
-                                  >
+                                    }}>
                                     {child.label}
                                   </Text>
                                 </Link>
@@ -118,8 +95,7 @@ const MobileCategories = () => {
               alignItems={"center"}
               borderTopWidth={"1px"}
               fontWeight={"bold"}
-              fontSize={"md"}
-            >
+              fontSize={"md"}>
               <Text fontSize={"md"} fontWeight={700}>
                 Contact Us: 123-456-7890
               </Text>

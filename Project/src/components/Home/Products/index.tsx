@@ -1,8 +1,8 @@
+import { Heading, Image, Link } from "@chakra-ui/react";
 import React from "react";
 import useProductsData from "../../../hooks/useProductsData";
 import Carousel from "../../Carousel";
 import ProductCard from "../../Products";
-import { Heading, Image, Link, Flex } from "@chakra-ui/react";
 import { images } from "../images";
 const Products: React.FC = () => {
   const { productsActive } = useProductsData();
@@ -54,8 +54,8 @@ const Products: React.FC = () => {
           mb: "5rem",
           h: "80%",
         }}>
-        {productsActive.map((product) => (
-          <ProductCard key={product.id} product={product} />
+        {productsActive.map((product, index) => (
+          <ProductCard key={index} product={product} />
         ))}
       </Carousel>
 
@@ -68,9 +68,8 @@ const Products: React.FC = () => {
           h: "80%",
         }}>
         {images.map((data, i) => (
-          // eslint-disable-next-line react/jsx-key
-          <Link>
-            <Image ml={10} key={i} src={data.value} alt={""} />
+          <Link key={i}>
+            <Image ml={10} src={data.value} alt={""} w="191px" h="101px" />
           </Link>
         ))}
       </Carousel>

@@ -10,26 +10,31 @@ import {
   useColorModeValue,
   Text,
   Grid,
-  Box,
-  IconButton,
+  Flex,
 } from "@chakra-ui/react";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { FiArrowDownCircle, FiArrowUpCircle } from "react-icons/fi";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { CartDrawerAtom } from "../../atoms/cartDrawerAtom";
 import { auth } from "../../firebase/clientApp";
+import { cartState } from "../../atoms/cartItemAtom";
+import CardCart from '../Cart/CardCart';
+import CheckOutDrawer from './CheckOut';
 
 const CartDrawer: React.FC = () => {
   const [drawerState, setDrawerState] = useRecoilState(CartDrawerAtom);
+ 
+  const cartItem = useRecoilValue(cartState);
+  const cartItems = Array.from(new Set(cartItem))
+
+
   const [user] = useAuthState(auth);
 
   const handleClose = useCallback(() => {
     return setDrawerState((prev) => ({ ...prev, isOpen: false }));
   }, [setDrawerState]);
 
-  const totalItems = 2;
-  const cartItems: any[] = [];
+
 
   const bg = useColorModeValue("white", "gray.800");
 
@@ -39,13 +44,14 @@ const CartDrawer: React.FC = () => {
         isOpen={drawerState.isOpen}
         placement="right"
         onClose={handleClose}
-        size="xl">
+        size="lg"
+      >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader textAlign={"center"}>
-            {drawerState.type === "cart" && `Your order (${totalItems})`}
-            {drawerState.type === "checkout" && `Complete your order`}
+            {drawerState.type === "cart" && `Your order ( ${cartItems.length} )`}
+            {drawerState.type === "checkout" && `Complete your Order`}
           </DrawerHeader>
           {drawerState.type === "cart" && (
             <>
@@ -53,68 +59,36 @@ const CartDrawer: React.FC = () => {
                 {cartItems.length === 0 ? (
                   <Text>Your cart is empty</Text>
                 ) : (
-                  <Grid templateColumns="repeat(1, 1fr)">
-                    {cartItems.map((item: any) => {
-                      if (item.quantity > 0) {
-                        return (
-                          <Box key={item.product._id} p={5} shadow="md" bg={bg}>
-                            <Grid templateColumns="repeat(2, 1fr)">
-                              <Text fontSize="xl" fontWeight="bold">
-                                {item.product.name}
-                              </Text>
-                              <Text
-                                fontSize="xl"
-                                fontWeight="bold"
-                                textAlign="right"
-                                color="teal.500">
-                                ${item.product.price * item.quantity},00
-                              </Text>
-                            </Grid>
-                            <Grid
-                              templateColumns="repeat(3, 1fr)"
-                              w={"20%"}
-                              mt={2}
-                              gap={2}>
-                              <IconButton
-                                colorScheme="purple"
-                                variant={"ghost"}
-                                size="2xl"
-                                borderRadius={"999px"}
-                                aria-label={""}>
-                                <FiArrowDownCircle />
-                              </IconButton>
-                              <Text fontSize="xl" textAlign="center">
-                                {item.quantity}
-                              </Text>
-                              <IconButton
-                                colorScheme="purple"
-                                variant={"ghost"}
-                                size="2xl"
-                                borderRadius={"999px"}
-                                aria-label={""}>
-                                <FiArrowUpCircle />
-                              </IconButton>
-                            </Grid>
-                          </Box>
-                        );
-                      }
+                  <Grid>
+                    {cartItems.map((item:any) => {
+                      return (
+                        <CardCart key={item.id} product={item}  />
+                      )
                     })}
                   </Grid>
                 )}
               </DrawerBody>
               <DrawerFooter>
+                {/* <Flex w="100%" justifyContent="space-between">
+                  SubTotal: ${cartItems.reduce((acc:any, item:any) => acc + item.prices[0].unit_amount, 0) / 100}
+                </Flex> */}
+
                 <Button
                   variant="outline"
                   colorScheme="purple"
                   mr={3}
-                  onClick={handleClose}>
+                  onClick={handleClose}
+                >
                   Cancel
                 </Button>
-                <Button colorScheme="purple" onClick={handleClose}>
+                <Button colorScheme="purple" onClick={() => setDrawerState({ isOpen: true, type: "checkout" })}>
                   Checkout
                 </Button>
               </DrawerFooter>
             </>
+          )}
+          {drawerState.type === "checkout" && (
+            <CheckOutDrawer />
           )}
         </DrawerContent>
       </Drawer>

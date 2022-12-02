@@ -1,22 +1,15 @@
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
-  InputGroup,
-  Input,
-  Text,
-  useColorModeValue,
-  InputRightElement,
-  IconButton,
-  Button,
-  useToast,
-  Flex,
+  Button, Flex, IconButton, Input, InputGroup, InputRightElement, Text,
+  useColorModeValue, useToast
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
 import { AuthModalState } from "../../../atoms/authModalAtom";
 import { auth } from "../../../firebase/clientApp";
-import { emailRegex } from "../../../utils/regex";
 import { FIREBASE_ERRORS } from "../../../firebase/errors";
+import { emailRegex } from "../../../utils/regex";
 
 const SignUp: React.FC = () => {
   const setAuthModalState = useSetRecoilState(AuthModalState);

@@ -1,14 +1,8 @@
-import { Button, Flex, useColorModeValue } from "@chakra-ui/react";
+import { Button, Flex, useColorModeValue, VStack } from "@chakra-ui/react";
 import React from "react";
 import { ProductCreateAtom } from "../../../../atoms/productCreateAtom";
-import {
-  AgeRangeOptions,
-  GenresOptions,
-  Sizes,
-  unitOfMeasurementOptions,
-} from "../../../../utils/constant";
 import GridComponent from "./grid";
-import InputComponent from "./InputComponent";
+import InputComponent from "./input";
 
 const CreateProduct: React.FC = () => {
   return (
@@ -17,13 +11,14 @@ const CreateProduct: React.FC = () => {
         <InputComponent
           label={"Name"}
           placeholder={"Nike Air Max Excee"}
+          typePrototype={"input"}
           stateAtom={ProductCreateAtom}
           compound
           isRequired
         />
         <InputComponent
           label={"Active"}
-          typePrototype={"Switch"}
+          typePrototype={"switch"}
           compound
           stateAtom={ProductCreateAtom}
           configFormControl={{
@@ -32,129 +27,22 @@ const CreateProduct: React.FC = () => {
           }}
         />
       </GridComponent>
+
       <InputComponent
         label={"Description"}
         placeholder={"Description"}
-        typePrototype={"Textarea"}
+        typePrototype={"textarea"}
         stateAtom={ProductCreateAtom}
         isRequired
       />
-      <InputComponent
-        label={"Brand"}
-        placeholder={"Brand"}
-        stateAtom={ProductCreateAtom}
-        isRequired
-      />
-
       <GridComponent>
         <InputComponent
-          label={"Price"}
-          placeholder={"Price"}
-          stateAtom={ProductCreateAtom}
-          typeInput={"number"}
-          isRequired
+          label={"Brand"}
+          typePrototype={"input"}
+          placeholder={"Brand"}
           compound
-        />
-        <InputComponent
-          label={"Discount"}
-          placeholder={"Discount"}
-          stateAtom={ProductCreateAtom}
-          typeInput={"number"}
-          compound
-        />
-      </GridComponent>
-      <GridComponent>
-        <InputComponent
-          label={"Stock"}
-          placeholder={"Stock"}
-          stateAtom={ProductCreateAtom}
-          typeInput={"number"}
-          isRequired
-          compound
-        />
-        <GridComponent noFormat>
-          <InputComponent
-            label={"Unit of Measurement"}
-            compound
-            placeholder={"Unit"}
-            stateAtom={ProductCreateAtom}
-            typePrototype={"Select"}
-            options={unitOfMeasurementOptions}
-          />
-          <InputComponent
-            label={"Size"}
-            compound
-            placeholder={"Size"}
-            isMulti
-            stateAtom={ProductCreateAtom}
-            typePrototype={"Select"}
-            dependence={Sizes}
-          />
-        </GridComponent>
-      </GridComponent>
-
-      <GridComponent>
-        <InputComponent
-          label={"Color"}
-          placeholder={"Color"}
           stateAtom={ProductCreateAtom}
           isRequired
-          compound
-        />
-        <InputComponent
-          label={"Style"}
-          placeholder={"Style"}
-          stateAtom={ProductCreateAtom}
-          isRequired
-          compound
-        />
-      </GridComponent>
-      <GridComponent>
-        <InputComponent
-          label={"Recommended Sport"}
-          placeholder={"Recommended Sport"}
-          stateAtom={ProductCreateAtom}
-          compound
-        />
-        <InputComponent
-          label={"Exterior Materials"}
-          placeholder={"Exterior Materials"}
-          stateAtom={ProductCreateAtom}
-          compound
-        />
-      </GridComponent>
-      <GridComponent>
-        <InputComponent
-          label={"Sole Materials"}
-          placeholder={"Sole Materials"}
-          stateAtom={ProductCreateAtom}
-          compound
-        />
-        <InputComponent
-          label={"Fit Type"}
-          placeholder={"Fit Type"}
-          stateAtom={ProductCreateAtom}
-          compound
-        />
-      </GridComponent>
-      <GridComponent>
-        <InputComponent
-          label={"Genres"}
-          placeholder={"Genres"}
-          stateAtom={ProductCreateAtom}
-          compound
-          typePrototype="Select"
-          options={GenresOptions}
-          isMulti
-        />
-        <InputComponent
-          label={"Age Group"}
-          placeholder={"Age Group"}
-          stateAtom={ProductCreateAtom}
-          compound
-          typePrototype="Select"
-          options={AgeRangeOptions}
-          isMulti
         />
       </GridComponent>
 

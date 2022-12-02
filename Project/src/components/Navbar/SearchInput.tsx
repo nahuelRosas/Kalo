@@ -15,6 +15,8 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useSetRecoilState, useRecoilState } from "recoil";
+import { searchAtom, SearchState } from "../../atoms/SearchAtom";
 
 type SearchInputProps = {
   // user:
@@ -22,8 +24,7 @@ type SearchInputProps = {
 
 const SearchInput: React.FC<SearchInputProps> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [search, setSearch] = useState("");
-
+  const [search, setSearch] = useRecoilState(searchAtom);
   return (
     <Flex flexGrow={1} maxWidth={"7xl"} align="center" mr={4} ml={4}>
       <InputGroup
@@ -34,12 +35,12 @@ const SearchInput: React.FC<SearchInputProps> = () => {
         <Input
           borderRadius={"999px"}
           placeholder="Search"
-          value={search}
+          value={search.search}
           bg={useColorModeValue("gray.100", "gray.700")}
           _focus={{
             bg: useColorModeValue("white", "gray.800"),
           }}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value as unknown as SearchState)}
         />
         <InputRightElement>
           <IconButton
@@ -66,6 +67,7 @@ const SearchInput: React.FC<SearchInputProps> = () => {
           isRound={true}
           colorScheme="purple"
           onClick={onOpen}></IconButton>
+
         <Drawer
           placement={"top"}
           blockScrollOnMount={true}
@@ -89,8 +91,10 @@ const SearchInput: React.FC<SearchInputProps> = () => {
                 <Input
                   borderRadius={"999px"}
                   placeholder="Search"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+                  value={search.search}
+                  onChange={(e) =>
+                    setSearch(e.target.value as unknown as SearchState)
+                  }
                 />
                 <InputRightElement>
                   <IconButton

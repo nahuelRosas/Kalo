@@ -9,15 +9,17 @@ import {
   useBreakpointValue,
   useColorMode,
   useColorModeValue,
+  Text
 } from "@chakra-ui/react";
 import { AuthModalState } from "../../../atoms/authModalAtom";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import { FiLogIn, FiUserPlus, FiMoon, FiSun, FiShoppingCart } from "react-icons/fi";
 import ItemMenu from "./itemMenu";
 import { FaUser } from "react-icons/fa";
 import { CartDrawerAtom } from "../../../atoms/cartDrawerAtom";
 import { WishListDrawerAtom } from "../../../atoms/wishListDrawerAtom";
 import { MdFavorite } from "react-icons/md";
+import { cartState } from '../../../atoms/cartItemAtom';
 
 const AuthButtons: React.FC = () => {
   const setAuthModalState = useSetRecoilState(AuthModalState);
@@ -27,7 +29,8 @@ const AuthButtons: React.FC = () => {
   const text = useColorModeValue("Dark", "Light");
 
   const display = useBreakpointValue({ base: "flex", md: "none" });
-
+  //const cartItems = useRecoilState(cartState)
+  
   return (
     <>
       <Menu
@@ -72,7 +75,8 @@ const AuthButtons: React.FC = () => {
             ItemMenuProp={{
               display: display,
             }}
-          />
+            />
+          
           <ItemMenu
             title="WishList"
             icon={MdFavorite}

@@ -2,6 +2,7 @@ import { Container, useColorModeValue } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import Banner from "../components/Home/Banner";
 import Products from "../components/Home/Products";
+import Publicity from "../components/Home/publicity";
 
 export default function Home() {
   useEffect(() => {
@@ -19,6 +20,7 @@ export default function Home() {
       mb="1rem">
       <Banner />
       <Products />
+      <Publicity/>
       {/* <Categories />
       <Carousel text="Based on your latest searches" name="productList" />
       <Carousel text="For Sale" name="productList" /> */}

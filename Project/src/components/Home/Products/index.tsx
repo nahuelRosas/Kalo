@@ -70,7 +70,7 @@ const Products: React.FC = () => {
         {images.map((data, i) => (
           // eslint-disable-next-line react/jsx-key
           <Link>
-            <Image ml={10} key={i} src={data.value} />
+            <Image ml={10} key={i} src={data.value} alt={""} />
           </Link>
         ))}
       </Carousel>

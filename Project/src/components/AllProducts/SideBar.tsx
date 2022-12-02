@@ -1,47 +1,33 @@
-import React, { useState, ReactNode } from "react";
 import {
-  IconButton,
   Box,
-  CloseButton,
-  Flex,
+  BoxProps,
   Button,
-  Icon,
-  useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
-  Text,
-  useDisclosure,
-  BoxProps,
+  Flex,
   FlexProps,
-  Select,
-  SimpleGrid,
-  Stack,
-  Checkbox,
-  RangeSliderFilledTrack,
-  RangeSlider,
-  RangeSliderTrack,
   Grid,
+  IconButton,
+  RangeSlider,
+  RangeSliderFilledTrack,
   RangeSliderThumb,
+  RangeSliderTrack,
+  Select,
+  Stack,
+  Text,
+  useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-} from "react-icons/fi";
-import { IconType } from "react-icons";
-import { ReactText } from "react";
-import ProductList from "./ProductList";
-import useProductsData from "../../hooks/useProductsData";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { products } from "../../utils/products";
-import Login from "../Modal/Auth/Login";
-import { FilterState } from "../../atoms/filterAtom";
+import React, { useEffect, useState } from "react";
+import { FiMenu } from "react-icons/fi";
 
-export default function SimpleSidebar({ children }: { children: ReactNode }) {
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { FilterState } from "../../atoms/filterAtom";
+import { searchAtom } from "../../atoms/SearchAtom";
+import useProductsData from "../../hooks/useProductsData";
+import category from "../../pages/AllProducts/[category]";
+
+export default function SimpleSidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -57,17 +43,14 @@ export default function SimpleSidebar({ children }: { children: ReactNode }) {
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="full"
-      >
+        size="full">
         <DrawerContent>
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
       <MobileNav display={{ base: "flex", md: "none" }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        {children}
-      </Box>
+      <Box ml={{ base: 0, md: 60 }} p="4"></Box>
     </Box>
   );
 }
@@ -77,32 +60,37 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
-  const { getProducts, productsActive } = useProductsData();
+  const { getProducts, productsActive }: any = useProductsData();
+  const setFilteredProducts: any = useSetRecoilState(FilterState);
+  const [selectedGenre, setSelectedGenre]: any = useState("women");
+  const [selectedPrice, setSelectedPrice]: any = useState([0, 50]);
+  const [search, setSearch]: any = useRecoilState(searchAtom);
 
-  const setFilteredProducts = useSetRecoilState(FilterState);
-  // se tiene que saber que hice click en el genero y a traves de eso filtrar todos los productos que
-  // en el metadata tengan ese genero
-
-  const [selectedGenre, setSelectedGenre] = useState("women");
-  const [selectedPrice, setSelectedPrice] = useState([0, 50]);
-
-  const handleFilter = (e) => {
-    setSelectedGenre(e.target.name); //Esto da men || women || unisex
-
-    if (e.target.name === "unisex") {
-      setFilteredProducts((el) => el.metadata.Gender === e.target.name);
+  const handleFilter = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): any => {
+    const { name } = event.currentTarget;
+    if (search) {
+      setSearch("");
     }
-    if (e.target.name !== "unisex") {
+    setSelectedGenre(event.target); //Esto da men || women || unisex
+
+    if ((name as unknown) === "unisex") {
       setFilteredProducts(
-        productsActive.filter((el) => el.metadata.Gender === e.target.name)
+        productsActive?.filter((el: any) => el.metadata.Gender === name)
+      );
+    }
+    if ((event.currentTarget.name as unknown) !== "unisex") {
+      setFilteredProducts(
+        productsActive?.filter((el: any) => el.metadata.Gender === name)
       );
     }
   };
 
-  const handleFilterPrice = (e) => {
+  const handleFilterPrice = (e: any) => {
     setSelectedPrice(e);
     setFilteredProducts(
-      productsActive.filter((el) => {
+      productsActive.filter((el: any): any => {
         return (
           el.prices[0].unit_amount / 100 > e[0] &&
           el.prices[0].unit_amount / 100 <= e[1]
@@ -110,6 +98,18 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       })
     );
   };
+
+  useEffect(() => {
+    const category = location.pathname.split("/")[2];
+
+    if (category) {
+      const filteredProducts = productsActive?.filter(
+        (el: any) => el.metadata.Gender === category
+      );
+      setFilteredProducts(filteredProducts);
+    }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category]);
 
   return (
     <Box
@@ -119,14 +119,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       w={{ base: "full", md: 60 }}
       // pos="fixed"
       h="full"
-      {...rest}
-    >
+      {...rest}>
       <Flex
         h="20"
         alignItems="center"
         mx="8"
-        justifyContent="space-between"
-      ></Flex>
+        justifyContent="space-between"></Flex>
       <Select>
         <option value="bestSellers">Best Sellers</option>
         <option value="lowPrice">Low Price</option>
@@ -141,24 +139,21 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           size="sm"
           colorScheme="purple"
           name="Men"
-          onClick={handleFilter}
-        >
+          onClick={handleFilter}>
           Men
         </Button>
         <Button
           size="sm"
           colorScheme="purple"
           name="Women"
-          onClick={handleFilter}
-        >
+          onClick={handleFilter}>
           Women
         </Button>
         <Button
           size="sm"
           colorScheme="purple"
           name="unisex"
-          onClick={handleFilter}
-        >
+          onClick={handleFilter}>
           Unisex
         </Button>
       </Stack>
@@ -172,8 +167,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           max={50}
           step={5}
           colorScheme="purple"
-          onChange={handleFilterPrice}
-        >
+          onChange={handleFilterPrice}>
           <RangeSliderTrack>
             <RangeSliderFilledTrack />
           </RangeSliderTrack>
@@ -181,7 +175,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           <RangeSliderThumb index={1} />
         </RangeSlider>
         <Text align="center" mt={6} fontWeight="semibold">
-        €{selectedPrice[0]} - €{selectedPrice[1]}
+          €{selectedPrice[0]} - €{selectedPrice[1]}
         </Text>
       </Grid>
     </Box>
@@ -202,8 +196,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue("gray.200", "gray.700")}
       justifyContent="flex-start"
-      {...rest}
-    >
+      {...rest}>
       <IconButton
         variant="outline"
         onClick={onOpen}

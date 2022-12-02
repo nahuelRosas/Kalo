@@ -1,10 +1,12 @@
 import { TextProps, useColorModeValue, Text } from "@chakra-ui/react";
 import React from "react";
+import Size from '../../../pages/size';
 
 type priceProps = {
   children?: React.ReactNode;
   isOnSale?: boolean;
   textProps?: TextProps;
+  Size?: number;
 };
 
 const Price: React.FC<priceProps> = ({ children, isOnSale, textProps }) => {
@@ -13,11 +15,12 @@ const Price: React.FC<priceProps> = ({ children, isOnSale, textProps }) => {
   const color = isOnSale ? onSaleColor : defaultColor;
   return (
     <Text
-      fontSize="sm"
+      fontSize= {{base: "lg", md: "xl"}}
       fontWeight="bold"
       color={color}
       textDecoration={isOnSale ? "line-through" : "none"}
-      {...textProps}>
+      {...textProps}
+    >
       {children}
     </Text>
   );

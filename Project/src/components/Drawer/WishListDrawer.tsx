@@ -1,19 +1,17 @@
 import {
+  Box,
   Drawer,
   DrawerBody,
-  DrawerFooter,
+  DrawerCloseButton,
+  DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  DrawerContent,
-  Button,
-  DrawerCloseButton,
-  useColorModeValue,
-  Text,
   Grid,
-  Box,
   IconButton,
+  Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { FiArrowDownCircle, FiArrowUpCircle } from "react-icons/fi";
 import { useRecoilState } from "recoil";

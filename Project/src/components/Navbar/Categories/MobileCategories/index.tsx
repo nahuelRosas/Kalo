@@ -8,9 +8,9 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerBody,
-  Link,
   useColorModeValue,
   Text,
+  Link,
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -22,6 +22,7 @@ import {
 import React from "react";
 import { ArrowForwardIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { NAV_ITEMS } from "../../../../utils/constant";
+
 
 const MobileCategories = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -73,9 +74,11 @@ const MobileCategories = () => {
                           justifyContent={"space-between"}
                           alignItems={"center"}
                         >
-                          <Text fontSize={"md"} fontWeight={700}>
-                            {navItem.label}
-                          </Text>
+                          
+                            <Text fontSize={"md"} fontWeight={700}>
+                              {navItem.label}
+                            </Text>
+                       
                           <ArrowForwardIcon
                             transition={"all .25s ease-in-out"}
                             transform={isExpanded ? "rotate(90deg)" : ""}
@@ -86,7 +89,7 @@ const MobileCategories = () => {
                           <List>
                             {navItem?.children?.map((child) => (
                               <ListItem key={child.label}>
-                                <Link href={child.href ?? "#"}>
+                                <Link href={`/AllProducts/${child.label}`}>
                                   <Text
                                     p={2}
                                     fontSize={"md"}

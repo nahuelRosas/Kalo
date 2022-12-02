@@ -1,20 +1,20 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
   Flex,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
 } from "@chakra-ui/react";
 import React, { useCallback, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilState } from "recoil";
 import { AuthModalState } from "../../../atoms/authModalAtom";
+import { auth } from "../../../firebase/clientApp";
 import AuthInputs from "./AuthInputs";
 import OAuthButtons from "./OAuthButtons";
-import { auth } from "../../../firebase/clientApp";
 import ResetPassword from "./ResetPassword";
 
 const AuthModal: React.FC = () => {

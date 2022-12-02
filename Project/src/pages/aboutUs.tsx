@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Flex, Divider, Center } from "@chakra-ui/react";
+import { Box, Center, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 
 export default function AboutUs() {

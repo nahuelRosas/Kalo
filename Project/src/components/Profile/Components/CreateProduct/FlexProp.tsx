@@ -5,7 +5,7 @@ const FlexPropComponent = ({
   typePrototype,
 }: {
   compound: boolean;
-  typePrototype?: string;
+  typePrototype: string;
 }): FlexProps => {
   const bg = useColorModeValue("gray.50", "gray.700");
   let configFlex: FlexProps = {};

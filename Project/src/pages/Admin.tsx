@@ -28,7 +28,6 @@ import {
 } from "@chakra-ui/react";
 
 const ProductsDashBoard = () => {
-  const { products, loading, error } = useProductsData();
   const [productsState, setProductsState] = useRecoilState(ProductsAtom);
   const CurrentProducts = productsState.products;
 

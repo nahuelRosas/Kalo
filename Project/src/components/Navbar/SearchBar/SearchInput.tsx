@@ -14,7 +14,10 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import Link from "next/link";
+import React from "react";
+import { useRecoilState } from "recoil";
+import { searchAtom, SearchState } from "../../../atoms/SearchAtom";
 
 type SearchInputProps = {
   // user:
@@ -22,7 +25,7 @@ type SearchInputProps = {
 
 const SearchInput: React.FC<SearchInputProps> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useRecoilState(searchAtom);
 
   return (
     <Flex flexGrow={1} maxWidth={"6xl"} align="center" mr={4} ml={4}>
@@ -30,28 +33,27 @@ const SearchInput: React.FC<SearchInputProps> = () => {
         display={useBreakpointValue({
           base: "none",
           md: "flex",
-        })}
-      >
+        })}>
         <Input
           borderRadius={"999px"}
           focusBorderColor={"primary"}
           placeholder="Search..."
-          value={search}
           bg={useColorModeValue("gray.100", "gray.700")}
           _focus={{
             bg: useColorModeValue("white", "gray.800"),
             boderColor: "teal.500",
           }}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value as unknown as SearchState)}
         />
         <InputRightElement>
-          <IconButton
-            aria-label="Search database"
-            icon={<SearchIcon />}
-            variant="ghost"
-            isRound={true}
-            colorScheme="purple"
-          ></IconButton>
+          <Link href={`/AllProducts/${search}`}>
+            <IconButton
+              aria-label="Search database"
+              icon={<SearchIcon />}
+              variant="ghost"
+              isRound={true}
+              colorScheme="purple"></IconButton>
+          </Link>
         </InputRightElement>
       </InputGroup>
 
@@ -62,22 +64,19 @@ const SearchInput: React.FC<SearchInputProps> = () => {
         })}
         flexGrow={1}
         align="center"
-        justify="right"
-      >
+        justify="right">
         <IconButton
           aria-label="Search database"
           icon={<SearchIcon />}
           variant="ghost"
           isRound={true}
           colorScheme="purple"
-          onClick={onOpen}
-        ></IconButton>
+          onClick={onOpen}></IconButton>
         <Drawer
           placement={"top"}
           blockScrollOnMount={true}
           isOpen={isOpen}
-          onClose={onClose}
-        >
+          onClose={onClose}>
           <DrawerOverlay />
           <DrawerContent>
             <DrawerBody className="searchBar">
@@ -97,8 +96,9 @@ const SearchInput: React.FC<SearchInputProps> = () => {
                   focusBorderColor={"primary"}
                   borderRadius={"999px"}
                   placeholder="Search..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={(e) =>
+                    setSearch(e.target.value as unknown as SearchState)
+                  }
                 />
                 <InputRightElement>
                   <IconButton
@@ -106,8 +106,7 @@ const SearchInput: React.FC<SearchInputProps> = () => {
                     icon={<SearchIcon />}
                     variant="ghost"
                     isRound={true}
-                    colorScheme="purple"
-                  ></IconButton>
+                    colorScheme="purple"></IconButton>
                 </InputRightElement>
               </InputGroup>
             </DrawerBody>

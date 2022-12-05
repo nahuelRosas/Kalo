@@ -10,7 +10,6 @@ type previewImageProps = {
 const PreviewImage: React.FC<previewImageProps> = ({ stateAtom, onChange }) => {
   const [value] = useRecoilState(stateAtom);
 
-  console.log(value);
   return (
     <SimpleGrid columns={3} spacing={4} w="full">
       {value["images"].map(
@@ -33,7 +32,7 @@ const PreviewImage: React.FC<previewImageProps> = ({ stateAtom, onChange }) => {
                 top={2}
                 right={2}
                 colorScheme="red"
-                onClick={() => onChange (index)}
+                onClick={() => onChange(index)}
               />
             </Box>
           );

@@ -2,7 +2,7 @@ import { atom } from "recoil";
 
 export interface CartDrawerAtom {
   isOpen: boolean;
-  type: "cart" | "checkout";
+  type: "cart" | "checkout" | "preCheckout";
 }
 
 const defaultCartDrawerState: CartDrawerAtom = {

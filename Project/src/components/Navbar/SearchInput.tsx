@@ -14,6 +14,7 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import React, { useState } from "react";
 import { useSetRecoilState, useRecoilState } from "recoil";
 import { searchAtom, SearchState } from "../../atoms/SearchAtom";
@@ -43,12 +44,14 @@ const SearchInput: React.FC<SearchInputProps> = () => {
           onChange={(e) => setSearch(e.target.value as unknown as SearchState)}
         />
         <InputRightElement>
+        <Link href={`/allproducts/${search}`}>
           <IconButton
             aria-label="Search database"
             icon={<SearchIcon />}
             variant="ghost"
             isRound={true}
             colorScheme="purple"></IconButton>
+            </Link>
         </InputRightElement>
       </InputGroup>
 
@@ -97,12 +100,14 @@ const SearchInput: React.FC<SearchInputProps> = () => {
                   }
                 />
                 <InputRightElement>
+                <Link href={`/allproducts/${search}`}>
                   <IconButton
                     aria-label="Search database"
                     icon={<SearchIcon />}
                     variant="ghost"
                     isRound={true}
                     colorScheme="purple"></IconButton>
+                    </Link>
                 </InputRightElement>
               </InputGroup>
             </DrawerBody>

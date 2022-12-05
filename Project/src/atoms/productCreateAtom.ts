@@ -35,7 +35,6 @@ export interface ProductCreateAtom {
     comment: string;
   }[];
   numReviews: number;
-  quantity: number;
 }
 
 export const defaultProductCreateAtom: ProductCreateAtom = {
@@ -63,7 +62,6 @@ export const defaultProductCreateAtom: ProductCreateAtom = {
   rating: 0,
   reviews: [],
   numReviews: 0,
-  quantity: 1,
 };
 
 export const ProductCreateAtom = atom<ProductCreateAtom>({

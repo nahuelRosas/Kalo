@@ -16,8 +16,8 @@ const DataProfile: React.FC<dataProfileProps> = ({ user }) => {
       bg={useColorModeValue("gray.50", "gray.900")}
       p={4}
       mb={4}>
-      <AvatarComponent photoURL={user?.photoURL} />
-      <Text fontSize="2xl" fontWeight="bold">
+      <AvatarComponent />
+      <Text mt={4} fontSize="2xl" fontWeight="bold">
         {user?.displayName}
       </Text>
       <Text

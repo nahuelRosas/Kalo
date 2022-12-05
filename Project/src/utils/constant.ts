@@ -66,129 +66,6 @@ export type NavItem = {
   href?: string;
 };
 
-export const NAV_ITEMS: Array<NavItem> = [
-  //New & Featured
-  {
-    label: "New & Featured",
-    children: [
-      {
-        label: "New Arrivals",
-        subLabel: "Newest items",
-        href: "/new-arrivals",
-      },
-      {
-        label: "Best Sellers",
-        subLabel: "Best selling items",
-        href: "/best-sellers",
-      },
-      {
-        label: "Sale",
-        subLabel: "On sale items",
-        href: "/sale",
-      },
-    ],
-  },
-  //Men
-  {
-    label: "Men",
-    children: [
-      {
-        label: "Shoes",
-        subLabel: "Shop for shoes",
-        href: "/AllProducts/Men",
-      },
-      {
-        label: "Accessories",
-        subLabel: "Shop for accessories",
-        href: "/k/men",
-      },
-    ],
-  },
-  //Women
-  {
-    label: "Women",
-    children: [
-      {
-        label: "Shoes",
-        subLabel: "Shop for shoes",
-        href: "/AllProducts/Women",
-      },
-      {
-        label: "Accessories",
-        subLabel: "Shop for accessories",
-        href: "/k/women",
-      },
-    ],
-  },
-  //Kids
-  {
-    label: "Kids",
-    children: [
-      {
-        label: "Shoes",
-        subLabel: "Shop for shoes",
-        href: "/k/kids",
-      },
-      {
-        label: "Accessories",
-        subLabel: "Shop for accessories",
-        href: "/k/kids",
-      },
-    ],
-  },
-  {
-    label: "Unisex",
-    children: [
-      {
-        label: "Shoes",
-        subLabel: "Shop for shoes",
-        href: "/AllProducts/Unisex",
-      },
-      {
-        label: "Accessories",
-        subLabel: "Shop for accessories",
-        href: "/unisex/accessories",
-      },
-    ],
-  },
-  //Brands
-  {
-    label: "Brands",
-    children: [
-      {
-        label: "Adidas",
-        subLabel: "Shop for Adidas",
-        href: "/brands/adidas",
-      },
-      {
-        label: "Nike",
-        subLabel: "Shop for Nike",
-        href: "/brands/nike",
-      },
-      {
-        label: "Puma",
-        subLabel: "Shop for Puma",
-        href: "/brands/puma",
-      },
-      {
-        label: "Lotto",
-        subLabel: "Shop for Lotto",
-        href: "/brands/loto",
-      },
-      {
-        label: "Converse",
-        subLabel: "Shop for Converse",
-        href: "/brands/converse",
-      },
-      {
-        label: "Topper",
-        subLabel: "Shop for Topper",
-        href: "/brands/topper",
-      },
-    ],
-  },
-];
-
 export const itemMenuTitle = {
   profile: "Profile",
   settings: "Settings",
@@ -377,4 +254,142 @@ export const AgeRangeOptions = [
   { value: "Adult", label: "Adult" },
   { value: "Kids", label: "Kids" },
   { value: "Baby", label: "Baby" },
+];
+
+export const Brands = [
+  {
+    src: "https://newsport.vteximg.com.br/arquivos/ADIDAS-brand.svg",
+    label: "ADIDAS",
+    subLabel: "Shop for Adidas",
+    href: "/brands/adidas",
+  },
+  {
+    src: "https://www.dexter.com.ar/dw/image/v2/BDTF_PRD/on/demandware.static/-/Sites-Dexter-Library/default/dw2f9ed6ed/nike2.png",
+    label: "NIKE",
+    subLabel: "Shop for Nike",
+    href: "/brands/Nike",
+  },
+  {
+    src: "https://www.dexter.com.ar/dw/image/v2/BDTF_PRD/on/demandware.static/-/Sites-Dexter-Library/default/dw65c423b8/puma2.png",
+    label: "PUMA",
+    subLabel: "Shop for Puma",
+    href: "/brands/Puma",
+  },
+  //converse
+  {
+    label: "CONVERSE",
+    subLabel: "Shop for Converse",
+    href: "/brands/Converse",
+    src: "https://www.dexter.com.ar/dw/image/v2/BDTF_PRD/on/demandware.static/-/Sites-Dexter-Library/default/dwb878323e/logoconverse.png",
+  },
+  //lotto
+  {
+    label: "LOTTO",
+    subLabel: "Shop for Lotto",
+    href: "/brands/Lotto",
+    src: "https://www.dexter.com.ar/dw/image/v2/BDTF_PRD/on/demandware.static/-/Sites-Dexter-Library/default/dw3198520a/images/marcas/logolotto2.png",
+  },
+  // topper
+  {
+    label: "TOPPER",
+    subLabel: "Shop for Topper",
+    href: "/brands/Topper",
+    src: "https://www.dexter.com.ar/dw/image/v2/BDTF_PRD/on/demandware.static/-/Sites-Dexter-Library/default/dw79e04e09/images/marcas/logotopper2.png",
+  },
+
+
+
+];
+
+export const NAV_ITEMS: Array<NavItem> = [
+  //New & Featured
+  {
+    label: "New & Featured",
+
+    children: [
+      {
+        label: "New Arrivals",
+        subLabel: "Newest items",
+        href: "/new-arrivals",
+      },
+      {
+        label: "Best Sellers",
+        subLabel: "Best selling items",
+        href: "/best-sellers",
+      },
+      {
+        label: "Sale",
+        subLabel: "On sale items",
+        href: "/sale",
+      },
+    ],
+  },
+  //Men
+  {
+    label: "Men",
+    children: [
+      {
+        label: "Shoes",
+        subLabel: "Shop for shoes",
+        href: "/allproducts/Men",
+      },
+      {
+        label: "Accessories",
+        subLabel: "Shop for accessories",
+        href: "/k/men",
+      },
+    ],
+  },
+  //Women
+  {
+    label: "Women",
+    children: [
+      {
+        label: "Shoes",
+        subLabel: "Shop for shoes",
+        href: "/allproducts/Women",
+      },
+      {
+        label: "Accessories",
+        subLabel: "Shop for accessories",
+        href: "/k/women",
+      },
+    ],
+  },
+  //Kids
+  {
+    label: "Kids",
+    children: [
+      {
+        label: "Shoes",
+        subLabel: "Shop for shoes",
+        href: "/k/kids",
+      },
+      {
+        label: "Accessories",
+        subLabel: "Shop for accessories",
+        href: "/k/kids",
+      },
+    ],
+  },
+  {
+    label: "Unisex",
+    children: [
+      {
+        label: "Shoes",
+        subLabel: "Shop for shoes",
+        href: "/allproducts/Unisex",
+      },
+      {
+        label: "Accessories",
+        subLabel: "Shop for accessories",
+        href: "/unisex/accessories",
+      },
+    ],
+  },
+  //Brands
+  {
+    label: "Brands",
+    children: [...(Brands as Array<NavItem>)],
+  },
 ];

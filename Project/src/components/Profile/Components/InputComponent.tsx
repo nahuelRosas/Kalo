@@ -31,6 +31,8 @@ type inputProps = {
   configFormControl?: FormControlProps;
   subTypeFrom?: "none" | "metaData" | "features";
   dependence?: object;
+  withOutPreview?: boolean;
+  title?: string;
 };
 
 const InputComponent: React.FC<inputProps> = ({
@@ -47,37 +49,42 @@ const InputComponent: React.FC<inputProps> = ({
   isRequired = false,
   configFormControl,
   dependence,
+  withOutPreview,
+  title,
 }) => {
   const configFlex = FlexPropComponent({ compound, typePrototype });
-
+  const Title = title ? title : label;
   return (
-    <Flex {...configFlex} alignItems={"end"}>
+    <Flex {...configFlex}>
       <FormControl
         id={label.toLowerCase().split(" ").join("")}
         isRequired={isRequired}
         {...configFormControl}>
-        <FormLabel fontWeight={600}>{label}</FormLabel>
-        {withText && (
-          <Text
-            p={2}
-            borderRadius="md"
-            color="gray.500"
-            fontSize="sm"
-            fontWeight="medium"
-            lineHeight="short">
-            {text}
-          </Text>
-        )}
-        <TypeInput
-          typePrototype={typePrototype}
-          stateAtom={stateAtom}
-          label={label}
-          options={options}
-          placeholder={placeholder}
-          isMulti={isMulti}
-          typeInput={typeInput}
-          dependence={dependence}
-        />
+        <Flex direction="column">
+          <FormLabel fontWeight={600}>{Title}</FormLabel>
+          <TypeInput
+            typePrototype={typePrototype}
+            stateAtom={stateAtom}
+            label={label}
+            options={options}
+            placeholder={placeholder}
+            isMulti={isMulti}
+            typeInput={typeInput}
+            dependence={dependence}
+            withOutPreview={withOutPreview}
+          />
+          {withText && (
+            <Text
+              p={2}
+              borderRadius="md"
+              color="gray.500"
+              fontSize="sm"
+              fontWeight="medium"
+              lineHeight="short">
+              {text}
+            </Text>
+          )}
+        </Flex>
       </FormControl>
     </Flex>
   );

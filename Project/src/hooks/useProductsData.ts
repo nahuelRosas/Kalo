@@ -1,9 +1,8 @@
-import { firestore } from "../firebase/clientApp";
-import { collection, getDocs, getDoc } from "firebase/firestore";
-import { ProductsAtom } from "../atoms/productsAtom";
-import { useRecoilState } from "recoil";
 import { DocumentData } from "@firebase/firestore-types";
-import { json } from "stream/consumers";
+import { collection, getDocs } from "firebase/firestore";
+import { useRecoilState } from "recoil";
+import { ProductsAtom } from "../atoms/productsAtom";
+import { firestore } from "../firebase/clientApp";
 
 const useProductsData = () => {
   const [products, setProducts] = useRecoilState(ProductsAtom);
@@ -26,12 +25,9 @@ const useProductsData = () => {
     );
   };
 
-  const productsActiveReadOnly = products.products.filter((product) => product.active);
+  const AllProducts = products.products;
+  const productsActive = products.products.filter((product) => product.active);
 
-  const productsActive= productsActiveReadOnly.map((product)=>{
-    return JSON.parse(JSON.stringify(product))
-  })
-
-  return { getProducts, productsActive };
+  return { getProducts, productsActive, AllProducts };
 };
 export default useProductsData;

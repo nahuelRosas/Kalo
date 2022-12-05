@@ -25,7 +25,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { FilterState } from "../../atoms/filterAtom";
 import { searchAtom } from "../../atoms/SearchAtom";
 import useProductsData from "../../hooks/useProductsData";
-import category from "../../pages/AllProducts/[category]";
+import category from "../../pages/allproducts/[category]";
 
 export default function SimpleSidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -125,11 +125,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         alignItems="center"
         mx="8"
         justifyContent="space-between"></Flex>
-      <Select>
+     {/*  <Select>
         <option value="bestSellers">Best Sellers</option>
         <option value="lowPrice">Low Price</option>
         <option value="highPrice">High Price</option>
-      </Select>
+      </Select> */}
 
       <Text align="center" mt={6} fontWeight="semibold">
         Gender
@@ -166,6 +166,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           min={0}
           max={50}
           step={5}
+          value={selectedPrice}
           colorScheme="purple"
           onChange={handleFilterPrice}>
           <RangeSliderTrack>

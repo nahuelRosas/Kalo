@@ -21,11 +21,7 @@ const FlexPropComponent = ({
       width: "100%",
     };
   }
-  if (typePrototype === "images" && !compound)
-    configFlex = {
-      width: "100%",
-      bg,
-    };
+
   if (typePrototype === "select" || typePrototype === "createSelect") {
     configFlex = {
       ...configFlex,

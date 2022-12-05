@@ -1,14 +1,11 @@
-import { Flex, Box, keyframes, Avatar } from "@chakra-ui/react";
-import { User } from "firebase/auth";
+import { Avatar, Box, Flex, keyframes, Center } from "@chakra-ui/react";
 import React from "react";
+import useUserData from "../../../hooks/useUserData";
 
-type AvatarProps = {
-  photoURL?: string | null;
-};
-
-const AvatarComponent: React.FC<AvatarProps> = ({ photoURL }) => {
+const AvatarComponent: React.FC = () => {
+  const { userData } = useUserData();
   const size = "8rem";
-  const src = photoURL || undefined;
+  const src = userData?.photoURL || undefined;
   const pulseRing = keyframes`
     0% {
       transform: scale(0.33);
@@ -21,15 +18,9 @@ const AvatarComponent: React.FC<AvatarProps> = ({ photoURL }) => {
       opacity: 0;
     }
     `;
-  const pulseStatus = photoURL ? "block" : "none";
+  const pulseStatus = src ? "flex" : "none";
   return (
-    <Flex
-      justifyContent="center"
-      alignItems="center"
-      h="10rem"
-      w="full"
-      mt={3}
-      mb={{ base: 0, md: 1 }}>
+    <Center justifyContent="center" alignItems="center" w="full">
       <Box
         as="div"
         position="relative"
@@ -48,9 +39,9 @@ const AvatarComponent: React.FC<AvatarProps> = ({ photoURL }) => {
           bgColor: "purple",
           animation: `2.25s ${pulseRing} cubic-bezier(0.455, 0.03, 0.515, 0.955) -0.4s infinite`,
         }}>
-        <Avatar src={src} size="2xl" position="absolute" top={0} />
+        <Avatar src={src} size="2xl" position="absolute" top={0} left={0} />
       </Box>
-    </Flex>
+    </Center>
   );
 };
 export default AvatarComponent;

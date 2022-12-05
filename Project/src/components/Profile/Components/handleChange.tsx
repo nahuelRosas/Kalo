@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 import { RecoilState, useRecoilState } from "recoil";
 
 type handleChangeProps = {
@@ -9,14 +9,26 @@ type handleChangeProps = {
 
 const HandleChange = ({ stateAtom, label, type }: handleChangeProps) => {
   const [value, setValue] = useRecoilState(stateAtom);
-  const labelParse = label.toLowerCase().split(" ").join("");
+  const [Loading, setLoading] = useState(false);
+  const [dontRepet, setDontRepet] = useState(false);
+  let labelParse = label.toLowerCase().split(" ").join("");
+  if (label === "Display Name") labelParse = "displayName";
+  if (label === "Phone Number") labelParse = "phoneNumber";
+
   const [state, setState] = useState(value[labelParse]);
 
   useEffect(() => {
-    if (value[labelParse] !== state) {
+    if (value && value[labelParse] && !dontRepet) {
+      setState(value[labelParse]);
+      setDontRepet(true);
+    }
+  }, [Loading, dontRepet, labelParse, state, value]);
+
+  useEffect(() => {
+    if (value[labelParse] !== state && Loading === true) {
       setValue({ ...value, [labelParse]: state });
     }
-  }, [value, labelParse, setValue, state, setState, stateAtom]);
+  }, [value, labelParse, setValue, state, setState, stateAtom, Loading]);
 
   const onChange = (e: any) => {
     if (e.target || typeof e === "number") {
@@ -37,7 +49,7 @@ const HandleChange = ({ stateAtom, label, type }: handleChangeProps) => {
           setState(newState);
         } else {
           const files = Array.from(e.target.files as Iterable<File> | FileList);
-          const images = files.map((file) => {
+          files.map((file) => {
             const reader = new FileReader();
             const _file: any = file;
             reader.onload = () => {
@@ -53,6 +65,7 @@ const HandleChange = ({ stateAtom, label, type }: handleChangeProps) => {
     } else {
       setState(e);
     }
+    setLoading(true);
   };
 
   return { value: state, onChange };

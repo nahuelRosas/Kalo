@@ -1,15 +1,26 @@
 import React from "react";
 import { useRouter } from "next/router";
-import ProductDetailComponent from "../../components/Products/ProductDetail/ProductDetail";
+import ProductDetail from "../../components/Products/ProductDetail/ProductDetail";
+import { DocumentData } from "@firebase/firestore-types";
+import useProductsData from "../../hooks/useProductsData";
 
-const ProductDetail: React.FC = () => {
+type ProductDetailsProps = {
+  product: DocumentData;
+};
+
+const ProductDetails: React.FC<ProductDetailsProps> = () => {
   const router = useRouter();
   const { id } = router.query;
+  const { productsActive } = useProductsData();
 
   return (
     <div>
-      <ProductDetailComponent id={id} product={{}} />
+      {productsActive.map((product: DocumentData, index: number) => {
+        if (product.id === id) {
+          return <ProductDetail key={index} id={id} product={product} />;
+        }
+      })}
     </div>
   );
 };
-export default ProductDetail;
+export default ProductDetails;

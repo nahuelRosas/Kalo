@@ -23,14 +23,13 @@ const Navbar: React.FC = () => {
       py={4}
       bg={useColorModeValue("white", "gray.800")}
       color={useColorModeValue("gray.600", "white")}
-      boxShadow="xl"
-    >
-      <MobileCategories/>
+      boxShadow="xl">
+      <MobileCategories />
       <LogoCompany />
       <SearchInput />
       <Flex>
         <Cart />
-        <WishList />
+        {/* <WishList /> */}
         <RightContent user={user} />
       </Flex>
     </Flex>

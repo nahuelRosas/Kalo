@@ -5,9 +5,10 @@ type gridProps = {
   children: React.ReactNode | null;
   columns?: number;
   spacing?: number;
-  typeGrid?: "grid" | "simpleGrid";
+  typeGrid?: "grid" | "simpleGrid" | "gridRows" | "gridColumns";
   templateColumns?: string;
   noFormat?: boolean;
+  templateRows?: string;
 };
 
 const GridComponent: React.FC<gridProps> = ({
@@ -17,6 +18,7 @@ const GridComponent: React.FC<gridProps> = ({
   typeGrid = "simpleGrid",
   templateColumns = "repeat(2, 1fr)",
   noFormat = false,
+  templateRows = undefined,
 }) => {
   const bg = useColorModeValue("gray.50", "gray.700");
 
@@ -41,7 +43,20 @@ const GridComponent: React.FC<gridProps> = ({
         </SimpleGrid>
       )}
       {typeGrid === "grid" && (
-        <Grid templateColumns={templateColumns} gap={spacing} width="100%">
+        <Grid
+          templateColumns={templateColumns}
+          templateRows={templateRows}
+          gap={spacing}
+          width="100%">
+          {children}
+        </Grid>
+      )}
+      {typeGrid === "gridRows" && (
+        <Grid
+          templateColumns="1fr"
+          templateRows={templateRows}
+          gap={spacing}
+          width="100%">
           {children}
         </Grid>
       )}

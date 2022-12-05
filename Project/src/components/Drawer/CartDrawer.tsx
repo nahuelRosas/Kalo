@@ -25,6 +25,8 @@ import ProductCard from '../Products/index';
 import CardCart from '../Cart/CardCart';
 import CheckOutDrawer from './CheckOut';
 import { cartState, cartTotal } from "../../atoms/cartItemAtom";
+import Precheckout from './Precheckout'
+
 
 const CartDrawer: React.FC = () => {
   const [drawerState, setDrawerState] = useRecoilState(CartDrawerAtom);
@@ -40,7 +42,7 @@ const CartDrawer: React.FC = () => {
   }, [setDrawerState]);
 
  
-  const bg = useColorModeValue("white", "gray.800");
+  const bg = useColorModeValue("gray.100", "gray.900");
 
   return (
     <>
@@ -49,9 +51,10 @@ const CartDrawer: React.FC = () => {
         placement="right"
         onClose={handleClose}
         size="lg"
+        
       >
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent bg={bg}>
           <DrawerCloseButton />
           <DrawerHeader textAlign={"center"}>
             {drawerState.type === "cart" && `Your order ( ${cartItems.length} )`}
@@ -94,6 +97,10 @@ const CartDrawer: React.FC = () => {
           {drawerState.type === "checkout" && (
             <CheckOutDrawer />
           )}
+          {drawerState.type === "preCheckout" && (
+            <Precheckout />
+          )}
+           
         </DrawerContent>
       </Drawer>
     </>

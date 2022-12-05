@@ -21,25 +21,26 @@ type CardCartProps = {
 };
 
 const CardCart: React.FC<CardCartProps> = ({ product, index}) => {
-  const [cart, setCart] = useRecoilState(cartState);
-  
   const bg = useColorModeValue("white", "gray.800");
+  const [cart, setCart] = useRecoilState(cartState);
   const toast = useToast();
   
+  const partialTotal = (product.item.prices[0].unit_amount * product.quantity ) ;
 
   const increaseQuantity = (item:any) => {
     const newCart = addToCart(cart, product); 
     setCart(newCart as never[]); 
        
   };
-
-
   
+
   const decreaseQuantity = (item:any) => {
     
     const newCart = DecreaseQuantity(cart,product);
     setCart(newCart as never[])
   };
+  
+  
   const handleDelete = () => {
     
     const newCartItems = cart.filter(item=> item.id !== product.id);
@@ -54,10 +55,8 @@ const CardCart: React.FC<CardCartProps> = ({ product, index}) => {
     setCart(newCartItems);
   };
   
-  const partialTotal = (product.item.prices[0].unit_amount * product.quantity ) ;
-
   return (
-    <Box key={product.item.id} p={5} shadow="md" bg={bg} borderRadius={"md"}>
+    <Box key={product.item.id} m='2' p={5} shadow="md" bg={bg} borderRadius={"md"}>
       <Grid templateColumns="repeat(2, 1fr)">
         <Image
           src={product.item.images[0]}

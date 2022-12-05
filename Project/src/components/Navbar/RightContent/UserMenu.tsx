@@ -7,9 +7,9 @@ import {
   useBreakpointValue,
   useColorMode,
   useColorModeValue,
-  useToast,
+  useToast
 } from "@chakra-ui/react";
-import { signOut, User } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import React from "react";
 import {
   FiCheckSquare,
@@ -18,22 +18,17 @@ import {
   FiMoon,
   FiShoppingCart,
   FiSun,
-  FiUser,
+  FiUser
 } from "react-icons/fi";
 import { useSetRecoilState } from "recoil";
 import { CartDrawerAtom } from "../../../atoms/cartDrawerAtom";
-import { WishListDrawerAtom } from "../../../atoms/wishListDrawerAtom";
 import { auth } from "../../../firebase/clientApp";
-import CartDrawer from "../../Drawer/CartDrawer";
-import WishListDrawer from "../../Drawer/WishListDrawer";
-import ButtonContent from "./buttonContent";
+import useUserData from "../../../hooks/useUserData";
 import ItemMenu from "./itemMenu";
 
-type UserMenuProps = {
-  user?: User | null;
-};
+const UserMenu: React.FC = () => {
+  const { userData } = useUserData();
 
-const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue("Dark", "Light");
   const toast = useToast();
@@ -64,10 +59,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
   }) as string;
 
   const setCartDrawerState = useSetRecoilState(CartDrawerAtom);
-  const src =
-    user?.photoURL ||
-    "https://res.cloudinary.com/dlcilp6vw/image/upload/v1667478654/avatars/isemxk5z1opyiwbu9fao.svg";
-
+  const src = userData?.photoURL;
   return (
     <>
       {/*  <ButtonContent state={CartDrawerAtom} icon={FiShoppingCart} type={"cart"}>

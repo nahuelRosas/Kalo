@@ -1,25 +1,21 @@
 import { Container, Flex, useColorModeValue } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/clientApp";
 import { itemMenuTitle } from "../../utils/constant";
 import BaseComponent from "./Components";
-import CreateProduct from "./Components/CreateProduct";
+import CreateProduct from "./CreateProduct";
+import EditProduct from "./EditProduct/index";
+import EditProfile from "./EditProfile";
 import Base from "./lateralMenu/Base";
+import Products from "./Products";
 
 type indexProps = {
   type: string;
 };
 const Index: React.FC<indexProps> = ({ type }) => {
   const [user] = useAuthState(auth);
-  const router = useRouter();
-  // useEffect(() => {
-  //   new Promise((resolve) => setTimeout(resolve, 5000));
-  //   if (!user) {
-  //     router.push("/");
-  //   }
-  // }, [router, user]);
+
   return (
     <Container
       maxW="container.xxl"
@@ -35,6 +31,9 @@ const Index: React.FC<indexProps> = ({ type }) => {
           {type === itemMenuTitle["AdmcreateProduct"] ? (
             <CreateProduct />
           ) : null}
+          {type === itemMenuTitle["AdmeditProduct"] ? <EditProduct /> : null}
+          {type === itemMenuTitle["Admproducts"] ? <Products /> : null}
+          {type === itemMenuTitle["profile"] ? <EditProfile /> : null}
         </BaseComponent>
       </Flex>
     </Container>

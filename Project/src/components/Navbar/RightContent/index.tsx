@@ -12,7 +12,7 @@ const RightContent: React.FC<RightContentProps> = ({ user }) => {
   return (
     <>
       <AuthModal />
-      <Flex>{!user ? <AuthButtons /> : <UserMenu user={user} />}</Flex>
+      <Flex>{!user ? <AuthButtons /> : <UserMenu />}</Flex>
     </>
   );
 };

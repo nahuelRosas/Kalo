@@ -46,7 +46,7 @@ const SearchInput: React.FC<SearchInputProps> = () => {
           onChange={(e) => setSearch(e.target.value as unknown as SearchState)}
         />
         <InputRightElement>
-          <Link href={`/AllProducts/${search}`}>
+          <Link href={`/allproducts/${search}`}>
             <IconButton
               aria-label="Search database"
               icon={<SearchIcon />}
@@ -101,12 +101,14 @@ const SearchInput: React.FC<SearchInputProps> = () => {
                   }
                 />
                 <InputRightElement>
+                <Link href={`/allproducts/${search}`}>
                   <IconButton
                     aria-label="Search database"
                     icon={<SearchIcon />}
                     variant="ghost"
                     isRound={true}
                     colorScheme="purple"></IconButton>
+                    </Link>
                 </InputRightElement>
               </InputGroup>
             </DrawerBody>

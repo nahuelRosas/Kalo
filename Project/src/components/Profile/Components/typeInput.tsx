@@ -30,6 +30,7 @@ type typeInputProps = {
   stateAtom: RecoilState<any>;
   label: string;
   dependence?: any;
+  withOutPreview?: boolean;
 };
 
 const TypeInput: React.FC<typeInputProps> = ({
@@ -41,6 +42,7 @@ const TypeInput: React.FC<typeInputProps> = ({
   stateAtom,
   label = "None",
   dependence,
+  withOutPreview,
 }) => {
   const bgInput = useColorModeValue("alphaWhite", "gray.800");
   const type =
@@ -51,6 +53,8 @@ const TypeInput: React.FC<typeInputProps> = ({
       : typePrototype === "Images"
       ? "images"
       : "string";
+
+  const BgVStack = useColorModeValue("gray.50", "gray.700");
   const { value, onChange } = handleChange({
     stateAtom,
     label,
@@ -115,11 +119,10 @@ const TypeInput: React.FC<typeInputProps> = ({
           align="center"
           px={0}
           py={0}
-          bg={bgInput}
-          borderBottomWidth="1px">
+          bg={BgVStack}>
           <InputGroup
             size="md"
-            bg={bgInput}
+            bg={BgVStack}
             borderRadius="md"
             color="gray.500"
             fontSize="sm"
@@ -148,10 +151,12 @@ const TypeInput: React.FC<typeInputProps> = ({
               }}
             />
           </InputGroup>
-          <PreviewImage
-            stateAtom={stateAtom as RecoilState<{ images: string[] }>}
-            onChange={onChange}
-          />
+          {withOutPreview ? null : (
+            <PreviewImage
+              stateAtom={stateAtom as RecoilState<{ images: string[] }>}
+              onChange={onChange}
+            />
+          )}
         </VStack>
       </>
     );
@@ -165,7 +170,7 @@ const TypeInput: React.FC<typeInputProps> = ({
       type={typeInput}
       placeholder={placeholder}
       onChange={onChange}
-      value={value}
+      value={value === null || value === undefined ? "" : value}
       bg={bgInput}
     />
   );

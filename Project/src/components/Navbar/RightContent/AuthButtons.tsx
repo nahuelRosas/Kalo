@@ -25,8 +25,6 @@ import { FaUser } from "react-icons/fa";
 import { CartDrawerAtom } from "../../../atoms/cartDrawerAtom";
 import { WishListDrawerAtom } from "../../../atoms/wishListDrawerAtom";
 import { MdFavorite } from "react-icons/md";
-import { cartState } from "../../../atoms/cartAtom";
-
 const AuthButtons: React.FC = () => {
   const setAuthModalState = useSetRecoilState(AuthModalState);
   const setCartDrawerState = useSetRecoilState(CartDrawerAtom);
@@ -35,7 +33,6 @@ const AuthButtons: React.FC = () => {
   const text = useColorModeValue("Dark", "Light");
 
   const display = useBreakpointValue({ base: "flex", md: "none" });
-  //const cartItems = useRecoilState(cartState)
 
   return (
     <>

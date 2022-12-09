@@ -2,7 +2,7 @@ import { Container, useColorModeValue } from "@chakra-ui/react";
 import { useEffect } from "react";
 import Banner from "../components/Home/Banner";
 import Carousels from "../components/Home/Carousels";
-import Publicity from "../components/Home/publicity";
+import Publicity from "../components/Home/advertising";
 
 export default function Home() {
   useEffect(() => {

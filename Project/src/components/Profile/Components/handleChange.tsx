@@ -61,7 +61,12 @@ const HandleChange = ({ stateAtom, label, type }: handleChangeProps) => {
             reader.readAsDataURL(_file);
           });
         }
-      } else setState(value);
+      } 
+      else if (type === "subElement"){
+        const { name, value } = e.target;
+        setState((oldState: any) => ({ ...oldState, [name]: value }));
+      }
+      else setState(value);
     } else {
       setState(e);
     }

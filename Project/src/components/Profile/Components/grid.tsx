@@ -9,6 +9,7 @@ type gridProps = {
   templateColumns?: string;
   noFormat?: boolean;
   templateRows?: string;
+  bgProps?: { light: string; dark: string };
 };
 
 const GridComponent: React.FC<gridProps> = ({
@@ -19,8 +20,9 @@ const GridComponent: React.FC<gridProps> = ({
   templateColumns = "repeat(2, 1fr)",
   noFormat = false,
   templateRows = undefined,
+  bgProps,
 }) => {
-  const bg = useColorModeValue("gray.50", "gray.700");
+  const bg = useColorModeValue(bgProps || "gray.50", "gray.700");
 
   let propsFlex = {};
   if (!noFormat) {

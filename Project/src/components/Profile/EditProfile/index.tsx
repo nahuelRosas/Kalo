@@ -10,18 +10,15 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import useUserData from "../../../hooks/useUserData";
+import { useRecoilState } from "recoil";
 import { UserAtom } from "../../../atoms/userDataAtom";
+import useUserData from "../../../hooks/useUserData";
 import EditPhotoProfile from "../../Modal/EditProfile/EditPhotoProfile";
 import GridComponent from "../Components/grid";
 import InputComponent from "../Components/InputComponent";
-import { useRecoilState } from "recoil";
 import UpdateDocumentProfile from "../Components/UpdateDocumentProfile";
 const EditProfile: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const [value, setValue] = useRecoilState(UserAtom);
-
   const bg = useColorModeValue("white", "gray.800");
   const { userData } = useUserData();
   if (!userData) {
@@ -85,11 +82,57 @@ const EditProfile: React.FC = () => {
                 compound
                 stateAtom={UserAtom}
               />
+              <InputComponent
+                label="address"
+                placeholder="City"
+                title="City"
+                subElementState="city"
+                compound
+                stateAtom={UserAtom}
+              />
+              <InputComponent
+                label="address"
+                placeholder="State"
+                title="State"
+                subElementState="state"
+                compound
+                stateAtom={UserAtom}
+              />
+              <InputComponent
+                label="address"
+                placeholder="Country"
+                title="Country"
+                subElementState="country"
+                compound
+                stateAtom={UserAtom}
+              />
+              <InputComponent
+                label="address"
+                placeholder="Postal Code"
+                title="Postal Code"
+                subElementState="postal_code"
+                compound
+                stateAtom={UserAtom}
+              />
             </GridComponent>
 
-            <GridComponent>
-              <UpdateDocumentProfile />
-            </GridComponent>
+            <InputComponent
+              label="address"
+              placeholder="Line 1"
+              title="Line 1"
+              subElementState="line1"
+              stateAtom={UserAtom}
+            />
+            <InputComponent
+              label="address"
+              placeholder="Line 2"
+              title="Line 2"
+              subElementState="line2"
+              stateAtom={UserAtom}
+            />
+            <Flex justify="center" align="center" direction="column" mt={5}>
+              <UpdateDocumentProfile w="30%" />
+            </Flex>
           </Box>
         </VStack>
       </Box>

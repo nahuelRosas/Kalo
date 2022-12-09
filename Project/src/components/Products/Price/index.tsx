@@ -5,7 +5,7 @@ import Price from "./price";
 import SalePrice from "./salePrice";
 
 type priceTagProps = {
-  currency: string;
+  
   price: number;
   salePrice?: number;
   rootProps?: StackProps;
@@ -14,7 +14,7 @@ type priceTagProps = {
 };
 
 const PriceTag: React.FC<priceTagProps> = ({
-  currency,
+  
   price,
   salePrice,
   rootProps,
@@ -26,12 +26,12 @@ const PriceTag: React.FC<priceTagProps> = ({
       <Price isOnSale={!!salePrice} textProps={priceProps}>
         {formatPrice({
           value: price,
-          currency,
+         
         })}
       </Price>
       {salePrice && (
         <SalePrice {...salePriceProps}>
-          {formatPrice({ value: salePrice, currency })}
+          {formatPrice({ value: salePrice  })}
         </SalePrice>
       )}
     </HStack>

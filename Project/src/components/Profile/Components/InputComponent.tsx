@@ -33,6 +33,7 @@ type inputProps = {
   dependence?: object;
   withOutPreview?: boolean;
   title?: string;
+  subElementState?: string;
 };
 
 const InputComponent: React.FC<inputProps> = ({
@@ -50,6 +51,7 @@ const InputComponent: React.FC<inputProps> = ({
   configFormControl,
   dependence,
   withOutPreview,
+  subElementState,
   title,
 }) => {
   const configFlex = FlexPropComponent({ compound, typePrototype });
@@ -64,6 +66,7 @@ const InputComponent: React.FC<inputProps> = ({
           <FormLabel fontWeight={600}>{Title}</FormLabel>
           <TypeInput
             typePrototype={typePrototype}
+            subElementState={subElementState}
             stateAtom={stateAtom}
             label={label}
             options={options}

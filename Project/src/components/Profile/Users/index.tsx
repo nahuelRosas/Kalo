@@ -22,10 +22,11 @@ import {
 } from "@chakra-ui/react";
 import { Select } from "chakra-react-select";
 import { Timestamp } from "firebase/firestore";
-import FormatPrice from "../../Products/Price/formatPrice";
+import { ReactElement, JSXElementConstructor, ReactFragment } from "react";
+import useUserData from "../../../hooks/useUserData";
 import ChangeState from "../Components/changeState";
-import Filter from "../Components/filterProducts";
-const ProductsList: React.FC = () => {
+import Filter from "../Components/filterusers";
+const UsersList: React.FC = () => {
   const { results, handleChange, searchTerm, setContextSearch } = Filter();
   const bg = useColorModeValue("white", "gray.800");
   const bgBox = useColorModeValue("white", "gray.700");
@@ -70,12 +71,19 @@ const ProductsList: React.FC = () => {
           <Select
             placeholder="Select Filter"
             defaultValue={{ value: "all", label: "All" }}
+            styles={{
+              input: (provided) => ({
+                ...provided,
+                zIndex: 999,
+              }),
+            }}
             options={[
               { value: "all", label: "All" },
-              { value: "name", label: "Name" },
-              { value: "price", label: "Price" },
-              { value: "stock", label: "Stock" },
-              { value: "id", label: "ID" },
+              { value: "displayName", label: "Name" },
+              { value: "email", label: "Email" },
+              { value: "phoneNumber", label: "Phone Number" },
+              { value: "uid", label: "UID" },
+              { value: "stripeId", label: "Stripe ID" },
               { value: "date", label: "Date" },
             ]}
             onChange={(e) => (e ? setContextSearch(e.value) : "all")}
@@ -84,67 +92,53 @@ const ProductsList: React.FC = () => {
         <TableContainer
           as={Box}
           maxW="full"
+          minH="50vh"
           overflowX="auto"
           bg={results.length > 0 ? bg : bgBox}>
           <Table variant="striped" colorScheme="purple">
-            <TableCaption>Products</TableCaption>
+            <TableCaption>Users</TableCaption>
             <Thead>
               <Tr>
-                <Th>Product</Th>
-                <Th>Price</Th>
-                <Th>Stock</Th>
-                <Th>ID</Th>
-                <Th>Date Relased</Th>
+                <Th>Name</Th>
+                <Th>Email</Th>
+                <Th>Phone Number</Th>
+                <Th>UID</Th>
+                <Th>Stripe ID</Th>
+                <Th>Date</Th>
                 <Th>Active</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {results &&
-                results.map((product, index: number) => {
-                  const date: Timestamp = product?.createdAt || Timestamp.now();
-                  return (
-                    <Tr key={index}>
-                      <Td>
-                        <Text overflow="hidden">
-                          {product?.name?.length > 20
-                            ? product.name.slice(0, 20) + "..."
-                            : product.name}
-                        </Text>
-                      </Td>
-                      <Td>
-                        {FormatPrice({
-                          value: product?.price,
-                          locale: "en-GB",
-                          currency: "EUR",
-                        })}
-                      </Td>
-                      <Td>{product.stock}</Td>
-                      <Td>{product.id}</Td>
-                      <Td>
-                        {date?.toDate().toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </Td>
-                      <Td>
-                        <ChangeState
-                          id={product.id}
-                          defaultChecked={product.active}
-                        />
-                      </Td>
-                    </Tr>
-                  );
-                })}
+              {results.map((user) => {
+                const date: Timestamp = user?.createdAt || Timestamp.now();
+                return (
+                  <Tr key={user.uid}>
+                    <Td>{user.displayName}</Td>
+                    <Td>{user.email}</Td>
+                    <Td>{user.phoneNumber || "No Phone"}</Td>
+                    <Td>{user.uid}</Td>
+                    <Td>{user.stripeId}</Td>
+                    <Td>
+                      {date?.toDate().toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </Td>
+                    <Td>{/* <ChangeState user={user} /> */}</Td>
+                  </Tr>
+                );
+              })}
             </Tbody>
 
             <Tfoot>
               <Tr>
-                <Th>Product</Th>
-                <Th>Price</Th>
-                <Th>Stock</Th>
-                <Th>ID</Th>
-                <Th>Date Relased</Th>
+                <Th>Name</Th>
+                <Th>Email</Th>
+                <Th>Phone Number</Th>
+                <Th>UID</Th>
+                <Th>Stripe ID</Th>
+                <Th>Date</Th>
                 <Th>Active</Th>
               </Tr>
             </Tfoot>
@@ -155,4 +149,4 @@ const ProductsList: React.FC = () => {
   );
 };
 
-export default ProductsList;
+export default UsersList;

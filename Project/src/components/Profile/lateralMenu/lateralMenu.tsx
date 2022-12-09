@@ -12,6 +12,7 @@ import {
   FiUser,
   FiUsers,
 } from "react-icons/fi";
+import useUserData from "../../../hooks/useUserData";
 import ItemMenu from "./itemMenu";
 import TitleMenu from "./titleMenu";
 type LateralMenuProps = {
@@ -19,6 +20,7 @@ type LateralMenuProps = {
 };
 
 const LateralMenu: React.FC<LateralMenuProps> = ({ currentComponent }) => {
+  const { isAdmin } = useUserData();
   return (
     <Box
       display={{ base: "none", md: "block" }}
@@ -58,43 +60,47 @@ const LateralMenu: React.FC<LateralMenuProps> = ({ currentComponent }) => {
         href="/configuration/wishlist"
         state={currentComponent === "Wishlist"}
       /> */}
-      <TitleMenu title="Admin" />
-      <ItemMenu
-        title="Products"
-        icon={FiPackage}
-        href="/configuration/admin/Admproducts"
-        state={currentComponent === "ADMIN — Products"}
-      />
-      <ItemMenu
-        title="Create Product"
-        icon={FiFilePlus}
-        href="/configuration/admin/AdmcreateProduct"
-        state={currentComponent === "ADMIN — Create Product"}
-      />
-      {/* <ItemMenu
-        title="Edit Product"
-        icon={FiEdit}
-        href="/configuration/admin/AdmeditProduct"
-        state={currentComponent === "ADMIN — Edit Product"}
-      />
-      <ItemMenu
-        title="Categories"
-        icon={FiGrid}
-        href="/configuration/admin/Admcategories"
-        state={currentComponent === "ADMIN — Categories"}
-      />
-      <ItemMenu
-        title="Orders"
-        icon={FiCheckSquare}
-        href="/configuration/admin/Admorders"
-        state={currentComponent === "ADMIN — Orders"}
-      />
-      <ItemMenu
-        title="Users"
-        icon={FiUsers}
-        href="/configuration/admin/Admusers"
-        state={currentComponent === "ADMIN — Users"}
-      /> */}
+      {isAdmin() && (
+        <>
+          <TitleMenu title="Admin" />
+          <ItemMenu
+            title="Products"
+            icon={FiPackage}
+            href="/configuration/admin/Admproducts"
+            state={currentComponent === "ADMIN — Products"}
+          />
+          <ItemMenu
+            title="Create Product"
+            icon={FiFilePlus}
+            href="/configuration/admin/AdmcreateProduct"
+            state={currentComponent === "ADMIN — Create Product"}
+          />
+          {/* <ItemMenu
+          title="Edit Product"
+          icon={FiEdit}
+          href="/configuration/admin/AdmeditProduct"
+          state={currentComponent === "ADMIN — Edit Product"}
+        />
+        <ItemMenu
+          title="Categories"
+          icon={FiGrid}
+          href="/configuration/admin/Admcategories"
+          state={currentComponent === "ADMIN — Categories"}
+        />
+        <ItemMenu
+          title="Orders"
+          icon={FiCheckSquare}
+          href="/configuration/admin/Admorders"
+          state={currentComponent === "ADMIN — Orders"}
+        />*/}
+          <ItemMenu
+            title="Users"
+            icon={FiUsers}
+            href="/configuration/admin/Admusers"
+            state={currentComponent === "ADMIN — Users"}
+          />
+        </>
+      )}
     </Box>
   );
 };

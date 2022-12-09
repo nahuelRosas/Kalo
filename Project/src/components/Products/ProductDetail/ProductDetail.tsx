@@ -1,72 +1,29 @@
 import {
-  Center,
-  useColorModeValue,
-  Spinner,
-  VStack,
-  Flex,
-  Box,
-  Heading,
-  Text,
-  Grid,
-  Divider,
-  Button,
-  IconButton,
-  useToast,
-  Image,
+  Box, Button, Center, Divider, Flex, Grid, IconButton, Image, Text, useColorModeValue, VStack
 } from "@chakra-ui/react";
-import React from "react";
-import useProductsData from "../../../hooks/useProductsData";
-/* import Image from "next/image"; */
-import Carousel from "../../Carousel";
-import PriceTag from "../Price";
-import { MdFavoriteBorder } from "react-icons/md";
-import Sizes from "./Sizes";
 import { DocumentData } from "@firebase/firestore-types";
-import ProductCard from "..";
-import { addToCart, cartState } from "../../../atoms/cartItemAtom";
-import { useRecoilState } from "recoil";
-/* import settings from "../../../"; */
+import React, { useEffect, useState } from "react";
+import { MdFavoriteBorder } from "react-icons/md";
+import useCartData from "../../../hooks/useCartData";
+import PriceTag from "../Price";
+
 export type ProductCardProps = {
-  id: any;
   product: DocumentData;
 };
 
-const ProductDetail: React.FC<ProductCardProps> = ({ id, product }) => {
-
-  const toast = useToast();
-  const bg = useColorModeValue("white", "gray.800");
+const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
   const bgBox = useColorModeValue("white", "gray.700");
-  const bgFlex = useColorModeValue("gray.50", "gray.800");
-  const colorHeading = useColorModeValue("gray.900", "white");
-  const [image, setImage] = React.useState(
-    product?.images[0] ? product?.images[0] : ""
-  );
-  const sizesNumber = [ 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46 ];
-  const [cart, setCart] = useRecoilState(cartState);
-  const handleAddToCart = (item: any) => {
-    const newCart = addToCart(cart, product);
-    setCart(newCart as never[]);
-    toast({
-      title: "Added to cart",
-      description: "We've added the item to your cart",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
-  };
 
-  if (!product)
-    return (
-      <Center h="100vh" bg={bg}>
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="gray.200"
-          color="purple.500"
-          size="xl"
-        />
-      </Center>
-    );
+  const [selectedSize, setSelectedSize] = useState<{
+    label: string;
+    value: string;
+  }>();
+
+  useEffect(() => {
+    setSelectedSize(product.size[0]);
+  }, [product.size]);
+
+  const { addOrIncrementProduct } = useCartData();
 
   return (
     <Center>
@@ -86,7 +43,6 @@ const ProductDetail: React.FC<ProductCardProps> = ({ id, product }) => {
                 }}
               />
               <Grid templateColumns="repeat(1, 1fr)" w={"100%"}>
-                {/* NOMBRE PRODUCTO */}
                 <Box>
                   <Text
                     mt={"4rem"}
@@ -95,13 +51,11 @@ const ProductDetail: React.FC<ProductCardProps> = ({ id, product }) => {
                       base: "3xl",
                       md: "4xl",
                       lg: "5xl",
-                    }}
-                  >
+                    }}>
                     {product?.name}
                   </Text>
                 </Box>
 
-                {/* NUMERO DE ID */}
                 <Box>
                   <Text
                     mb={"1rem"}
@@ -111,22 +65,16 @@ const ProductDetail: React.FC<ProductCardProps> = ({ id, product }) => {
                       md: "xs",
                       lg: "md",
                       xl: "lg",
-                    }}
-                  >
+                    }}>
                     {`Product ID: ${product?.id}`}
                   </Text>
                 </Box>
                 <Divider />
 
-                {/* PRECIO */}
                 <Text ml={"2rem"} mt={"1.5rem"} fontSize={"5xl"}>
-                  <PriceTag
-                    price={product?.prices[0].unit_amount}
-                    currency={product?.prices[0].currency}
-                  />
+                  <PriceTag price={product?.price} />
                 </Text>
 
-                {/* TALLAS */}
                 <Box ml={"1.5rem"}>
                   <Text
                     fontWeight={"bold"}
@@ -134,8 +82,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ id, product }) => {
                       md: "xs",
                       lg: "md",
                       xl: "lg",
-                    }}
-                  >
+                    }}>
                     Sizes:
                   </Text>
                   <Flex
@@ -143,33 +90,40 @@ const ProductDetail: React.FC<ProductCardProps> = ({ id, product }) => {
                     gap={3}
                     mt={2}
                     mb={2}
-                    flexWrap={"wrap"}
-                  >
-                    {sizesNumber.map((size, index) => {
-                      return (
-                        <Sizes
-                          sizesNumber={size}
-                          key={index}
-                          size={0}
-                          setSize={function (): void {
-                            throw new Error("Function not implemented.");
-                          }}
-                        />
-                      );
-                    }, [])}
+                    flexWrap={"wrap"}>
+                    {product?.size.map(
+                      (
+                        size: { value: string; label: string },
+                        index: number
+                      ) => {
+                        return (
+                          <Flex flexDirection={"row"} key={index}>
+                            <Button
+                              borderRadius="full"
+                              p={2}
+                              colorScheme="purple"
+                              size="sm"
+                              onClick={() => setSelectedSize(size)}
+                              bg={
+                                selectedSize === size
+                                  ? "purple.500"
+                                  : "gray.200"
+                              }>
+                              {size.value}
+                            </Button>
+                          </Flex>
+                        );
+                      }
+                    )}
                   </Flex>
                 </Box>
                 <Divider />
 
-                {/* BOTONERA */}
                 <Flex
                   flexDirection={"row"}
                   w={"100%"}
-
-                  justifyContent={"space-between"}
-                >
+                  justifyContent={"space-between"}>
                   <IconButton
-
                     mt={"1rem"}
                     mx={"1rem"}
                     isRound={true}
@@ -185,15 +139,13 @@ const ProductDetail: React.FC<ProductCardProps> = ({ id, product }) => {
                     colorScheme="purple"
                     size="lg"
                     width={"100%"}
-                    onClick={() => handleAddToCart(product)}
-                  >
+                    onClick={() => addOrIncrementProduct(product, selectedSize)}>
                     Add to cart
                   </Button>
                 </Flex>
               </Grid>
             </Flex>
 
-            {/* DESCRIPCION */}
             <Box
               mt={"2rem"}
               ml={"1.5rem"}
@@ -203,8 +155,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ id, product }) => {
                 md: "md",
                 lg: "lg",
                 xl: "xl",
-              }}
-            >
+              }}>
               <Text fontWeight={"bold"}>Description:</Text>
               <Text mt={"1rem"} fontWeight={"light"}>
                 {product?.description}
@@ -212,7 +163,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ id, product }) => {
               <Text mt={"1rem"} fontWeight={"bold"}>
                 Color:
               </Text>
-              <Text mt={"1rem"} fontWeight={"light"}>
+              {/* <Text mt={"1rem"} fontWeight={"light"}>
                 {product?.metadata.Color}
               </Text>
               <Text mt={"1rem"} fontWeight={"bold"}>
@@ -232,31 +183,13 @@ const ProductDetail: React.FC<ProductCardProps> = ({ id, product }) => {
               </Text>
               <Text mt={"1rem"} fontWeight={"light"}>
                 {product?.metadata.Fit}
-              </Text>
+              </Text> */}
             </Box>
           </Flex>
-          {/* );
-            }
-          })} */}
         </Box>
-
-    {/*     <Carousel
-          settings={settings}
-          carouselProps={{
-            display: { base: "none", md: "flex" },
-            mt: "1rem",
-            mb: "5rem",
-            h: "80%",
-          }}
-        >
-          {productsActive.map((product: DocumentData, index: number) => (
-            <ProductCard key={index} product={product} />
-          ))}
-        </Carousel> */}
       </VStack>
     </Center>
   );
 };
-
 
 export default ProductDetail;

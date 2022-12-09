@@ -5,7 +5,7 @@ import SearchInput from "./SearchBar/SearchInput";
 import RightContent from "./RightContent";
 import LogoCompany from "./LogoCompany";
 import { auth } from "../../firebase/clientApp";
-import Cart from "../Cart";
+import Cart from "../Cart/ButtonCart";
 import WishList from "../WishList/index";
 import MobileCategories from "./Categories/MobileCategories";
 

@@ -7,7 +7,7 @@ import {
   useBreakpointValue,
   useColorMode,
   useColorModeValue,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
 import React from "react";
@@ -18,20 +18,21 @@ import {
   FiMoon,
   FiShoppingCart,
   FiSun,
-  FiUser
+  FiUser,
 } from "react-icons/fi";
 import { useSetRecoilState } from "recoil";
 import { CartDrawerAtom } from "../../../atoms/cartDrawerAtom";
 import { auth } from "../../../firebase/clientApp";
 import useUserData from "../../../hooks/useUserData";
 import ItemMenu from "./itemMenu";
+import useCartData from "../../../hooks/useCartData";
 
 const UserMenu: React.FC = () => {
   const { userData } = useUserData();
-
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue("Dark", "Light");
   const toast = useToast();
+  const { clearCart } = useCartData();
   const logOut = () => {
     signOut(auth)
       .then(() => {
@@ -117,6 +118,7 @@ const UserMenu: React.FC = () => {
             icon={FiLogOut}
             onClick={() => {
               logOut();
+              clearCart();
             }}
           />
         </MenuList>

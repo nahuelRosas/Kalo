@@ -3,31 +3,48 @@ import { collection, getDocs } from "firebase/firestore";
 import { useRecoilState } from "recoil";
 import { ProductsAtom } from "../atoms/productsAtom";
 import { firestore } from "../firebase/clientApp";
-
+import { useToast } from "@chakra-ui/react";
 const useProductsData = () => {
   const [products, setProducts] = useRecoilState(ProductsAtom);
+  const toast = useToast();
 
   const getProducts = async () => {
     if (products.isLoadead) return;
-    await getDocs(collection(firestore, "products")).then(
-      async (querySnapshot) => {
-        const products: DocumentData[] = [];
-        for await (const doc of querySnapshot.docs) {
-          const product = doc.data();
-          product.id = doc.id;
-          const priceDoc = await getDocs(collection(doc.ref, "prices"));
-          const prices = priceDoc.docs.map((price) => price.data());
-          product.prices = prices;
-          products.push(product);
+    try {
+      await getDocs(collection(firestore, "ArrayProducts")).then(
+        async (querySnapshot) => {
+          if (querySnapshot.docs.length === 0)
+            throw new Error("ERROR 500: No found products in Firestore");
+          const ArrayProducts = querySnapshot.docs[0].data();
+          const ArrayProductsProducts = ArrayProducts.products;
+          const ArrayProductsProductsActive = ArrayProductsProducts.filter(
+            (product: DocumentData) => product.active
+          );
+          setProducts({
+            products: ArrayProductsProducts,
+            productsActive: ArrayProductsProductsActive,
+            isLoadead: true,
+          });
         }
-        setProducts({ products, isLoadead: true });
-      }
-    );
+      );
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
-  const AllProducts = products.products;
-  const productsActive = products.products.filter((product) => product.active);
+  const productsActive = products.productsActive;
+  const productsAll = products.products;
+  const findProduct = (id: string) => {
+    const product = products.products.find((product) => product.id === id);
+    return product;
+  };
 
-  return { getProducts, productsActive, AllProducts };
+  return { getProducts, productsActive, productsAll, findProduct };
 };
 export default useProductsData;

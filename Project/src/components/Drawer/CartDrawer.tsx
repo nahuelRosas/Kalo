@@ -1,106 +1,36 @@
 import {
   Drawer,
-  DrawerBody,
-  DrawerFooter,
+  DrawerCloseButton,
+  DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  DrawerContent,
-  Button,
-  DrawerCloseButton,
   useColorModeValue,
-  Text,
-  Grid,
-  Box,
-  IconButton,
-  Flex,
 } from "@chakra-ui/react";
-import React, { useCallback, useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { FiArrowDownCircle, FiArrowUpCircle } from "react-icons/fi";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { CartDrawerAtom } from "../../atoms/cartDrawerAtom";
-import { auth } from "../../firebase/clientApp";
-
-import ProductCard from '../Products/index';
-import CardCart from '../Cart/CardCart';
-import CheckOutDrawer from './CheckOut';
-import { cartState, cartTotal } from "../../atoms/cartItemAtom";
-import Precheckout from './Precheckout'
-
-
+import React from "react";
+import useCartData from "../../hooks/useCartData";
+import Cart from "../Cart";
+import Checkout from "../Cart/Checkout";
 const CartDrawer: React.FC = () => {
-  const [drawerState, setDrawerState] = useRecoilState(CartDrawerAtom);
- 
-  const cartItems = useRecoilValue(cartState);
-  const Total= useRecoilValue(cartTotal)
-
-  
-  const [user] = useAuthState(auth);
-
-  const handleClose = useCallback(() => {
-    return setDrawerState((prev) => ({ ...prev, isOpen: false }));
-  }, [setDrawerState]);
-
- 
+  const { Length, toggleDrawer, isOpen, type } = useCartData();
   const bg = useColorModeValue("gray.100", "gray.900");
 
   return (
     <>
       <Drawer
-        isOpen={drawerState.isOpen}
+        isOpen={isOpen}
         placement="right"
-        onClose={handleClose}
-        size="lg"
-        
-      >
+        onClose={toggleDrawer}
+        size="lg">
         <DrawerOverlay />
         <DrawerContent bg={bg}>
           <DrawerCloseButton />
           <DrawerHeader textAlign={"center"}>
-            {drawerState.type === "cart" && `Your order ( ${cartItems.length} )`}
-            {drawerState.type === "checkout" && `Complete your Order`}
+            {type === "cart" && `Your order ( ${Length} )`}
+            {type === "precheckout" && `Complete your shipping data`}
+            {type === "checkout" && `Complete your Order`}
           </DrawerHeader>
-          {drawerState.type === "cart" && (
-            <>
-              <DrawerBody>
-                {cartItems.length === 0 ? (
-                  <Text>Your cart is empty</Text>
-                ) : (
-                  <Grid>
-                    {cartItems.map((item:any, index:number) => {
-                      return (
-                        <CardCart key={index} product={item} index={index} />
-                      )
-                    })}
-                  </Grid>
-                )}
-              </DrawerBody>
-              <DrawerFooter>
-                <Flex w="100%" justifyContent="space-between">
-                  SubTotal: ${Total}
-                </Flex>
-
-                <Button
-                  variant="outline"
-                  colorScheme="purple"
-                  mr={3}
-                  onClick={handleClose}
-                >
-                  Cancel
-                </Button>
-                <Button colorScheme="purple" onClick={() => setDrawerState({ isOpen: true, type: "checkout" })}>
-                  Checkout
-                </Button>
-              </DrawerFooter>
-            </>
-          )}
-          {drawerState.type === "checkout" && (
-            <CheckOutDrawer />
-          )}
-          {drawerState.type === "preCheckout" && (
-            <Precheckout />
-          )}
-           
+          {type === "cart" && <Cart />}
+          {type === "checkout" && <Checkout />}
         </DrawerContent>
       </Drawer>
     </>

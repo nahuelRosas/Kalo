@@ -4,8 +4,6 @@ import { Flex } from "@chakra-ui/react";
 import ProductsC from "../../components/AllProducts/Products";
 import SideBar from "../../components/AllProducts/SideBar";
 
-// type productListProps = {};
-
 const category: React.FC /* <productListProps> */ = () => {
   return (
     <Flex>

@@ -9,17 +9,23 @@ import {
   useBreakpointValue,
   useColorMode,
   useColorModeValue,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { AuthModalState } from "../../../atoms/authModalAtom";
-import { useSetRecoilState, useRecoilState } from 'recoil';
-import { FiLogIn, FiUserPlus, FiMoon, FiSun, FiShoppingCart } from "react-icons/fi";
+import { useSetRecoilState, useRecoilState } from "recoil";
+import {
+  FiLogIn,
+  FiUserPlus,
+  FiMoon,
+  FiSun,
+  FiShoppingCart,
+} from "react-icons/fi";
 import ItemMenu from "./itemMenu";
 import { FaUser } from "react-icons/fa";
 import { CartDrawerAtom } from "../../../atoms/cartDrawerAtom";
 import { WishListDrawerAtom } from "../../../atoms/wishListDrawerAtom";
 import { MdFavorite } from "react-icons/md";
-import { cartState } from '../../../atoms/cartItemAtom';
+import { cartState } from "../../../atoms/cartAtom";
 
 const AuthButtons: React.FC = () => {
   const setAuthModalState = useSetRecoilState(AuthModalState);
@@ -30,23 +36,21 @@ const AuthButtons: React.FC = () => {
 
   const display = useBreakpointValue({ base: "flex", md: "none" });
   //const cartItems = useRecoilState(cartState)
-  
+
   return (
     <>
       <Menu
         isLazy
         placement="bottom-end"
         closeOnBlur={true}
-        closeOnSelect={true}
-      >
+        closeOnSelect={true}>
         <MenuButton
           as={IconButton}
           aria-label="Options"
           icon={<FaUser />}
           variant="ghost"
           isRound={true}
-          colorScheme="purple"
-        ></MenuButton>
+          colorScheme="purple"></MenuButton>
         <MenuList>
           <ItemMenu
             title="Login"
@@ -75,8 +79,8 @@ const AuthButtons: React.FC = () => {
             ItemMenuProp={{
               display: display,
             }}
-            />
-          
+          />
+
           <ItemMenu
             title="WishList"
             icon={MdFavorite}
@@ -85,8 +89,7 @@ const AuthButtons: React.FC = () => {
             }
             ItemMenuProp={{
               display: display,
-            }}
-          ></ItemMenu>
+            }}></ItemMenu>
 
           <ItemMenu
             icon={text === "Dark" ? FiMoon : FiSun}

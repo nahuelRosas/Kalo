@@ -6,7 +6,6 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { theme } from "../chakra/theme";
 import Layout from "../components/Layout/Layout";
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>

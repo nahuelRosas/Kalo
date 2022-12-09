@@ -1,49 +1,71 @@
+import {
+  Button,
+  DrawerBody,
+  DrawerFooter,
+  Flex,
+  Grid,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
-import { FiShoppingCart } from "react-icons/fi";
-import { Button, Flex, Text } from "@chakra-ui/react";
-import { IconButton } from "@chakra-ui/react";
-import { useSetRecoilState, useRecoilValue } from "recoil";
-import { CartDrawerAtom } from "../../atoms/cartDrawerAtom";
-import CartDrawer from "../Drawer/CartDrawer";
-import { cartState } from "../../atoms/cartItemAtom";
+import useCartData from "../../hooks/useCartData";
+import useCheckOutSession from "../../hooks/useCheckOutSession";
+import CardCart from "./CardCart";
 
-const Cart = () => {
-  const setCartDrawerState = useSetRecoilState(CartDrawerAtom);
-  const cartItem = useRecoilValue(cartState);
-  const cartItems = Array.from(new Set(cartItem))
+type indexProps = {};
 
-
+const Cart: React.FC<indexProps> = () => {
+  const { Length, TotalPrice, Cart, clearCart, toggleDrawer, changeDrawer } =
+    useCartData();
+  const { getCheckOutSession } = useCheckOutSession();
   return (
     <>
-      <CartDrawer />
-      <Flex display={{ base: "none", md: "flex" }}>
-        <Button
-          onClick={() => setCartDrawerState({ isOpen: true, type: "cart" })}
-          borderRadius={"full"}
-          colorScheme="purple"
-          variant="ghost"
-          size="md"
-          aria-label="cart"
-        >
-          <FiShoppingCart />
-          {cartItems.length > 0 && (
-            <Text
-              mb={5}
-              color={"white"}
-              fontSize={"xs"}
-              bg={"purple.500"}
-              borderRadius={"full"}
-              w={4}
-              h={4}
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"center"}
-            >
-              {cartItems.length}
-            </Text>
-          )}
-        </Button>
-      </Flex>
+      <DrawerBody>
+        {Length === 0 ? (
+          <Text
+            textAlign="center"
+            fontSize="xl"
+            fontWeight="bold"
+            color="gray.500">
+            Your cart is empty
+          </Text>
+        ) : (
+          <Grid>
+            {Cart.map((item, index) => (
+              <CardCart key={index} itemState={item} />
+            ))}
+          </Grid>
+        )}
+      </DrawerBody>
+      <DrawerFooter>
+        <Flex w="100%" justifyContent="space-between" alignItems="center" p={4}>
+          <Text fontSize="xl" fontWeight="bold">
+            Total: {TotalPrice}
+          </Text>
+          <Flex>
+            <Button
+              colorScheme="purple"
+              variant="outline"
+              size="md"
+              mr={2}
+              onClick={() => {
+                clearCart();
+                toggleDrawer();
+              }}>
+              Cancel
+            </Button>
+
+            <Button
+              colorScheme="purple"
+              size="md"
+              onClick={() => {
+                changeDrawer("checkout");
+                getCheckOutSession();
+              }}>
+              Checkout
+            </Button>
+          </Flex>
+        </Flex>
+      </DrawerFooter>
     </>
   );
 };

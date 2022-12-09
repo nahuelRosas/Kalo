@@ -2,6 +2,7 @@ import { Container, Flex, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/clientApp";
+import useUserData from "../../hooks/useUserData";
 import { itemMenuTitle } from "../../utils/constant";
 import BaseComponent from "./Components";
 import CreateProduct from "./CreateProduct";
@@ -9,13 +10,14 @@ import EditProduct from "./EditProduct/index";
 import EditProfile from "./EditProfile";
 import Base from "./lateralMenu/Base";
 import Products from "./Products";
+import Users from "./Users";
 
 type indexProps = {
   type: string;
 };
 const Index: React.FC<indexProps> = ({ type }) => {
   const [user] = useAuthState(auth);
-
+  const { isAdmin } = useUserData();
   return (
     <Container
       maxW="container.xxl"
@@ -28,11 +30,16 @@ const Index: React.FC<indexProps> = ({ type }) => {
         <Base user={user} currentComponent={type} />
 
         <BaseComponent title={type}>
-          {type === itemMenuTitle["AdmcreateProduct"] ? (
+          {type === itemMenuTitle["AdmcreateProduct"] && isAdmin() ? (
             <CreateProduct />
           ) : null}
-          {type === itemMenuTitle["AdmeditProduct"] ? <EditProduct /> : null}
-          {type === itemMenuTitle["Admproducts"] ? <Products /> : null}
+          {type === itemMenuTitle["AdmeditProduct"] && isAdmin() ? (
+            <EditProduct />
+          ) : null}
+          {type === itemMenuTitle["Admusers"] && isAdmin() ? <Users /> : null}
+          {type === itemMenuTitle["Admproducts"] && isAdmin() ? (
+            <Products />
+          ) : null}
           {type === itemMenuTitle["profile"] ? <EditProfile /> : null}
         </BaseComponent>
       </Flex>

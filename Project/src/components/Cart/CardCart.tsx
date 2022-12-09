@@ -1,117 +1,115 @@
 import {
-  Grid,
-  Box,
-  Text,
-  useColorModeValue,
-  Image,
+  Box, Divider,
   Flex,
-  Button,
+  Grid,
+  IconButton,
+  Image, Spinner, Text,
+  useColorModeValue
 } from "@chakra-ui/react";
-import React, { useState } from "react";
 import { DocumentData } from "@firebase/firestore-types";
-import { Divider, IconButton } from '@chakra-ui/react';
-import { DeleteIcon } from "@chakra-ui/icons";
-import { useRecoilState } from "recoil";
-import { addToCart, cartState, DecreaseQuantity } from '../../atoms/cartItemAtom';
-import { useToast } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { FiMinusCircle, FiPlusCircle, FiTrash2 } from "react-icons/fi";
+import useCartData from "../../hooks/useCartData";
+import FormatPrice from "../Products/Price/formatPrice";
 
 type CardCartProps = {
-  product: any;
-  index: number
+  itemState: DocumentData;
 };
 
-const CardCart: React.FC<CardCartProps> = ({ product, index}) => {
+const CardCart: React.FC<CardCartProps> = ({ itemState }) => {
   const bg = useColorModeValue("white", "gray.800");
-  const [cart, setCart] = useRecoilState(cartState);
-  const toast = useToast();
-  
-  const partialTotal = (product.item.prices[0].unit_amount * product.quantity ) ;
+  const { price, product, quantity, size } = itemState;
 
-  const increaseQuantity = (item:any) => {
-    const newCart = addToCart(cart, product); 
-    setCart(newCart as never[]); 
-       
-  };
-  
+  const [image, setImage] = useState<string>("");
+  const { addOrIncrementProduct, decrementProduct, deleteProduct } =
+    useCartData();
+  useEffect(() => {
+    const random = Math.floor(Math.random() * product.images.length);
+    setImage(product.images[random]);
+  }, [product.images]);
 
-  const decreaseQuantity = (item:any) => {
-    
-    const newCart = DecreaseQuantity(cart,product);
-    setCart(newCart as never[])
-  };
-  
-  
-  const handleDelete = () => {
-    
-    const newCartItems = cart.filter(item=> item.id !== product.id);
-    toast({
-      title: "Item removed.",
-      description: "We've removed the item from your cart.",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
-    
-    setCart(newCartItems);
-  };
-  
   return (
-    <Box key={product.item.id} m='2' p={5} shadow="md" bg={bg} borderRadius={"md"}>
+    <Box m="2" p={5} shadow="md" bg={bg} borderRadius={"md"}>
       <Grid templateColumns="repeat(2, 1fr)">
         <Image
-          src={product.item.images[0]}
+          src={image}
           borderRadius="md"
           alt="product"
           maxHeight={{ base: "5rem", md: "7rem" }}
           mt={{ base: "8", md: "none" }}
+          fallback={
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="purple.500"
+              size="xl"
+              maxHeight={{ base: "5rem", md: "7rem" }}
+              mt={{ base: "12", md: "none" }}
+              ml={{ base: "10", md: "none" }}
+            />
+          }
         />
         <Flex justifyContent={"flex-start"} ml={-150} direction="column">
           <Flex justify={"flex-end"}>
-
             <IconButton
               aria-label="Delete"
-              _hover={{ bg: "red.500" }}
-              isRound={true}
-              icon={<DeleteIcon />}
-              onClick={handleDelete}
+              _hover={{ bg: "red.300", color: "black" }}
+              isRound
+              icon={<FiTrash2 />}
+              onClick={() => deleteProduct(product, size)}
+              colorScheme="purple"
+              variant="ghost"
+              fontSize="xl"
             />
           </Flex>
           <Text
-            fontSize="lg"
-            fontWeight="bold"
-            justifyContent={"center"}
-            mt={-2.5}
-          >
-            {product.item.name}
+            fontWeight="semibold"
+            mt={{ base: "1", md: "none" }}
+            fontSize={{ base: "sm", md: "lg" }}
+            color={"gray.500"}>
+            {product.name} - {size.label}
           </Text>
           <Flex
             justifyContent={{ base: "flex-end", md: "flex-start" }}
             mt={4}
             ml={6}
-          >
-            <Button
-              onClick={decreaseQuantity}
-              size="sm"
-              maxWidth={"2rem"}
-              _hover={{ background: "purple.300" }}
-            >
-              -
-            </Button>
-            <Text ml={2} mr={2} mt={1.5} fontSize="md">
-              {product.quantity}
+            alignContent={"center"}
+            alignItems={"center"}
+            justifyItems={"center"}>
+            <IconButton
+              onClick={() => decrementProduct(product, size, true)}
+              aria-label="decrement"
+              icon={<FiMinusCircle />}
+              isRound
+              colorScheme="purple"
+              variant="ghost"
+              fontSize="2xl"
+              _hover={{ bg: "red.300", color: "black" }}
+              disabled={quantity <= 0}
+            />
+            <Text fontWeight="semibold" ml={3} mr={3}>
+              {quantity}
             </Text>
-            <Button
-              onClick={increaseQuantity}
-              size="sm"
-              maxWidth={"2rem"}
-              _hover={{ background: "purple.300" }}
-            >
-              +
-            </Button>
+            <IconButton
+              onClick={() => addOrIncrementProduct(product, size, true)}
+              aria-label="increment"
+              icon={<FiPlusCircle />}
+              isRound
+              colorScheme="purple"
+              variant="ghost"
+              fontSize="2xl"
+              _hover={
+                quantity >= product.stock
+                  ? { bg: "red.300", color: "black" }
+                  : { bg: "green.300", color: "black" }
+              }
+              disabled={quantity >= product.stock}
+            />
           </Flex>
           <Flex justifyContent={"flex-end"}>
             <Text fontWeight="semibold" mt={{ base: "6", md: "none" }}>
-              Price: ${partialTotal}.00
+              Price: {FormatPrice({ value: price })}
             </Text>
           </Flex>
         </Flex>

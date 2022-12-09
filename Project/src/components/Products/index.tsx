@@ -14,19 +14,20 @@ import React from "react";
 import PriceTag from "./Price";
 import Rating from "./Rating";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { cartState, cartItem, addToCart } from "../../atoms/cartItemAtom";
+// import { cartState, cartItem, addToCart } from "../../atoms/cartAtom";
+import productsActive from "../../hooks/useProductsData";
 
 type ProductCardProps = {
   product: any;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const [cart, setCart] = useRecoilState(cartState);
+  // const [cart, setCart] = useRecoilState(cartState);
 
-  const handleAddToCart = (item: any) => {
-    const newCart = addToCart(cart, product);
-    setCart(newCart as never[]);
-  };
+  // const handleAddToCart = (item: any) => {
+  //   const newCart = addToCart(cart, product);
+  //   setCart(newCart as never[]);
+  // };
 
   const bg = useColorModeValue("white", "gray.700");
   return (
@@ -74,10 +75,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               h={"1.5rem"}>
               {product?.name}
             </Text>
-            <PriceTag
-              price={product?.prices[0].unit_amount}
-              currency={product?.prices[0].currency}
-            />
+            <PriceTag price={product?.price} />
           </Stack>
           <HStack
             spacing="0.5"

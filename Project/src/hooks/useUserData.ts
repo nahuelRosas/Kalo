@@ -1,12 +1,12 @@
-import { DocumentData } from "@firebase/firestore-types";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilState } from "recoil";
 import { UserAtom } from "../atoms/userDataAtom";
 import { auth, firestore } from "../firebase/clientApp";
-
+import { UsersAtom } from "../atoms/usersAtom";
 const useUserData = () => {
   const [userAtom, setUserAtom] = useRecoilState(UserAtom);
+  const [usersAtom, setUsersAtom] = useRecoilState(UsersAtom);
   const [user] = useAuthState(auth);
 
   const getUserData = async () => {
@@ -18,13 +18,37 @@ const useUserData = () => {
       if (docSnap.exists()) {
         const userData = docSnap.data();
         setUserAtom({ ...userData, isLoadead: true });
+        if (userData.userType.admin) {
+          const usersRef = doc(firestore, "ArrayCustomers", "Array");
+          try {
+            const docSnap = await getDoc(usersRef);
+            if (docSnap.exists()) {
+              const usersData = docSnap.data();
+              const users = usersData.customers;
+              setUsersAtom({ users: users, isLoadead: true });
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  return { getUserData, userData: userAtom };
+  const isAdmin = () => {
+    if (userAtom.userType.admin || userAtom.userType.editor) return true;
+    return false;
+  };
+
+  return {
+    getUserData,
+    userData: userAtom,
+    usersData: usersAtom.users,
+    isAdmin,
+    UID: userAtom.uid,
+  };
 };
 
 export default useUserData;

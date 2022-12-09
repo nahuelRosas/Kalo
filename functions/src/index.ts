@@ -19,110 +19,208 @@ const cloudinaryConfig = {
 };
 
 v2.config(cloudinaryConfig);
-export const onUserCreate = functions.auth.user().onCreate(async (user) => {
-  const {
-    uid,
-    email,
-    displayName,
-    photoURL,
-    phoneNumber,
-    disabled,
-    emailVerified,
-    providerData,
-  } = user;
-  logger.info("User created", {
-    uid,
-    email,
-    displayName,
-  });
-  const userDoc = firestore.collection("customers").doc(uid);
-  const userDocSnapshot = await userDoc.get();
-  while (!userDocSnapshot.exists) {
-    await new Promise((resolve) => setTimeout(resolve, 10000));
-  }
-  await userDoc.update({
-    uid,
-    email,
-    displayName,
-    photoURL,
-    phoneNumber,
-    disabled,
-    emailVerified,
-    providerData,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-    userType: {
-      admin: false,
-      user: true,
-      editor: false,
-    },
-  });
-  logger.info("User created", {
-    uid,
-    email,
-    displayName,
-  });
-});
-
-export const onProductCreate = functions.firestore
+export const createStripeProduct = functions.firestore
     .document("productsFirestore/{productId}")
     .onCreate(async (snap, context) => {
       const product = snap.data();
+      try {
+        const links: string[] = await Promise.all(
+            product.images.map(async (image: Blob) => {
+              const {secure_url} = await v2.uploader.upload(
+            image as unknown as string,
+            {
+              folder: "products",
+            }
+              );
+              return secure_url;
+            })
+        );
+        logger.info("🥳 Created links for images", links);
+        const stripeProduct = await stripe.products.create({
+          active: product.active,
+          name: product.name,
+          description: product.description,
+          images: links,
+          metadata: {
+            firebaseId: context.params.productId,
+          },
+          default_price_data: {
+            currency: "eur",
+            unit_amount: product.price.toString().split(".")[0] * 100,
+            unit_amount_decimal: product.price.toString().split(".")[1],
+          },
+        });
+        logger.info("🥰 Created Stripe product");
+        await snap.ref.update({
+          stripeId: stripeProduct.id,
+          images: links,
+        });
+        logger.info("🥰 Updated Stripe product");
+      } catch (error) {
+        logger.error("🤬 Error creating Stripe product", error);
+      }
+    });
 
-      const links = await Promise.all(
-          product.images.map(async (image: Blob) => {
-            const {secure_url} = await v2.uploader.upload(
-          image as unknown as string,
-          {
-            folder: "products",
-          }
-            );
-            return secure_url;
-          })
+export const updateStripeProduct = functions.firestore
+    .document("products/{productId}")
+    .onCreate(async (snap) => {
+      logger.info("🤨 Updating Stripe product");
+      const product = snap.data();
+      const productStripe = firestore.collection("products").doc(snap.id);
+      const productFirestore = firestore
+          .collection("productsFirestore")
+          .doc(product.stripe_metadata_firebaseId);
+      const productStripeSnapshot = await productStripe.get();
+      const productStripeData = productStripeSnapshot.data();
+      const productFirestoreSnapshot = await productFirestore.get();
+      const productFirestoreData = productFirestoreSnapshot.data();
+      if (!productFirestoreData) {
+        logger.error("💀 No product found in Firestore");
+        return;
+      }
+      logger.debug("🥳 Found product of Firestore", productFirestoreData);
+      const priceSnapshot = await firestore
+          .collection("products")
+          .doc(snap.id)
+          .collection("prices")
+          .get();
+      logger.debug("🥳 Found prices of Firestore", priceSnapshot.docs);
+      const price = priceSnapshot.docs[0].data();
+      logger.debug("🥳 Found price of Firestore", price);
+      productStripe.update({
+        ...productFirestoreData,
+        id: snap.id,
+        images: productStripeData?.images,
+        price: price.unit_amount,
+        priceId: priceSnapshot.docs[0].id,
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      });
+      logger.info("🤩 Updated Stripe Product with data of Firestore");
+    });
+
+export const updateArrayProducts = functions.firestore
+    .document("products/{productId}")
+    .onUpdate(async (snap) => {
+      const product = snap.after.data();
+      const ArrayProducts = firestore.collection("ArrayProducts").doc("Array");
+      let ArrayProductsSnapshot = await ArrayProducts.get();
+      if (!ArrayProductsSnapshot.exists) {
+        await ArrayProducts.set({
+          products: [product],
+        });
+        logger.info("🥳 Created ArrayProducts in Firestore and added product");
+      }
+      ArrayProductsSnapshot = await ArrayProducts.get();
+      const ArrayProductsData = ArrayProductsSnapshot.data();
+      if (!ArrayProductsData) {
+        logger.error("💀 No ArrayProducts found in Firestore");
+        return;
+      }
+      const ArrayProductsDataProducts = ArrayProductsData.products;
+      const productExist = ArrayProductsDataProducts.find(
+          (p: { id: string }) => p.id === product.id
       );
-      const stripeProduct = await stripe.products.create({
-        active: product.active,
-        name: product.name,
-        description: product.description,
-        images: links,
-        metadata: {
-          firebaseId: context.params.productId,
+      logger.info("🥳 We are looking for the product in the array");
+      if (productExist) {
+        const index = ArrayProductsDataProducts.indexOf(productExist);
+        ArrayProductsDataProducts[index] = product;
+        logger.info("🥳 We found the product in the array");
+      }
+      if (!productExist) {
+        ArrayProductsDataProducts.push(product);
+        logger.info("🥳 We didn't find the product in the array");
+      }
+      await ArrayProducts.update({
+        products: ArrayProductsDataProducts,
+      });
+      logger.info("🥳 Updated ArrayProducts in Firestore");
+    });
+
+export const updateCustomers = functions.firestore
+    .document("customers/{customersId}")
+    .onCreate(async (_snap, context) => {
+      const user = await admin.auth().getUser(context.params.customersId);
+      logger.info("🥳 Found user in Auth", user);
+      const {
+        email,
+        displayName,
+        photoURL,
+        phoneNumber,
+        disabled,
+        emailVerified,
+      } = user;
+      const userDoc = firestore
+          .collection("customers")
+          .doc(context.params.customersId);
+      logger.info("🥳 Found customer in Firestore");
+      await userDoc.update({
+        uid: context.params.customersId,
+        email: email || "",
+        displayName: displayName || email?.toString().split("@")[0] || "",
+        photoURL:
+        photoURL ||
+        "https://res.cloudinary.com/dlcilp6vw/image/upload/v1667478654/avatars/isemxk5z1opyiwbu9fao.svg",
+        phoneNumber: phoneNumber || "",
+        disabled: disabled || false,
+        emailVerified: emailVerified || false,
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+        address: {
+          city: "",
+          country: "",
+          line1: "",
+          line2: "",
+          postal_code: "",
+          state: "",
+        },
+        userType: {
+          admin: false,
+          editor: false,
+          user: true,
         },
       });
-      const productDoc = firestore.collection("products").doc(stripeProduct.id);
-      const productDocSnapshot = await productDoc.get();
-      while (!productDocSnapshot.exists) {
-        await new Promise((resolve) => setTimeout(resolve, 10000));
+      logger.info("🥳 Created customer in Firestore");
+    });
+
+export const updateArrayCustomers = functions.firestore
+    .document("customers/{customersId}")
+    .onUpdate(async (snap) => {
+      const customer = snap.after.data();
+      const ArrayCustomers = firestore
+          .collection("ArrayCustomers").doc("Array");
+      let ArrayCustomersSnapshot = await ArrayCustomers.get();
+      if (!ArrayCustomersSnapshot.exists) {
+        await ArrayCustomers.set({
+          customers: [customer],
+        });
+        logger.info("🥳 Created ArrayCustomers in Firestore and added customer");
       }
-      await productDoc.update({
-        ...product,
-        id: stripeProduct.id,
-        images: links,
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
-        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-      });
-      logger.info("Updated product", productDoc);
-      const stripePrice = await stripe.prices.create({
-        product: stripeProduct.id,
-        unit_amount: product.price,
-        currency: "eur",
-      });
-      logger.info("Created Stripe price", stripePrice);
-      const priceDoc = firestore.collection("prices").doc(stripePrice.id);
-      const priceDocSnapshot = await priceDoc.get();
-      while (!priceDocSnapshot.exists) {
-        await new Promise((resolve) => setTimeout(resolve, 60000));
+      ArrayCustomersSnapshot = await ArrayCustomers.get();
+      const ArrayCustomersData = ArrayCustomersSnapshot.data();
+      if (!ArrayCustomersData) {
+        logger.error("💀 No ArrayCustomers found in Firestore");
+        return;
       }
-      await priceDoc.update({
-        ...product,
-        id: stripePrice.id,
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
-        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      const ArrayCustomersDataCustomers = ArrayCustomersData.customers;
+      const customerExist = ArrayCustomersDataCustomers.find(
+          (c: { email: string }) => c.email === customer.email
+      );
+      logger.info(
+          "🥳 We are looking for the customer in the array",
+          customerExist
+      );
+      if (customerExist) {
+        const index = ArrayCustomersDataCustomers.indexOf(customerExist);
+        ArrayCustomersDataCustomers[index] = customer;
+        logger.info("🥳 We found the customer in the array");
+      }
+      if (!customerExist) {
+        ArrayCustomersDataCustomers.push(customer);
+        logger.info("🥳 We didn't find the customer in the array");
+      }
+      await ArrayCustomers.update({
+        customers: ArrayCustomersDataCustomers,
       });
-      logger.info("Updated price", priceDoc);
-      logger.info("Created Stripe product and price", {
-        stripeProduct,
-        stripePrice,
-      });
-      logger.info("Finished creating Stripe product and price");
+      logger.info("🥳 Updated ArrayCustomers in Firestore");
     });

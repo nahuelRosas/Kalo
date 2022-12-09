@@ -1,5 +1,3 @@
-import React from "react";
-
 type formatPriceProps = {
   value: number;
   locale?: string;

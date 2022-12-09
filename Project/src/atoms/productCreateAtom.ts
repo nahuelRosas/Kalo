@@ -1,10 +1,11 @@
 import { atom } from "recoil";
+import { persistAtomEffect } from "./SSRCompleted";
 
 export interface ProductCreateAtom {
+  active: boolean;
   name: string;
   description: string;
   brand: string;
-  active: boolean;
   images: string[];
   unitofmeasurement: {
     label: "ARG" | "UK" | "US" | "EUR";
@@ -17,6 +18,7 @@ export interface ProductCreateAtom {
   price: number;
   style: string;
   recommendedsport: string;
+
   exteriormaterials: string;
   solematerials: string;
   fittype: string;
@@ -67,4 +69,5 @@ export const defaultProductCreateAtom: ProductCreateAtom = {
 export const ProductCreateAtom = atom<ProductCreateAtom>({
   key: "productCreateAtom",
   default: defaultProductCreateAtom,
+  effects_UNSTABLE: [persistAtomEffect],
 });

@@ -1,42 +1,44 @@
-import {
-  MenuItem,
-  useBreakpointValue,
-  Icon,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Flex, IconButton, Text } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
-import { useSetRecoilState } from "recoil";
-import { CartDrawerAtom } from "../../atoms/cartDrawerAtom";
-import React from "react";
+import useCartData from "../../hooks/useCartData";
+import CartDrawer from "../Drawer/CartDrawer";
 
-const ButtonCart = () => {
-  const setCartDrawerState = useSetRecoilState(CartDrawerAtom);
+const Cart = () => {
+  const { Length, toggleDrawer } = useCartData();
 
   return (
     <>
-      <MenuItem
-        width="100%"
-        aria-label="cart"
-        onClick={() => setCartDrawerState({ isOpen: true, type: "cart" })}
-        display={useBreakpointValue({
-          base: "flex",
-          md: "none",
-        })}>
-        <Icon
-          as={FiShoppingCart}
-          boxSize={useBreakpointValue({ base: 4, md: 5 })}
-          color={
-            useColorModeValue("purple.600", "purple.400") as
-              | "purple.600"
-              | "purple.400"
-          }
+      <CartDrawer />
+      <Flex display={{ base: "none", md: "flex" }}>
+        <IconButton
+          onClick={toggleDrawer}
+          colorScheme="purple"
+          isRound
+          variant="ghost"
+          size="md"
+          aria-label="cart"
           mr={2}
-        />
-        <Text>Cart</Text>
-      </MenuItem>
+          ml={2}
+          icon={
+            <>
+              <FiShoppingCart />
+              <Text
+                mb={5}
+                color={"white"}
+                fontSize={"xs"}
+                bg={"purple.500"}
+                borderRadius={"full"}
+                w={4}
+                h={4}
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}>
+                {Length}
+              </Text>
+            </>
+          }></IconButton>
+      </Flex>
     </>
   );
 };
-
-export default ButtonCart;
+export default Cart;

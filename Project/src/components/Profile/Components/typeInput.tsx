@@ -31,6 +31,7 @@ type typeInputProps = {
   label: string;
   dependence?: any;
   withOutPreview?: boolean;
+  subElementState?: string;
 };
 
 const TypeInput: React.FC<typeInputProps> = ({
@@ -43,6 +44,7 @@ const TypeInput: React.FC<typeInputProps> = ({
   label = "None",
   dependence,
   withOutPreview,
+  subElementState = "none",
 }) => {
   const bgInput = useColorModeValue("alphaWhite", "gray.800");
   const type =
@@ -52,6 +54,8 @@ const TypeInput: React.FC<typeInputProps> = ({
       ? "number"
       : typePrototype === "Images"
       ? "images"
+      : subElementState !== "none"
+      ? "subElement"
       : "string";
 
   const BgVStack = useColorModeValue("gray.50", "gray.700");
@@ -60,6 +64,9 @@ const TypeInput: React.FC<typeInputProps> = ({
     label,
     type,
   });
+
+  const StateName: string =
+    subElementState?.toString().toLocaleLowerCase() || "";
 
   const colorScheme = "purple";
   const option = dependence
@@ -163,6 +170,18 @@ const TypeInput: React.FC<typeInputProps> = ({
   if (typePrototype === "Switch")
     return (
       <Switch colorScheme={colorScheme} value={value} onChange={onChange} />
+    );
+  if (subElementState !== "none")
+    return (
+      <Input
+        type={typeInput}
+        placeholder={placeholder}
+        onChange={(e) => {
+          onChange({ target: { value: e.target.value, name: StateName } });
+        }}
+        value={value === null || value === undefined ? "" : value[StateName]}
+        bg={bgInput}
+      />
     );
 
   return (

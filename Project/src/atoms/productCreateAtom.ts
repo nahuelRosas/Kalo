@@ -11,8 +11,7 @@ export interface ProductCreateAtom {
     label: "ARG" | "UK" | "US" | "EUR";
     value: "ARG" | "UK" | "US" | "EUR";
   };
-  size: { label: string; value: string }[];
-  stock: number;
+  subType: { size: { label: string; value: string }; stock: number }[];
   color: string;
   discount: number;
   price: number;
@@ -49,12 +48,11 @@ export const defaultProductCreateAtom: ProductCreateAtom = {
     label: "ARG",
     value: "ARG",
   },
-  size: [],
   color: "",
-  stock: 0,
   discount: 0,
   price: 0,
   style: "",
+  subType: [],
   recommendedsport: "",
   exteriormaterials: "",
   solematerials: "",

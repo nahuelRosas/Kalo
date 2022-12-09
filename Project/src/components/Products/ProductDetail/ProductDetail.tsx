@@ -1,5 +1,15 @@
 import {
-  Box, Button, Center, Divider, Flex, Grid, IconButton, Image, Text, useColorModeValue, VStack
+  Box,
+  Button,
+  Center,
+  Divider,
+  Flex,
+  Grid,
+  IconButton,
+  Image,
+  Text,
+  useColorModeValue,
+  VStack,
 } from "@chakra-ui/react";
 import { DocumentData } from "@firebase/firestore-types";
 import React, { useEffect, useState } from "react";
@@ -139,7 +149,9 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
                     colorScheme="purple"
                     size="lg"
                     width={"100%"}
-                    onClick={() => addOrIncrementProduct(product, selectedSize)}>
+                    onClick={() =>
+                      addOrIncrementProduct(product, selectedSize)
+                    }>
                     Add to cart
                   </Button>
                 </Flex>
@@ -161,7 +173,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
                 {product?.description}
               </Text>
               <Text mt={"1rem"} fontWeight={"bold"}>
-                Color:
+                Color: {product?.color}
               </Text>
               {/* <Text mt={"1rem"} fontWeight={"light"}>
                 {product?.metadata.Color}

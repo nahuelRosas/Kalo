@@ -21,13 +21,13 @@ export const products: ProductCreateAtom[] = [
       label: "ARG",
       value: "ARG",
     },
-    size: [
-      { value: "ARG 36.5", label: "ARG 36.5" },
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 37.5", label: "ARG 37.5" },
-      { value: "ARG 38", label: "ARG 38" },
-      { value: "ARG 38.5", label: "ARG 38.5" },
-      { value: "ARG 39", label: "ARG 39" },
+    subType: [
+      {size:{ value: "ARG 36.5", label: "ARG 36.5" },stock: 10},
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 37.5", label: "ARG 37.5" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
+      {size:{ value: "ARG 38.5", label: "ARG 38.5" },stock: 10},
+      {size:{ value: "ARG 39", label: "ARG 39" },stock: 10},
     ],
 
     price: 23.0,
@@ -43,14 +43,13 @@ export const products: ProductCreateAtom[] = [
 
     color: "White",
     genres: { value: "Women", label: "Women" },
-    agegroup: { value: "Adult", label: "Adult" },
+    agegroup:{ value: "Adult", label: "Adult" },
     exteriormaterials: "synthetic",
     solematerials: "Rubber",
     fittype: "Regular",
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
   },
   {
     active: true,
@@ -89,19 +88,18 @@ export const products: ProductCreateAtom[] = [
 
     color: "Beige",
     genres: { value: "Women", label: "Women" },
-    agegroup: { value: "Adult", label: "Adult" },
+    agegroup:{ value: "Adult", label: "Adult" },
     exteriormaterials: "leather",
     solematerials: "Rubber",
     fittype: "Laced",
     recommendedsport: "Other",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 36.5", label: "ARG 36.5" },
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 37.5", label: "ARG 37.5" },
-      { value: "ARG 38", label: "ARG 38" },
+    subType: [
+      {size:{ value: "ARG 36.5", label: "ARG 36.5" },stock: 10},
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 37.5", label: "ARG 37.5" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -145,17 +143,16 @@ export const products: ProductCreateAtom[] = [
 
     color: "Blue dark",
     genres: { value: "Women", label: "Women" },
-    agegroup: { value: "Adult", label: "Adult" },
+    agegroup:{ value: "Adult", label: "Adult" },
     exteriormaterials: "mesh",
     solematerials: "Rubber",
     fittype: "Laced",
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 36.5", label: "ARG 36.5" },
-      { value: "ARG 37", label: "ARG 37" },
+    subType: [
+      {size:{ value: "ARG 36.5", label: "ARG 36.5" },stock: 10},
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -200,22 +197,21 @@ export const products: ProductCreateAtom[] = [
 
     color: "White and salmon",
     genres: { value: "Women", label: "Women" },
-    agegroup: { value: "Adult", label: "Adult" },
+    agegroup:{ value: "Adult", label: "Adult" },
     exteriormaterials: "other",
     solematerials: "Rubber",
     fittype: "Laced",
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 36.5", label: "ARG 36.5" },
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 37.5", label: "ARG 37.5" },
-      { value: "ARG 38", label: "ARG 38" },
-      { value: "ARG 38.5", label: "ARG 38.5" },
-      { value: "ARG 39", label: "ARG 39" },
-      { value: "ARG 40", label: "ARG 40" },
+    subType: [
+      {size:{ value: "ARG 36.5", label: "ARG 36.5" },stock: 10},
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 37.5", label: "ARG 37.5" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
+      {size:{ value: "ARG 38.5", label: "ARG 38.5" },stock: 10},
+      {size:{ value: "ARG 39", label: "ARG 39" },stock: 10},
+      {size:{ value: "ARG 40", label: "ARG 40" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -269,12 +265,11 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 36.5", label: "ARG 36.5" },
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 37.5", label: "ARG 37.5" },
-      { value: "ARG 39", label: "ARG 39" },
+    subType: [
+      {size:{ value: "ARG 36.5", label: "ARG 36.5" },stock: 10},
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 37.5", label: "ARG 37.5" },stock: 10},
+      {size:{ value: "ARG 39", label: "ARG 39" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -327,11 +322,10 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 36.5", label: "ARG 36.5" },
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 37.5", label: "ARG 37.5" },
+    subType: [
+      {size:{ value: "ARG 36.5", label: "ARG 36.5" },stock: 10},
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 37.5", label: "ARG 37.5" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -385,11 +379,10 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 36.5", label: "ARG 36.5" },
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 37.5", label: "ARG 37.5" },
+    subType: [
+      {size:{ value: "ARG 36.5", label: "ARG 36.5" },stock: 10},
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 37.5", label: "ARG 37.5" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -442,11 +435,10 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 37.5", label: "ARG 37.5" },
-      { value: "ARG 38", label: "ARG 38" },
+    subType: [
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 37.5", label: "ARG 37.5" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -500,11 +492,10 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 37.5", label: "ARG 37.5" },
-      { value: "ARG 38", label: "ARG 38" },
+    subType: [
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 37.5", label: "ARG 37.5" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -557,11 +548,10 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 37.5", label: "ARG 37.5" },
-      { value: "ARG 38", label: "ARG 38" },
+    subType: [
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 37.5", label: "ARG 37.5" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -615,11 +605,10 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 37.5", label: "ARG 37.5" },
-      { value: "ARG 38", label: "ARG 38" },
+    subType: [
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 37.5", label: "ARG 37.5" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -671,14 +660,13 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 37.5", label: "ARG 37.5" },
-      { value: "ARG 38", label: "ARG 38" },
-      { value: "ARG 38.5", label: "ARG 38.5" },
-      { value: "ARG 39", label: "ARG 39" },
-      { value: "ARG 39.5", label: "ARG 39.5" },
+    subType: [
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 37.5", label: "ARG 37.5" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
+      {size:{ value: "ARG 38.5", label: "ARG 38.5" },stock: 10},
+      {size:{ value: "ARG 39", label: "ARG 39" },stock: 10},
+      {size:{ value: "ARG 39.5", label: "ARG 39.5" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -732,18 +720,17 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 39", label: "ARG 39" },
-      { value: "ARG 39.5", label: "ARG 39.5" },
-      { value: "ARG 40", label: "ARG 40" },
-      { value: "ARG 40.5", label: "ARG 40.5" },
-      { value: "ARG 41", label: "ARG 41" },
-      { value: "ARG 41.5", label: "ARG 41.5" },
-      { value: "ARG 42", label: "ARG 42" },
-      { value: "ARG 42.5", label: "ARG 42.5" },
-      { value: "ARG 43", label: "ARG 43" },
-      { value: "ARG 44", label: "ARG 44" },
+    subType: [
+      {size:{ value: "ARG 39", label: "ARG 39" },stock: 10},
+      {size:{ value: "ARG 39.5", label: "ARG 39.5" },stock: 10},
+      {size:{ value: "ARG 40", label: "ARG 40" },stock: 10},
+      {size:{ value: "ARG 40.5", label: "ARG 40.5" },stock: 10},
+      {size:{ value: "ARG 41", label: "ARG 41" },stock: 10},
+      {size:{ value: "ARG 41.5", label: "ARG 41.5" },stock: 10},
+      {size:{ value: "ARG 42", label: "ARG 42" },stock: 10},
+      {size:{ value: "ARG 42.5", label: "ARG 42.5" },stock: 10},
+      {size:{ value: "ARG 43", label: "ARG 43" },stock: 10},
+      {size:{ value: "ARG 44", label: "ARG 44" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -797,14 +784,13 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 36", label: "ARG 36" },
-      { value: "ARG 36.5", label: "ARG 36.5" },
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 37.5", label: "ARG 37.5" },
-      { value: "ARG 38", label: "ARG 38" },
-      { value: "ARG 38.5", label: "ARG 38.5" },
+    subType: [
+      {size:{ value: "ARG 36", label: "ARG 36" },stock: 10},
+      {size:{ value: "ARG 36.5", label: "ARG 36.5" },stock: 10},
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 37.5", label: "ARG 37.5" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
+      {size:{ value: "ARG 38.5", label: "ARG 38.5" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -858,19 +844,18 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 26", label: "ARG 26" },
-      { value: "ARG 26.5", label: "ARG 26.5" },
-      { value: "ARG 27", label: "ARG 27" },
-      { value: "ARG 27.5", label: "ARG 27.5" },
-      { value: "ARG 28", label: "ARG 28" },
-      { value: "ARG 28.5", label: "ARG 28.5" },
-      { value: "ARG 29", label: "ARG 29" },
-      { value: "ARG 29.5", label: "ARG 29.5" },
-      { value: "ARG 30", label: "ARG 30" },
-      { value: "ARG 30.5", label: "ARG 30.5" },
-      { value: "ARG 31", label: "ARG 31" },
+    subType: [
+      {size:{ value: "ARG 26", label: "ARG 26" },stock: 10},
+      {size:{ value: "ARG 26.5", label: "ARG 26.5" },stock: 10},
+      {size:{ value: "ARG 27", label: "ARG 27" },stock: 10},
+      {size:{ value: "ARG 27.5", label: "ARG 27.5" },stock: 10},
+      {size:{ value: "ARG 28", label: "ARG 28" },stock: 10},
+      {size:{ value: "ARG 28.5", label: "ARG 28.5" },stock: 10},
+      {size:{ value: "ARG 29", label: "ARG 29" },stock: 10},
+      {size:{ value: "ARG 29.5", label: "ARG 29.5" },stock: 10},
+      {size:{ value: "ARG 30", label: "ARG 30" },stock: 10},
+      {size:{ value: "ARG 30.5", label: "ARG 30.5" },stock: 10},
+      {size:{ value: "ARG 31", label: "ARG 31" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -924,18 +909,17 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 36", label: "ARG 36" },
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 38", label: "ARG 38" },
-      { value: "ARG 39", label: "ARG 39" },
-      { value: "ARG 40", label: "ARG 40" },
-      { value: "ARG 41", label: "ARG 41" },
-      { value: "ARG 42", label: "ARG 42" },
-      { value: "ARG 43", label: "ARG 43" },
-      { value: "ARG 44", label: "ARG 44" },
-      { value: "ARG 45", label: "ARG 45" },
+    subType: [
+      {size:{ value: "ARG 36", label: "ARG 36" },stock: 10},
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
+      {size:{ value: "ARG 39", label: "ARG 39" },stock: 10},
+      {size:{ value: "ARG 40", label: "ARG 40" },stock: 10},
+      {size:{ value: "ARG 41", label: "ARG 41" },stock: 10},
+      {size:{ value: "ARG 42", label: "ARG 42" },stock: 10},
+      {size:{ value: "ARG 43", label: "ARG 43" },stock: 10},
+      {size:{ value: "ARG 44", label: "ARG 44" },stock: 10},
+      {size:{ value: "ARG 45", label: "ARG 45" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -990,14 +974,13 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 36", label: "ARG 36" },
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 38", label: "ARG 38" },
-      { value: "ARG 39", label: "ARG 39" },
-      { value: "ARG 40", label: "ARG 40" },
-      { value: "ARG 41", label: "ARG 41" },
+    subType: [
+      {size:{ value: "ARG 36", label: "ARG 36" },stock: 10},
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
+      {size:{ value: "ARG 39", label: "ARG 39" },stock: 10},
+      {size:{ value: "ARG 40", label: "ARG 40" },stock: 10},
+      {size:{ value: "ARG 41", label: "ARG 41" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1051,14 +1034,13 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 36", label: "ARG 36" },
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 38", label: "ARG 38" },
-      { value: "ARG 39", label: "ARG 39" },
-      { value: "ARG 40", label: "ARG 40" },
-      { value: "ARG 41", label: "ARG 41" },
+    subType: [
+      {size:{ value: "ARG 36", label: "ARG 36" },stock: 10},
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
+      {size:{ value: "ARG 39", label: "ARG 39" },stock: 10},
+      {size:{ value: "ARG 40", label: "ARG 40" },stock: 10},
+      {size:{ value: "ARG 41", label: "ARG 41" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1112,13 +1094,12 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 36", label: "ARG 36" },
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 38", label: "ARG 38" },
-      { value: "ARG 39", label: "ARG 39" },
-      { value: "ARG 40", label: "ARG 40" },
+    subType: [
+      {size:{ value: "ARG 36", label: "ARG 36" },stock: 10},
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
+      {size:{ value: "ARG 39", label: "ARG 39" },stock: 10},
+      {size:{ value: "ARG 40", label: "ARG 40" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1172,13 +1153,12 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 20", label: "ARG 20" },
-      { value: "ARG 21", label: "ARG 21" },
-      { value: "ARG 22", label: "ARG 22" },
-      { value: "ARG 23", label: "ARG 23" },
-      { value: "ARG 24", label: "ARG 24" },
+    subType: [
+      {size:{ value: "ARG 20", label: "ARG 20" },stock: 10},
+      {size:{ value: "ARG 21", label: "ARG 21" },stock: 10},
+      {size:{ value: "ARG 22", label: "ARG 22" },stock: 10},
+      {size:{ value: "ARG 23", label: "ARG 23" },stock: 10},
+      {size:{ value: "ARG 24", label: "ARG 24" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1232,13 +1212,12 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "None",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 20", label: "ARG 20" },
-      { value: "ARG 21", label: "ARG 21" },
-      { value: "ARG 22", label: "ARG 22" },
-      { value: "ARG 23", label: "ARG 23" },
-      { value: "ARG 24", label: "ARG 24" },
+    subType: [
+      {size:{ value: "ARG 20", label: "ARG 20" },stock: 10},
+      {size:{ value: "ARG 21", label: "ARG 21" },stock: 10},
+      {size:{ value: "ARG 22", label: "ARG 22" },stock: 10},
+      {size:{ value: "ARG 23", label: "ARG 23" },stock: 10},
+      {size:{ value: "ARG 24", label: "ARG 24" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1292,13 +1271,12 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "None",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 20", label: "ARG 20" },
-      { value: "ARG 21", label: "ARG 21" },
-      { value: "ARG 22", label: "ARG 22" },
-      { value: "ARG 23", label: "ARG 23" },
-      { value: "ARG 24", label: "ARG 24" },
+    subType: [
+      {size:{ value: "ARG 20", label: "ARG 20" },stock: 10},
+      {size:{ value: "ARG 21", label: "ARG 21" },stock: 10},
+      {size:{ value: "ARG 22", label: "ARG 22" },stock: 10},
+      {size:{ value: "ARG 23", label: "ARG 23" },stock: 10},
+      {size:{ value: "ARG 24", label: "ARG 24" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1353,13 +1331,12 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "None",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 20", label: "ARG 20" },
-      { value: "ARG 21", label: "ARG 21" },
-      { value: "ARG 22", label: "ARG 22" },
-      { value: "ARG 23", label: "ARG 23" },
-      { value: "ARG 24", label: "ARG 24" },
+    subType: [
+      {size:{ value: "ARG 20", label: "ARG 20" },stock: 10},
+      {size:{ value: "ARG 21", label: "ARG 21" },stock: 10},
+      {size:{ value: "ARG 22", label: "ARG 22" },stock: 10},
+      {size:{ value: "ARG 23", label: "ARG 23" },stock: 10},
+      {size:{ value: "ARG 24", label: "ARG 24" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1413,13 +1390,12 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 20", label: "ARG 20" },
-      { value: "ARG 21", label: "ARG 21" },
-      { value: "ARG 22", label: "ARG 22" },
-      { value: "ARG 23", label: "ARG 23" },
-      { value: "ARG 24", label: "ARG 24" },
+    subType: [
+      {size:{ value: "ARG 20", label: "ARG 20" },stock: 10},
+      {size:{ value: "ARG 21", label: "ARG 21" },stock: 10},
+      {size:{ value: "ARG 22", label: "ARG 22" },stock: 10},
+      {size:{ value: "ARG 23", label: "ARG 23" },stock: 10},
+      {size:{ value: "ARG 24", label: "ARG 24" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1473,13 +1449,12 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Other",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 20", label: "ARG 20" },
-      { value: "ARG 21", label: "ARG 21" },
-      { value: "ARG 22", label: "ARG 22" },
-      { value: "ARG 23", label: "ARG 23" },
-      { value: "ARG 24", label: "ARG 24" },
+    subType: [
+      {size:{ value: "ARG 20", label: "ARG 20" },stock: 10},
+      {size:{ value: "ARG 21", label: "ARG 21" },stock: 10},
+      {size:{ value: "ARG 22", label: "ARG 22" },stock: 10},
+      {size:{ value: "ARG 23", label: "ARG 23" },stock: 10},
+      {size:{ value: "ARG 24", label: "ARG 24" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1533,13 +1508,12 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Other",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 20", label: "ARG 20" },
-      { value: "ARG 21", label: "ARG 21" },
-      { value: "ARG 22", label: "ARG 22" },
-      { value: "ARG 23", label: "ARG 23" },
-      { value: "ARG 24", label: "ARG 24" },
+    subType: [
+      {size:{ value: "ARG 20", label: "ARG 20" },stock: 10},
+      {size:{ value: "ARG 21", label: "ARG 21" },stock: 10},
+      {size:{ value: "ARG 22", label: "ARG 22" },stock: 10},
+      {size:{ value: "ARG 23", label: "ARG 23" },stock: 10},
+      {size:{ value: "ARG 24", label: "ARG 24" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1593,13 +1567,12 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 20", label: "ARG 20" },
-      { value: "ARG 21", label: "ARG 21" },
-      { value: "ARG 22", label: "ARG 22" },
-      { value: "ARG 23", label: "ARG 23" },
-      { value: "ARG 24", label: "ARG 24" },
+    subType: [
+      {size:{ value: "ARG 20", label: "ARG 20" },stock: 10},
+      {size:{ value: "ARG 21", label: "ARG 21" },stock: 10},
+      {size:{ value: "ARG 22", label: "ARG 22" },stock: 10},
+      {size:{ value: "ARG 23", label: "ARG 23" },stock: 10},
+      {size:{ value: "ARG 24", label: "ARG 24" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1653,14 +1626,13 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 38", label: "ARG 38" },
-      { value: "ARG 39", label: "ARG 39" },
-      { value: "ARG 40", label: "ARG 40" },
-      { value: "ARG 41", label: "ARG 41" },
-      { value: "ARG 42", label: "ARG 42" },
+    subType: [
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
+      {size:{ value: "ARG 39", label: "ARG 39" },stock: 10},
+      {size:{ value: "ARG 40", label: "ARG 40" },stock: 10},
+      {size:{ value: "ARG 41", label: "ARG 41" },stock: 10},
+      {size:{ value: "ARG 42", label: "ARG 42" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1714,10 +1686,9 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 38", label: "ARG 38" },
+    subType: [
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1772,10 +1743,9 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 38", label: "ARG 38" },
+    subType: [
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1829,10 +1799,9 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 38", label: "ARG 38" },
+    subType: [
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",
@@ -1885,10 +1854,9 @@ export const products: ProductCreateAtom[] = [
     recommendedsport: "Running",
     style: "casual",
     discount: 0,
-    stock: 10,
-    size: [
-      { value: "ARG 37", label: "ARG 37" },
-      { value: "ARG 38", label: "ARG 38" },
+    subType: [
+      {size:{ value: "ARG 37", label: "ARG 37" },stock: 10},
+      {size:{ value: "ARG 38", label: "ARG 38" },stock: 10},
     ],
     unitofmeasurement: {
       label: "ARG",

@@ -16,7 +16,7 @@ type value = {
   description: string;
   brand: string;
   price: number;
-  stock: number;
+  subType: { size: { label: string; value: string }; stock: number }[];
   images: string[];
 };
 
@@ -33,7 +33,6 @@ const CreateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
       value.description !== "" &&
       value.brand !== "" &&
       value.price > 0 &&
-      value.stock > 0 &&
       value.images.length > 0 &&
       value.images.length < 10
     ) {

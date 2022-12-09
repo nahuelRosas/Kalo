@@ -1,30 +1,22 @@
-import React from "react";
 import {
-  Button,
   IconButton,
   Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
+  MenuButton, MenuList,
   useBreakpointValue,
   useColorMode,
-  useColorModeValue,
-  Text,
+  useColorModeValue
 } from "@chakra-ui/react";
-import { AuthModalState } from "../../../atoms/authModalAtom";
-import { useSetRecoilState, useRecoilState } from "recoil";
-import {
-  FiLogIn,
-  FiUserPlus,
-  FiMoon,
-  FiSun,
-  FiShoppingCart,
-} from "react-icons/fi";
-import ItemMenu from "./itemMenu";
+import React from "react";
 import { FaUser } from "react-icons/fa";
+import {
+  FiLogIn, FiMoon, FiShoppingCart, FiSun, FiUserPlus
+} from "react-icons/fi";
+import { MdFavorite } from "react-icons/md";
+import { useSetRecoilState } from "recoil";
+import { AuthModalState } from "../../../atoms/authModalAtom";
 import { CartDrawerAtom } from "../../../atoms/cartDrawerAtom";
 import { WishListDrawerAtom } from "../../../atoms/wishListDrawerAtom";
-import { MdFavorite } from "react-icons/md";
+import ItemMenu from "./itemMenu";
 const AuthButtons: React.FC = () => {
   const setAuthModalState = useSetRecoilState(AuthModalState);
   const setCartDrawerState = useSetRecoilState(CartDrawerAtom);

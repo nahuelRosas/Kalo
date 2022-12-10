@@ -26,7 +26,7 @@ const useProductsData = () => {
             productsActive: ArrayProductsProductsActive,
             isLoadead: true,
             orderBy: "a-z",
-            filterBy: ["all"],
+            filterBy: [],
           });
         }
       );
@@ -49,8 +49,7 @@ const useProductsData = () => {
 
   const filterProducts = () => {
     const filter = ProductsState.filterBy;
-    console.log(productsActive);
-    if (filter[0] === "all" || filter.length === 0) return productsActive;
+    if (filter.length === 0) return productsActive;
     const filtered = productsActive.filter((product) => {
       let flag = false;
       filter.forEach((filter) => {

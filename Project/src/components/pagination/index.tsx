@@ -9,10 +9,7 @@ import React from "react";
 import Base from "./components/LateralMenu/Base";
 import ProductsComponent from "./Products";
 
-type indexProps = {
-  type?: string;
-};
-const Index: React.FC<indexProps> = ({ type }) => {
+const Index: React.FC = () => {
   return (
     <Container
       maxW="100vw"
@@ -22,7 +19,7 @@ const Index: React.FC<indexProps> = ({ type }) => {
         direction={{ base: "column", md: "row" }}
         shadow={{ md: "xl" }}
         rounded={{ md: "lg" }}>
-        <Base currentFilter={type} />
+        <Base />
         <Box
           as="form"
           w="full"
@@ -33,7 +30,7 @@ const Index: React.FC<indexProps> = ({ type }) => {
           overflow="hidden"
           shadow="base">
           <VStack align="stretch" spacing={0}>
-            <ProductsComponent filterByURL={type} />
+            <ProductsComponent />
           </VStack>
         </Box>
       </Flex>

@@ -1,16 +1,12 @@
 import { Center, SimpleGrid } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import ProductCard from "../Products/index";
 import { DocumentData } from "firebase/firestore";
+import React from "react";
 import useProductsData from "../../hooks/useProductsData";
-type productComponentProps = {
-  filterByURL: string | undefined;
-};
-const ProductsComponent: React.FC<productComponentProps> = ({
-  filterByURL,
-}) => {
+import ProductCard from "../Products/index";
+
+const ProductsComponent: React.FC = () => {
   const { MappingProducts } = useProductsData();
-  const Products = MappingProducts(filterByURL);
+  const Products = MappingProducts();
   return (
     <Center maxW={"100%"}>
       <SimpleGrid columns={[1, 2, 3, 4, 5]} spacing="40px">

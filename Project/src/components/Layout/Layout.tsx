@@ -14,13 +14,13 @@ const Layout: React.FC<Props> = ({ children }) => {
   useEffect(() => {
     getProducts();
     getUserData();
-  }, [getProducts, getUserData]);
+  }, [, getProducts, getUserData]);
 
   return (
     <>
       <Navbar />
       <Directory />
-      <main>{children}</main>
+      {children}
       <Footer />
     </>
   );

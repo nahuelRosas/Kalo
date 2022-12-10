@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import ProductCard from "../Products/index";
 
 import { useRecoilState } from "recoil";
-import { FilterState } from "../../atoms/filterAtom";
+import { FilterState } from "../../atoms/filteredProductsAtom";
 import { searchAtom } from "../../atoms/SearchAtom";
 import useProductsData from "../../hooks/useProductsData";
 

@@ -6,12 +6,16 @@ export interface ProductsAtom {
   products: DocumentData[];
   productsActive: DocumentData[];
   isLoadead: boolean;
+  orderBy: string | undefined;
+  filterBy: string[];
 }
 
 const defaultProductsState: ProductsAtom = {
   products: [],
   productsActive: [],
   isLoadead: false,
+  orderBy: undefined,
+  filterBy: [],
 };
 
 export const ProductsAtom = atom<ProductsAtom>({

@@ -4,7 +4,7 @@ import PopoverDirectory from "../Popover/Directory/PopoverDirectory";
 
 const Directory = () => {
   return (
-    <Box>
+    <Box maxW={"100vw"}>
       <Flex
         display={{ base: "none", md: "flex" }}
         bg={useColorModeValue("white", "gray.800")}

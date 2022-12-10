@@ -22,10 +22,10 @@ import React, { useEffect, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { FilterState } from "../../atoms/filterAtom";
+import { FilterState } from "../../atoms/filteredProductsAtom";
 import { searchAtom } from "../../atoms/SearchAtom";
 import useProductsData from "../../hooks/useProductsData";
-import category from "../../pages/allproducts/[category]";
+import category from "../../pages/products/[search]";
 
 export default function SimpleSidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -108,7 +108,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       );
       setFilteredProducts(filteredProducts);
     }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
   return (
@@ -125,7 +125,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         alignItems="center"
         mx="8"
         justifyContent="space-between"></Flex>
-     {/*  <Select>
+      {/*  <Select>
         <option value="bestSellers">Best Sellers</option>
         <option value="lowPrice">Low Price</option>
         <option value="highPrice">High Price</option>

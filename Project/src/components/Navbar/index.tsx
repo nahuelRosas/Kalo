@@ -1,13 +1,12 @@
-import React from "react";
 import { Flex, useColorModeValue } from "@chakra-ui/react";
+import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import SearchInput from "./SearchBar/SearchInput";
-import RightContent from "./RightContent";
-import LogoCompany from "./LogoCompany";
 import { auth } from "../../firebase/clientApp";
 import Cart from "../Cart/ButtonCart";
-import WishList from "../WishList/index";
 import MobileCategories from "./Categories/MobileCategories";
+import LogoCompany from "./LogoCompany";
+import RightContent from "./RightContent";
+import SearchInput from "./SearchBar/SearchInput";
 
 const Navbar: React.FC = () => {
   const [user] = useAuthState(auth);
@@ -29,7 +28,6 @@ const Navbar: React.FC = () => {
       <SearchInput />
       <Flex>
         <Cart />
-        {/* <WishList /> */}
         <RightContent user={user} />
       </Flex>
     </Flex>

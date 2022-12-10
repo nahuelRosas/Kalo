@@ -60,4 +60,5 @@ const defaultUserState: UserState = {
 export const UserAtom = atom<DocumentData>({
   key: "userState",
   default: defaultUserState,
+  effects_UNSTABLE: [persistAtomEffect],
 });

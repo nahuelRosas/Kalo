@@ -17,19 +17,21 @@ const PopoverDirectory: React.FC = () => {
   const bg = useColorModeValue("white", "gray.800");
   return (
     <Stack
+      display={{ base: "none", md: "flex" }}
       direction="row"
       spacing={4}
-      w={"100%"}
-      justify={"center"}
-      display={{ base: "none", md: "flex" }}>
+      maxW={"100vw"}
+      align={"center"}
+      w={"100vw"}
+      justify={"center"}>
       {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label}>
+        <Box key={navItem.label} maxW={"100vw"}>
           <Popover
             trigger={"hover"}
             placement={"bottom-start"}
-            isLazy={true}
-            flip={true}
-            size="xl">
+            isLazy
+            flip
+            size="md">
             <PopoverTrigger>
               <Link href={navItem.href ? navItem.href : "#"} passHref>
                 <Text
@@ -44,26 +46,22 @@ const PopoverDirectory: React.FC = () => {
                 </Text>
               </Link>
             </PopoverTrigger>
-            {navItem.children && (
+            {/* {navItem.children && (
               <PopoverContent
+                as={Box}
                 w={"100vw"}
                 border={0}
                 boxShadow={"xl"}
-                bg={bg}
                 p={4}
                 rounded={"xl"}
                 minW={"sm"}>
-                <Stack
-                  direction={"row"}
-                  align={"center"}
-                  justify={"center"}
-                  spacing={20}>
+                <Stack>
                   {navItem.children.map((child) => (
                     <SubMenuDirectory key={child.label} {...child} />
                   ))}
                 </Stack>
               </PopoverContent>
-            )}
+            )} */}
           </Popover>
         </Box>
       ))}

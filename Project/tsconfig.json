@@ -22,7 +22,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "src/components/pagination/components/LateralMenu/LateralMenu.tsx"
   ],
   "exclude": [
     "node_modules",

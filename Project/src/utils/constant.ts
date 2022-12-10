@@ -296,96 +296,49 @@ export const Brands = [
     href: "/brands/Topper",
     src: "https://www.dexter.com.ar/dw/image/v2/BDTF_PRD/on/demandware.static/-/Sites-Dexter-Library/default/dw79e04e09/images/marcas/logotopper2.png",
   },
-
-
-
 ];
 
 export const NAV_ITEMS: Array<NavItem> = [
   //New & Featured
   {
     label: "New & Featured",
-
+    href: "/products",
     children: [
       {
         label: "New Arrivals",
         subLabel: "Newest items",
-        href: "/new-arrivals",
+        href: "/products/new-arrivals",
       },
       {
         label: "Best Sellers",
         subLabel: "Best selling items",
-        href: "/best-sellers",
+        href: "/products/best-sellers",
       },
       {
         label: "Sale",
         subLabel: "On sale items",
-        href: "/sale",
+        href: "/products/sale",
       },
     ],
   },
-  //Men
+
   {
     label: "Men",
-    children: [
-      {
-        label: "Shoes",
-        subLabel: "Shop for shoes",
-        href: "/allproducts/Men",
-      },
-      {
-        label: "Accessories",
-        subLabel: "Shop for accessories",
-        href: "/k/men",
-      },
-    ],
+    href: "/products/men",
   },
   //Women
   {
     label: "Women",
-    children: [
-      {
-        label: "Shoes",
-        subLabel: "Shop for shoes",
-        href: "/allproducts/Women",
-      },
-      {
-        label: "Accessories",
-        subLabel: "Shop for accessories",
-        href: "/k/women",
-      },
-    ],
+    href: "/products/women",
   },
   //Kids
   {
     label: "Kids",
-    children: [
-      {
-        label: "Shoes",
-        subLabel: "Shop for shoes",
-        href: "/k/kids",
-      },
-      {
-        label: "Accessories",
-        subLabel: "Shop for accessories",
-        href: "/k/kids",
-      },
-    ],
+    href: "/products/kids",
   },
   {
     label: "Unisex",
-    children: [
-      {
-        label: "Shoes",
-        subLabel: "Shop for shoes",
-        href: "/allproducts/Unisex",
-      },
-      {
-        label: "Accessories",
-        subLabel: "Shop for accessories",
-        href: "/unisex/accessories",
-      },
-    ],
+    href: "/products/unisex",
   },
   //Brands
   {

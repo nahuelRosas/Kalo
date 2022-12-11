@@ -12,10 +12,13 @@ type ChangeState = {
   defaultChecked?: boolean;
 };
 
-const ChangeState: React.FC<ChangeState> = ({ id, defaultChecked = false }) => {
+const ChangeStateProduct: React.FC<ChangeState> = ({
+  id,
+  defaultChecked = false,
+}) => {
   const toast = useToast();
   const [isDisabled, setIsDisabled] = useState(false);
-  const { getProducts } = useProductsData();
+  const { Reload } = useProductsData();
   const updateDocument = async () => {
     setIsDisabled(true);
     const docRef = doc(firestore, "products", id);
@@ -40,7 +43,7 @@ const ChangeState: React.FC<ChangeState> = ({ id, defaultChecked = false }) => {
       });
     } finally {
       setIsDisabled(false);
-      getProducts();
+      Reload();
     }
   };
 
@@ -55,4 +58,4 @@ const ChangeState: React.FC<ChangeState> = ({ id, defaultChecked = false }) => {
   );
 };
 
-export default ChangeState;
+export default ChangeStateProduct;

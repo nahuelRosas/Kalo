@@ -45,6 +45,13 @@ const useUserData = () => {
     return false;
   };
 
+  const Reload = () => {
+    setUserAtom({ ...userAtom, isLoadead: false });
+    setUsersAtom({ ...usersAtom, isLoadead: false });
+    getUserData();
+    getUsersData();
+  };
+
   return {
     getUserData,
     userData: userAtom,
@@ -52,6 +59,7 @@ const useUserData = () => {
     isAdmin,
     UID: userAtom.uid,
     getUsersData,
+    Reload,
   };
 };
 

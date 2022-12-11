@@ -23,7 +23,7 @@ import {
 import { Select } from "chakra-react-select";
 import { Timestamp } from "firebase/firestore";
 import FormatPrice from "../../Products/Price/formatPrice";
-import ChangeState from "../Components/changeState";
+import ChangeState from "../Components/changeStateProduct";
 import Filter from "../Components/filterProducts";
 const ProductsList: React.FC = () => {
   const { results, handleChange, searchTerm, setContextSearch } = Filter();

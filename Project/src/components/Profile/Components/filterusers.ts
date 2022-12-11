@@ -2,8 +2,7 @@ import { SetStateAction, useState } from "react";
 import useUserData from "../../../hooks/useUserData";
 
 const Filter = () => {
-  const { usersData, getUsersData } = useUserData();
-  
+  const { usersData } = useUserData();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [contextSearch, setContextSearch] = useState("all");

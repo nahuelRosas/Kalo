@@ -22,7 +22,7 @@ import {
 } from "@chakra-ui/react";
 import { Select } from "chakra-react-select";
 import { Timestamp } from "firebase/firestore";
-import ChangeState from "../Components/changeState";
+import ChangeStateUsers from "../Components/changeStateUser";
 import Filter from "../Components/filterusers";
 const UsersList: React.FC = () => {
   const { results, handleChange, searchTerm, setContextSearch } = Filter();
@@ -123,7 +123,9 @@ const UsersList: React.FC = () => {
                         day: "numeric",
                       })}
                     </Td>
-                    <Td>{/* <ChangeState user={user} /> */}</Td>
+                    <Td>
+                      <ChangeStateUsers defaultChecked={user.userType.admin} />
+                    </Td>
                   </Tr>
                 );
               })}

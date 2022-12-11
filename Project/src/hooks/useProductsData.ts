@@ -154,7 +154,10 @@ const useProductsData = () => {
     if (Index !== -1) {
       setProducts({
         ...ProductsState,
-        filterBy: [...ProductsState.filterBy.slice(0, Index)],
+        filterBy: [
+          ...ProductsState.filterBy.slice(0, Index),
+          ...ProductsState.filterBy.slice(Index + 1),
+        ],
       });
       return;
     }
@@ -172,6 +175,14 @@ const useProductsData = () => {
     return false;
   };
 
+  const Reload = () => {
+    setProducts({
+      ...ProductsState,
+      isLoadead: false,
+    });
+    getProducts();
+  };
+
   return {
     getProducts,
     productsActive,
@@ -181,6 +192,7 @@ const useProductsData = () => {
     setOrderBy,
     setFilterBy,
     currentFilter,
+    Reload,
   };
 };
 export default useProductsData;

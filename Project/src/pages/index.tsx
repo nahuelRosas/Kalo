@@ -17,7 +17,7 @@ export default function Home() {
       color={useColorModeValue("grey.100", "grey.800")}
       bg={useColorModeValue("gray.100", "grey.800")}
       alignItems="center"
-      mb="1rem">
+      mb="0.5rem">
       <Banner />
       <Carousels />
       <Publicity />

@@ -10,11 +10,12 @@ interface Props {
 
 const Layout: React.FC<Props> = ({ children }) => {
   const { getProducts } = useProductsData();
-  const { getUserData } = useUserData();
+  const { getUserData, getUsersData } = useUserData();
   useEffect(() => {
     getProducts();
     getUserData();
-  }, [, getProducts, getUserData]);
+    getUsersData();
+  }, [getProducts, getUserData, getUsersData]);
 
   return (
     <>

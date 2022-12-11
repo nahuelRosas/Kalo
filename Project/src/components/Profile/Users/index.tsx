@@ -22,8 +22,6 @@ import {
 } from "@chakra-ui/react";
 import { Select } from "chakra-react-select";
 import { Timestamp } from "firebase/firestore";
-import { ReactElement, JSXElementConstructor, ReactFragment } from "react";
-import useUserData from "../../../hooks/useUserData";
 import ChangeState from "../Components/changeState";
 import Filter from "../Components/filterusers";
 const UsersList: React.FC = () => {

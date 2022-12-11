@@ -18,22 +18,25 @@ const useUserData = () => {
       if (docSnap.exists()) {
         const userData = docSnap.data();
         setUserAtom({ ...userData, isLoadead: true });
-        if (userData.userType.admin) {
-          const usersRef = doc(firestore, "ArrayCustomers", "Array");
-          try {
-            const docSnap = await getDoc(usersRef);
-            if (docSnap.exists()) {
-              const usersData = docSnap.data();
-              const users = usersData.customers;
-              setUsersAtom({ users: users, isLoadead: true });
-            }
-          } catch (error) {
-            console.log(error);
-          }
-        }
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const getUsersData = async () => {
+    if (isAdmin() && !usersAtom.isLoadead) {
+      const usersRef = doc(firestore, "ArrayCustomers", "Array");
+      try {
+        const docSnap = await getDoc(usersRef);
+        if (docSnap.exists()) {
+          const usersData = docSnap.data();
+          const users = usersData.customers;
+          setUsersAtom({ users: users, isLoadead: true });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -48,6 +51,7 @@ const useUserData = () => {
     usersData: usersAtom.users,
     isAdmin,
     UID: userAtom.uid,
+    getUsersData,
   };
 };
 

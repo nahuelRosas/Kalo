@@ -18,28 +18,25 @@ const Banner: React.FC = () => {
 
   return (
     <Carousel settings={settings}>
-      {useBreakpointValue({ base: cellImages, md: pcImages })?.map(
-        (url, index) => (
-          <Flex
-            key={index}
-            w={"full"}
-            h={"100%"}
-            overflow={"hidden"}
-            position={"relative"}>
-            <Image
-              src={url}
-              alt="banner"
-              priority
-              style={{
-                objectFit: "cover",
-                width: "100%",
-                height: "100%",
-                /* transform: "translateY(-22%)", */
-              }}
-            />
-          </Flex>
-        )
-      )}
+      {pcImages.map((url, index) => (
+        <Flex
+          key={index}
+          w={"full"}
+          h={"100%"}
+          overflow={"hidden"}
+          position={"relative"}>
+          <Image
+            src={url}
+            alt="banner"
+            priority
+            style={{
+              objectFit: "cover",
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        </Flex>
+      ))}
     </Carousel>
   );
 };

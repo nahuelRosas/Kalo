@@ -63,7 +63,10 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
             value={product?.rating}
           />
           <Divider mt="1rem" mb="1rem" borderColor={"transparent"} />
-          <Text fontSize="xl" fontWeight="light" color="gray.500">
+          <Text
+            fontSize="xl"
+            fontWeight="light"
+            color={useColorModeValue("gray.600", "gray.400")}>
             {product?.description}
           </Text>
           <Divider mt="1rem" mb="1rem" borderColor={"transparent"} />
@@ -150,7 +153,10 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
           <Text fontSize="xl" fontWeight="bold" ml={2} mr={2}>
             Color:
           </Text>
-          <Text fontSize="xl" fontWeight="light" color="gray.400">
+          <Text
+            fontSize="xl"
+            fontWeight="light"
+            color={useColorModeValue("gray.800", "gray.400")}>
             {product?.color[0].toUpperCase() + product?.color.slice(1)}
           </Text>
         </Box>
@@ -159,7 +165,10 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
           <Text fontSize="xl" fontWeight="bold" ml={2} mr={2}>
             External Materials:
           </Text>
-          <Text fontSize="xl" fontWeight="light" color="gray.400">
+          <Text
+            fontSize="xl"
+            fontWeight="light"
+            color={useColorModeValue("gray.800", "gray.400")}>
             {product?.exteriormaterials[0].toUpperCase() +
               product?.exteriormaterials.slice(1)}
           </Text>
@@ -169,7 +178,10 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
           <Text fontSize="xl" fontWeight="bold" ml={2} mr={2}>
             Recommended Sport: :
           </Text>
-          <Text fontSize="xl" fontWeight="light" color="gray.400">
+          <Text
+            fontSize="xl"
+            fontWeight="light"
+            color={useColorModeValue("gray.800", "gray.400")}>
             {product?.recommendedsport[0].toUpperCase() +
               product?.recommendedsport.slice(1)}
           </Text>
@@ -179,7 +191,10 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
           <Text fontSize="xl" fontWeight="bold" ml={2} mr={2}>
             Fit Type:
           </Text>
-          <Text fontSize="xl" fontWeight="light" color="gray.400">
+          <Text
+            fontSize="xl"
+            fontWeight="light"
+            color={useColorModeValue("gray.800", "gray.400")}>
             {product?.fittype[0].toUpperCase() + product?.fittype.slice(1)}
           </Text>
         </Box>
@@ -189,7 +204,10 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
           <Text fontSize="xl" fontWeight="bold" ml={2} mr={2}>
             Sole Materials:
           </Text>
-          <Text fontSize="xl" fontWeight="light" color="gray.400">
+          <Text
+            fontSize="xl"
+            fontWeight="light"
+            color={useColorModeValue("gray.800", "gray.400")}>
             {product?.solematerials[0].toUpperCase() +
               product?.solematerials.slice(1)}
           </Text>
@@ -199,7 +217,10 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
           <Text fontSize="xl" fontWeight="bold" ml={2} mr={2}>
             Style:
           </Text>
-          <Text fontSize="xl" fontWeight="light" color="gray.400">
+          <Text
+            fontSize="xl"
+            fontWeight="light"
+            color={useColorModeValue("gray.800", "gray.400")}>
             {product?.style[0].toUpperCase() + product?.style.slice(1)}
           </Text>
         </Box>
@@ -221,7 +242,16 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
           <Text fontSize="xl" fontWeight="bold" ml={2} mr={2}>
             Average Rating:
           </Text>
-          <Text fontSize="xl" fontWeight="light" color="gray.400">
+          <Text
+            fontSize="xl"
+            fontWeight="bold"
+            color={
+              product?.rating >= 4
+                ? "green.500"
+                : product?.rating >= 3
+                ? "yellow.500"
+                : "red.500"
+            }>
             {product?.rating}
           </Text>
         </Box>
@@ -229,7 +259,16 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
           <Text fontSize="xl" fontWeight="bold" ml={2} mr={2}>
             Number of Reviews:
           </Text>
-          <Text fontSize="xl" fontWeight="light" color="gray.400">
+          <Text
+            fontSize="xl"
+            fontWeight="bold"
+            color={
+              product?.numReviews >= 4
+                ? "green.500"
+                : product?.numReviews >= 3
+                ? "yellow.500"
+                : "red.500"
+            }>
             {product?.numReviews}
           </Text>
         </Box>

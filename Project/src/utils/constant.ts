@@ -64,6 +64,8 @@ export type NavItem = {
   subLabel?: string;
   children?: Array<NavItem>;
   href?: string;
+  filter: string;
+  order?: string;
 };
 
 export const itemMenuTitle = {
@@ -298,44 +300,28 @@ export const Brands = [
 export const NAV_ITEMS: Array<NavItem> = [
   {
     label: "New & Featured",
-    href: "/products",
-    children: [
-      {
-        label: "New Arrivals",
-        subLabel: "Newest items",
-        href: "/products/new-arrivals",
-      },
-      {
-        label: "Best Sellers",
-        subLabel: "Best selling items",
-        href: "/products/best-sellers",
-      },
-      {
-        label: "Sale",
-        subLabel: "On sale items",
-        href: "/products/sale",
-      },
-    ],
+    filter: "all",
+    order: "date-asc",
   },
 
   {
     label: "Men",
-    href: "/products/men",
+    filter: "men",
+    order: "a-z",
   },
   {
     label: "Women",
-    href: "/products/women",
+    filter: "women",
+    order: "a-z",
   },
   {
     label: "Kids",
-    href: "/products/kids",
+    filter: "kids",
+    order: "a-z",
   },
   {
     label: "Unisex",
-    href: "/products/unisex",
-  },
-  {
-    label: "Brands",
-    children: [...(Brands as Array<NavItem>)],
+    filter: "unisex",
+    order: "a-z",
   },
 ];

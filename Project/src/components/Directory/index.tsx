@@ -1,8 +1,11 @@
-import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Grid, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
-import PopoverDirectory from "../Popover/Directory/PopoverDirectory";
+import useProductsData from "../../hooks/useProductsData";
+import ItemMenu from "./itemMenu";
 
 const Directory = () => {
+  const { setOrderBy, setFilterBy } = useProductsData();
+
   return (
     <Box maxW={"100vw"}>
       <Flex
@@ -16,7 +19,43 @@ const Directory = () => {
         borderStyle={"solid"}
         borderColor={useColorModeValue("gray.200", "gray.900")}
         align={"center"}>
-        <PopoverDirectory />
+        <Grid
+          templateColumns="repeat(5, 3fr)"
+          gap={5}
+          w={"100vw"}
+          maxW={"100vw"}>
+          <ItemMenu
+            title="All"
+            filterByAction="All"
+            orderByAction="date-asc"
+            setFilterBy={setFilterBy}
+            setOrderBy={setOrderBy}
+          />
+          <ItemMenu
+            title="Women"
+            filterByAction="Women"
+            setFilterBy={setFilterBy}
+            setOrderBy={setOrderBy}
+          />
+          <ItemMenu
+            title="Men"
+            filterByAction="Men"
+            setFilterBy={setFilterBy}
+            setOrderBy={setOrderBy}
+          />
+          <ItemMenu
+            title="Kids"
+            filterByAction="Kids"
+            setFilterBy={setFilterBy}
+            setOrderBy={setOrderBy}
+          />
+          <ItemMenu
+            title="Unisex"
+            filterByAction="Unisex"
+            setFilterBy={setFilterBy}
+            setOrderBy={setOrderBy}
+          />
+        </Grid>
       </Flex>
     </Box>
   );

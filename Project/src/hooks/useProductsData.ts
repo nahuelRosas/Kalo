@@ -141,8 +141,7 @@ const useProductsData = () => {
     });
   };
 
-  const setFilterBy = (filter: string) => {
-    const filterLowerCase = filter?.toLowerCase();
+  const setFilterBy = (filter: string, forced?: boolean) => {
     if (filter === "all") {
       setProducts({
         ...ProductsState,
@@ -150,6 +149,16 @@ const useProductsData = () => {
       });
       return;
     }
+    if (forced) {
+      setProducts({
+        ...ProductsState,
+        filterBy: [filter],
+      });
+      return;
+    }
+
+    const filterLowerCase = filter?.toLowerCase();
+
     const Index = ProductsState.filterBy.indexOf(filterLowerCase);
     if (Index !== -1) {
       setProducts({

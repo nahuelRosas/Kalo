@@ -1,15 +1,19 @@
 import {
   Box,
+  Button,
+  Center,
   HStack,
   Image,
+  Spinner,
   Stack,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import React from "react";
-import PriceTag from "./Price";
-import Rating from "./Rating";
+import React, { useEffect, useState } from "react";
+import useCartData from "../../../hooks/useCartData";
+import PriceTag from "../Price";
+import Rating from "../Rating";
 
 type ProductCardProps = {
   product: any;
@@ -17,6 +21,14 @@ type ProductCardProps = {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const bg = useColorModeValue("white", "gray.700");
+  const { addOrIncrementProduct } = useCartData();
+  const [image, setImage] = useState<string>("");
+
+  useEffect(() => {
+    const random = Math.floor(Math.random() * product.images.length);
+    setImage(product.images[random]);
+  }, [product.images]);
+
   return (
     <Stack
       mt="2rem"
@@ -34,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <Link href={`/product/${product?.id}`}>
         <Box position="relative">
           <Image
-            src={product?.images[0]}
+            src={image}
             alt={product?.name}
             width={500}
             height={500}
@@ -43,6 +55,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               width: "100%",
               height: "100%",
             }}
+            fallback={
+              <Center mt={{ base: "25", md: "none" }}>
+                <Spinner
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="purple.500"
+                  size="xl"
+                  maxHeight={{ base: "5rem", md: "7rem" }}
+                  mt={{ base: "25", md: "none" }}
+                />
+              </Center>
+            }
           />
         </Box>
         <Stack
@@ -68,11 +93,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             spacing="0.5"
             alignItems="flex-start"
             justifyContent="space-between">
-            <Rating defaultValue={0} size="sm" value={0} />
+            <Rating
+              defaultValue={product?.rating}
+              size="sm"
+              value={product?.rating}
+            />
           </HStack>
         </Stack>
       </Link>
-      {/* <Button onClick={()=>handleAddToCart(product)}>Add Cart</Button> */}
+      <Button
+        w="100%"
+        colorScheme="purple"
+        variant="ghost"
+        borderRadius={0}
+        onClick={() => addOrIncrementProduct(product, product.size[0])}>
+        Add Cart
+      </Button>
     </Stack>
   );
 };

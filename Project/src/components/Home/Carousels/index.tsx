@@ -4,7 +4,7 @@ import React from "react";
 import useProductsData from "../../../hooks/useProductsData";
 import { Brands } from "../../../utils/constant";
 import Carousel from "../../Carousel";
-import ProductCard from "../../Products";
+import ProductCard from "../../Products/ProductCard/productCard";
 
 const Carousels: React.FC = () => {
   const { productsActive } = useProductsData();

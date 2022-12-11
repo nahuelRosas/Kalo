@@ -1,4 +1,4 @@
-import { Box, Flex, FlexProps, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, FlexProps } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Slider from "react-slick";
 import CarouselButton from "./CarouselButtons";

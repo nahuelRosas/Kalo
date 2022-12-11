@@ -2,7 +2,7 @@ import { Center, SimpleGrid } from "@chakra-ui/react";
 import { DocumentData } from "firebase/firestore";
 import React from "react";
 import useProductsData from "../../hooks/useProductsData";
-import ProductCard from "../Products/index";
+import ProductCard from "../Products/ProductCard/productCard";
 
 const ProductsComponent: React.FC = () => {
   const { MappingProducts } = useProductsData();

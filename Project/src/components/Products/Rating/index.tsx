@@ -11,10 +11,11 @@ import { FaStar } from "react-icons/fa";
 
 type indexProps = {
   defaultValue?: number;
-  size: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg";
   max?: number;
   rootProps?: StackProps;
   value: number;
+  disableText?: boolean;
 };
 
 const Rating: React.FC<indexProps> = ({
@@ -23,6 +24,7 @@ const Rating: React.FC<indexProps> = ({
   size = "md",
   rootProps,
   value,
+  disableText,
 }) => {
   const color = useColorModeValue("gray.200", "gray.600");
   const activeColor = useColorModeValue("purple.500", "purple.200");
@@ -41,8 +43,9 @@ const Rating: React.FC<indexProps> = ({
           ))}
       </HStack>
       <Text
-        ml={size === "sm" ? "0.5rem" : size === "md" ? "1rem" : "1.5rem"}
-        fontSize="sm"
+        ml={size === "sm" ? "0.5rem" : size === "md" ? "1rem" : "1rem"}
+        fontSize={size}
+        display={disableText ? "none" : "inline-block"}
         color={useColorModeValue("gray.600", "gray.400")}>
         {value} reviews
       </Text>

@@ -1,10 +1,13 @@
 import {
-  Box, Divider,
+  Box,
+  Divider,
   Flex,
   Grid,
   IconButton,
-  Image, Spinner, Text,
-  useColorModeValue
+  Image,
+  Spinner,
+  Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { DocumentData } from "@firebase/firestore-types";
 import React, { useEffect, useState } from "react";

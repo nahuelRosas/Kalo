@@ -258,48 +258,44 @@ export const AgeRangeOptions = [
 
 export const Brands = [
   {
-    src: "https://newsport.vteximg.com.br/arquivos/ADIDAS-brand.svg",
+    src: "https://res.cloudinary.com/dlcilp6vw/image/upload/v1670718534/logo/ADIDAS-brand_lrq8mx_l7jjcp.webp",
     label: "ADIDAS",
     subLabel: "Shop for Adidas",
     href: "/brands/adidas",
   },
   {
-    src: "https://www.dexter.com.ar/dw/image/v2/BDTF_PRD/on/demandware.static/-/Sites-Dexter-Library/default/dw2f9ed6ed/nike2.png",
+    src: "https://res.cloudinary.com/dlcilp6vw/image/upload/v1670718319/logo/nike2_jmgqcu.png",
     label: "NIKE",
     subLabel: "Shop for Nike",
     href: "/brands/Nike",
   },
   {
-    src: "https://www.dexter.com.ar/dw/image/v2/BDTF_PRD/on/demandware.static/-/Sites-Dexter-Library/default/dw65c423b8/puma2.png",
+    src: "https://res.cloudinary.com/dlcilp6vw/image/upload/v1670718334/logo/puma2_qtzdpd.png",
     label: "PUMA",
     subLabel: "Shop for Puma",
     href: "/brands/Puma",
   },
-  //converse
   {
     label: "CONVERSE",
     subLabel: "Shop for Converse",
     href: "/brands/Converse",
-    src: "https://www.dexter.com.ar/dw/image/v2/BDTF_PRD/on/demandware.static/-/Sites-Dexter-Library/default/dwb878323e/logoconverse.png",
+    src: "https://res.cloudinary.com/dlcilp6vw/image/upload/v1670718331/logo/logoconverse_muxzyj.png",
   },
-  //lotto
   {
     label: "LOTTO",
     subLabel: "Shop for Lotto",
     href: "/brands/Lotto",
-    src: "https://www.dexter.com.ar/dw/image/v2/BDTF_PRD/on/demandware.static/-/Sites-Dexter-Library/default/dw3198520a/images/marcas/logolotto2.png",
+    src: "https://res.cloudinary.com/dlcilp6vw/image/upload/v1670718578/logo/template_primary_sxevtn_tanjje_bdi7th.png",
   },
-  // topper
   {
     label: "TOPPER",
     subLabel: "Shop for Topper",
     href: "/brands/Topper",
-    src: "https://www.dexter.com.ar/dw/image/v2/BDTF_PRD/on/demandware.static/-/Sites-Dexter-Library/default/dw79e04e09/images/marcas/logotopper2.png",
+    src: "https://res.cloudinary.com/dlcilp6vw/image/upload/v1670718416/logo/1200px-Topper_Logo.svg_l551k3_rhs43q.png",
   },
 ];
 
 export const NAV_ITEMS: Array<NavItem> = [
-  //New & Featured
   {
     label: "New & Featured",
     href: "/products",
@@ -326,12 +322,10 @@ export const NAV_ITEMS: Array<NavItem> = [
     label: "Men",
     href: "/products/men",
   },
-  //Women
   {
     label: "Women",
     href: "/products/women",
   },
-  //Kids
   {
     label: "Kids",
     href: "/products/kids",
@@ -340,7 +334,6 @@ export const NAV_ITEMS: Array<NavItem> = [
     label: "Unisex",
     href: "/products/unisex",
   },
-  //Brands
   {
     label: "Brands",
     children: [...(Brands as Array<NavItem>)],

@@ -15,7 +15,7 @@ const Advertising: React.FC = () => {
   }, []);
   return (
     <Stack direction="row">
-      <Link href={"/allproducts"}>
+      <Link href={"/products"}>
         <Image
           h={{ base: "lg", md: "xl" }}
           w={{ base: "xl", sm: "2xl", md: "3xl", lg: "4xl" }}
@@ -25,7 +25,7 @@ const Advertising: React.FC = () => {
           alt={firstImage?.title}
         />
       </Link>
-      <Link href={"/allproducts"}>
+      <Link href={"/products"}>
         <Image
           display={{ base: "none", md: "flex" }}
           h={{ base: "lg", md: "xl" }}

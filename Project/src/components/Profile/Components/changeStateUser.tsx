@@ -22,9 +22,9 @@ const ChangeStateUsers: React.FC<ChangeState> = ({
     const docRef = doc(firestore, "customers", UID);
     try {
       await updateDoc(docRef, {
-        userType: {
-          admin: !defaultChecked,
-        },
+       
+          isAdmin: !defaultChecked,
+        
       }).then(() => {
         toast({
           title: "User type updated.",

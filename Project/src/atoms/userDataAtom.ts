@@ -15,11 +15,7 @@ type UserState = {
   stripeId: string;
   stripeLink: string;
   updatedAt: Timestamp;
-  userType: {
-    admin: boolean;
-    editor: boolean;
-    user: boolean;
-  };
+  isAdmin: boolean;
   address: {
     city: string;
     country: string;
@@ -29,6 +25,8 @@ type UserState = {
     state: string;
   };
   WishList: DocumentData[];
+  lastRecipe: string;
+  lastPurchase: DocumentData[];
 };
 
 const defaultUserState: UserState = {
@@ -43,11 +41,7 @@ const defaultUserState: UserState = {
   stripeId: "",
   stripeLink: "",
   updatedAt: Timestamp.now(),
-  userType: {
-    admin: false,
-    editor: false,
-    user: true,
-  },
+  isAdmin: false,
   address: {
     city: "",
     country: "",
@@ -57,6 +51,8 @@ const defaultUserState: UserState = {
     state: "",
   },
   WishList: [],
+  lastRecipe: "",
+  lastPurchase: [],
 };
 
 export const UserAtom = atom<DocumentData>({

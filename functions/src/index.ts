@@ -175,9 +175,7 @@ export const updateCustomers = functions.firestore
           postal_code: "",
           state: "",
         },
-        userType: {
-          admin: false,
-        },
+        isAdmin: false,
       });
       logger.info("🥳 Created customer in Firestore");
     });

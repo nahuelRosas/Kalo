@@ -41,7 +41,7 @@ const useUserData = () => {
   };
 
   const isAdmin = () => {
-    if (userAtom.userType.admin || userAtom.userType.editor) return true;
+    if (userAtom.isAdmin) return true;
     return false;
   };
 

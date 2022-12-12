@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import useCartData from "../../hooks/useCartData";
+import useUserData from "../../hooks/useUserData";
 import {
   Box,
   Button,
@@ -23,6 +24,7 @@ type SuccessProps = {};
 const Success: React.FC<SuccessProps> = () => {
   const [isClean, setIsClean] = useState(false);
   const router = useRouter();
+  const { userData } = useUserData();
   const { id } = router.query;
   const { clearCart } = useCartData();
   if (!isClean) {

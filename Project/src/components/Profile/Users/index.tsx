@@ -29,6 +29,7 @@ const UsersList: React.FC = () => {
   const bg = useColorModeValue("white", "gray.800");
   const bgBox = useColorModeValue("white", "gray.700");
   const bgInput = useColorModeValue("gray.50", "gray.700");
+
   if (results.length === 0 && searchTerm === "") {
     return (
       <Center h="100vh" bg={bg}>
@@ -124,7 +125,10 @@ const UsersList: React.FC = () => {
                       })}
                     </Td>
                     <Td>
-                      <ChangeStateUsers defaultChecked={user.userType.admin} UID={user.uid} />
+                      <ChangeStateUsers
+                        defaultChecked={user.isAdmin}
+                        UID={user.uid}
+                      />
                     </Td>
                   </Tr>
                 );

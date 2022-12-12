@@ -48,7 +48,7 @@ const CreateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
           status: "success",
           duration: 9000,
           isClosable: true,
-        });
+        }); 
       } catch (e: unknown | any) {
         toast({
           title: "An error occurred.",

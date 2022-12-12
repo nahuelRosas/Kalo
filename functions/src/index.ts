@@ -224,22 +224,29 @@ export const updateArrayCustomers = functions.firestore
       logger.info("🥳 Updated ArrayCustomers in Firestore");
     });
 
-export const onCreateDocumentPayment = functions.firestore
-    .document("customers/{id}/payments/{paymentId}")
-    .onCreate(async (snap, context) => {
-      const payment = snap.data();
-      const user = await admin.auth().getUser(context.auth?.uid as string);
-      logger.info("🥳 Found user in Auth", user);
-      const userDoc = firestore.collection("customers").doc(user.uid);
-      logger.info("🥳 Found customer in Firestore");
-      const userSnapshot = await userDoc.get();
-      const userData = userSnapshot.data();
-      if (!userData) {
-        logger.error("💀 No customer found in Firestore");
-        return;
-      }
-      await userDoc.update({
-        lastPayment: payment,
+export const updateLastPurchaseAndAddress = functions
+    .runWith({
+      minInstances: 0,
+    })
+    .firestore.document("/customers/{uid}/payments/{id}")
+    .onUpdate(async (snap, context) => {
+      const payment = snap.after.data();
+      const customer = await firestore
+          .collection("customers")
+          .doc(context.params.uid);
+      logger.info("🥳 Found customer in Firestore", customer);
+      await customer.update({
+        lastPurchase: payment,
+        address: {
+          city: payment?.charges?.data[0]?.billing_details?.address?.city,
+          country: payment?.charges?.data[0]?.billing_details?.address?.country,
+          line1: payment?.charges?.data[0]?.billing_details?.address?.line1,
+          line2: payment?.charges?.data[0]?.billing_details?.address?.line2,
+          postal_code: payment?.charges?.data[0]?.billing_details?.address
+              ?.postal_code,
+          state: payment?.charges?.data[0]?.billing_details?.address?.state,
+        },
+        lastRecipe: payment?.charges?.data[0]?.receipt_url,
       });
       logger.info("🥳 Updated customer in Firestore");
     });

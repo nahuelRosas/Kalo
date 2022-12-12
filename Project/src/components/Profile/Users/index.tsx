@@ -124,7 +124,7 @@ const UsersList: React.FC = () => {
                       })}
                     </Td>
                     <Td>
-                      <ChangeStateUsers defaultChecked={user.userType.admin} />
+                      <ChangeStateUsers defaultChecked={user.userType.admin} UID={user.uid} />
                     </Td>
                   </Tr>
                 );

@@ -8,6 +8,7 @@ export interface ProductsAtom {
   isLoadead: boolean;
   orderBy: string | undefined;
   filterBy: string[];
+  
 }
 
 const defaultProductsState: ProductsAtom = {

@@ -129,6 +129,7 @@ const useProductsData = () => {
   const MappingProducts = () => {
     const _filterProducts = filterProducts();
     const _orderProducts = orderProducts(_filterProducts);
+    
     return _orderProducts;
   };
 

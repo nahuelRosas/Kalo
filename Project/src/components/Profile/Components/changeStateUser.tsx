@@ -7,14 +7,16 @@ import useUserData from "../../../hooks/useUserData";
 
 type ChangeState = {
   defaultChecked: boolean;
+  UID: string;
 };
 
 const ChangeStateUsers: React.FC<ChangeState> = ({
   defaultChecked = false,
+  UID,
 }) => {
   const toast = useToast();
   const [isDisabled, setIsDisabled] = useState(false);
-  const { UID, Reload } = useUserData();
+  const { Reload } = useUserData();
   const updateDocument = async () => {
     setIsDisabled(true);
     const docRef = doc(firestore, "customers", UID);

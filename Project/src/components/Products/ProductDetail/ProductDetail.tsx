@@ -18,6 +18,7 @@ import { DocumentData } from "@firebase/firestore-types";
 import React, { useEffect, useState } from "react";
 import { MdFavoriteBorder } from "react-icons/md";
 import useCartData from "../../../hooks/useCartData";
+import Carousel from "../../Carousel";
 import PriceTag from "../Price";
 import Rating from "../Rating";
 import CarouselImages from "./CarouselImages";
@@ -154,7 +155,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
             fontSize="xl"
             fontWeight="light"
             color={useColorModeValue("gray.800", "gray.400")}>
-            {product?.color[0].toUpperCase() + product?.color.slice(1)}
+            {product?.color[0]?.toUpperCase() + product?.color.slice(1)}
           </Text>
         </Box>
         <Box display="flex" alignItems="center">
@@ -166,7 +167,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
             fontSize="xl"
             fontWeight="light"
             color={useColorModeValue("gray.800", "gray.400")}>
-            {product?.exteriormaterials[0].toUpperCase() +
+            {product?.exteriormaterials[0]?.toUpperCase() +
               product?.exteriormaterials.slice(1)}
           </Text>
         </Box>
@@ -179,7 +180,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
             fontSize="xl"
             fontWeight="light"
             color={useColorModeValue("gray.800", "gray.400")}>
-            {product?.recommendedsport[0].toUpperCase() +
+            {product?.recommendedsport[0]?.toUpperCase() +
               product?.recommendedsport.slice(1)}
           </Text>
         </Box>
@@ -192,7 +193,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
             fontSize="xl"
             fontWeight="light"
             color={useColorModeValue("gray.800", "gray.400")}>
-            {product?.fittype[0].toUpperCase() + product?.fittype.slice(1)}
+            {product?.fittype[0]?.toUpperCase() + product?.fittype.slice(1)}
           </Text>
         </Box>
         <Box display="flex" alignItems="center">
@@ -205,7 +206,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
             fontSize="xl"
             fontWeight="light"
             color={useColorModeValue("gray.800", "gray.400")}>
-            {product?.solematerials[0].toUpperCase() +
+            {product?.solematerials[0]?.toUpperCase() +
               product?.solematerials.slice(1)}
           </Text>
         </Box>
@@ -218,7 +219,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
             fontSize="xl"
             fontWeight="light"
             color={useColorModeValue("gray.800", "gray.400")}>
-            {product?.style[0].toUpperCase() + product?.style.slice(1)}
+            {product?.style[0]?.toUpperCase() + product?.style.slice(1)}
           </Text>
         </Box>
       </Grid>
@@ -295,7 +296,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
                     Reviewer:
                   </Text>
                   <Text fontSize="xl" fontWeight="Light" ml={2} mr={2}>
-                    {review.name[0].toUpperCase() + review.name.slice(1)}
+                    {review.name[0]?.toUpperCase() + review.name.slice(1)}
                   </Text>
                 </Box>
                 <Box display="flex" alignItems="center">

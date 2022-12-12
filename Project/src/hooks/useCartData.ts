@@ -7,7 +7,6 @@ import FormatPrice from "../components/Products/Price/formatPrice";
 import { addDoc, collection, doc, onSnapshot } from "firebase/firestore";
 import useUserData from "./useUserData";
 import { firestore } from "../firebase/clientApp";
-import { nanoid } from "nanoid";
 
 const errors = {
   noSize: "No size selected. Please select a size before adding to cart",

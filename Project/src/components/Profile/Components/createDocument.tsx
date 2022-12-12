@@ -24,7 +24,7 @@ const CreateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
   const [value, setValue] = useRecoilState<value>(stateAtom);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
-  const { getProducts } = useProductsData();
+  const { Reload } = useProductsData();
 
   const createDocument = async () => {
     setLoading(true);
@@ -43,7 +43,6 @@ const CreateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
           ...value,
           id,
         });
-        setValue(defaultProductCreateAtom);
         toast({
           title: "Product created.",
           status: "success",
@@ -58,8 +57,11 @@ const CreateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
           duration: 9000,
           isClosable: true,
         });
+      } finally {
+        setLoading(false);
+        Reload();
+        setValue(defaultProductCreateAtom);
       }
-      setLoading(false);
     } else {
       toast({
         title: "Please fill in all required fields.",
@@ -69,7 +71,6 @@ const CreateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
       });
     }
     setLoading(false);
-    getProducts();
   };
 
   return (

@@ -28,6 +28,7 @@ type UserState = {
     postal_code: string;
     state: string;
   };
+  WishList: DocumentData[];
 };
 
 const defaultUserState: UserState = {
@@ -55,6 +56,7 @@ const defaultUserState: UserState = {
     postal_code: "",
     state: "",
   },
+  WishList: [],
 };
 
 export const UserAtom = atom<DocumentData>({

@@ -8,15 +8,19 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import useCartData from "../../hooks/useCartData";
-import useCheckOutSession from "../../hooks/useCheckOutSession";
 import CardCart from "./CardCart";
 
-type indexProps = {};
+const Cart: React.FC = () => {
+  const {
+    Length,
+    TotalPrice,
+    Cart,
+    clearCart,
+    toggleDrawer,
+    changeDrawer,
+    getCheckOutSession,
+  } = useCartData();
 
-const Cart: React.FC<indexProps> = () => {
-  const { Length, TotalPrice, Cart, clearCart, toggleDrawer, changeDrawer } =
-    useCartData();
-  const { getCheckOutSession } = useCheckOutSession();
   return (
     <>
       <DrawerBody>

@@ -12,11 +12,13 @@ export interface CartItem {
 
 export interface CartAtom {
   cart: CartItem[];
+  cartAfterPay: CartItem[];
   urlCheckOut: string;
 }
 
 const defaultCartState: CartAtom = {
   cart: [],
+  cartAfterPay: [],
   urlCheckOut: "",
 };
 

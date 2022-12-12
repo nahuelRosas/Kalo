@@ -17,9 +17,7 @@ import {
 import { DocumentData } from "@firebase/firestore-types";
 import React, { useEffect, useState } from "react";
 import { MdFavoriteBorder } from "react-icons/md";
-import { StyleShoes } from "../../../chakra/ColorIcon";
 import useCartData from "../../../hooks/useCartData";
-import Carousel from "../../Carousel";
 import PriceTag from "../Price";
 import Rating from "../Rating";
 import CarouselImages from "./CarouselImages";
@@ -31,7 +29,6 @@ export type ProductCardProps = {
 
 const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
   const bg = useColorModeValue("gray.200", "gray.700");
-  console.log(product);
   const [selectedSize, setSelectedSize] = useState<{
     label: string;
     value: string;

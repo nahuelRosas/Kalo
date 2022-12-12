@@ -4,6 +4,10 @@ import { useRecoilState } from "recoil";
 import { CartAtom } from "../atoms/cartAtom";
 import { CartDrawerAtom } from "../atoms/cartDrawerAtom";
 import FormatPrice from "../components/Products/Price/formatPrice";
+import { addDoc, collection, doc, onSnapshot } from "firebase/firestore";
+import useUserData from "./useUserData";
+import { firestore } from "../firebase/clientApp";
+import { nanoid } from "nanoid";
 
 const errors = {
   noSize: "No size selected. Please select a size before adding to cart",
@@ -14,6 +18,8 @@ const useCartData = () => {
   const [State, SetState] = useRecoilState<CartAtom>(CartAtom);
   const [drawerState, setDrawerState] = useRecoilState(CartDrawerAtom);
   const toast = useToast();
+  const { UID, userData } = useUserData();
+  const Ref = collection(firestore, `customers/${UID}/checkout_sessions`);
 
   const toggleDrawer = () => {
     setDrawerState({ isOpen: !drawerState.isOpen, type: "cart" });
@@ -29,6 +35,7 @@ const useCartData = () => {
   const TotalPrice = FormatPrice({
     value: State.cart.map((item) => item.price).reduce((a, b) => a + b, 0),
   });
+
   const addOrIncrementProduct = (
     product: DocumentData,
     size: { value: string; label: string } | undefined,
@@ -191,13 +198,55 @@ const useCartData = () => {
   };
 
   const clearCart = () => {
-    SetState({ ...State, cart: [] });
+    if (State.cart.length === 0 && State.urlCheckOut === "") return;
+    SetState({ ...State, cart: [], urlCheckOut: "" });
   };
 
   const SetURL = (url: string) => {
-    SetState({ ...State, urlCheckOut: url });
+    SetState({
+      ...State,
+      cartAfterPay: State.cart,
+      urlCheckOut: url,
+    });
   };
-
+  const getCheckOutSession = async () => {
+    SetState({
+      ...State,
+      urlCheckOut: "",
+    });
+    try {
+      const { id } = await addDoc(Ref, {
+        mode: "payment",
+        success_url: `${window.location.origin}/success/${UID}`,
+        cancel_url: `${window.location.origin}/error/${UID}`,
+        collect_shipping_address: true,
+        customer_email: userData.email,
+        line_items: State.cart.map((item) => ({
+          price: item.product.priceId,
+          quantity: item.quantity,
+        })),
+      });
+      onSnapshot(
+        doc(firestore, `customers/${UID}/checkout_sessions`, id),
+        (doc) => {
+          const Document = doc.data();
+          const url = Document?.url;
+          if (url) {
+            console.log(url);
+            SetURL(url);
+          }
+        }
+      );
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  };
   return {
     Cart: State.cart,
     Length,
@@ -211,6 +260,7 @@ const useCartData = () => {
     deleteProduct,
     clearCart,
     SetURL,
+    getCheckOutSession,
     urlCheckOut: State.urlCheckOut,
   };
 };

@@ -103,7 +103,7 @@ const UsersList: React.FC = () => {
                 <Th>UID</Th>
                 <Th>Stripe ID</Th>
                 <Th>Date</Th>
-                <Th>Active</Th>
+                <Th>Admin</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -139,7 +139,7 @@ const UsersList: React.FC = () => {
                 <Th>UID</Th>
                 <Th>Stripe ID</Th>
                 <Th>Date</Th>
-                <Th>Active</Th>
+                <Th>Admin</Th>
               </Tr>
             </Tfoot>
           </Table>

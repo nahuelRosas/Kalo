@@ -19,6 +19,7 @@ const cloudinaryConfig = {
 };
 
 v2.config(cloudinaryConfig);
+
 export const createStripeProduct = functions.firestore
     .document("productsFirestore/{productId}")
     .onCreate(async (snap, context) => {
@@ -176,8 +177,6 @@ export const updateCustomers = functions.firestore
         },
         userType: {
           admin: false,
-          editor: false,
-          user: true,
         },
       });
       logger.info("🥳 Created customer in Firestore");
@@ -223,4 +222,24 @@ export const updateArrayCustomers = functions.firestore
         customers: ArrayCustomersDataCustomers,
       });
       logger.info("🥳 Updated ArrayCustomers in Firestore");
+    });
+
+export const onCreateDocumentPayment = functions.firestore
+    .document("customers/{id}/payments/{paymentId}")
+    .onCreate(async (snap, context) => {
+      const payment = snap.data();
+      const user = await admin.auth().getUser(context.auth?.uid as string);
+      logger.info("🥳 Found user in Auth", user);
+      const userDoc = firestore.collection("customers").doc(user.uid);
+      logger.info("🥳 Found customer in Firestore");
+      const userSnapshot = await userDoc.get();
+      const userData = userSnapshot.data();
+      if (!userData) {
+        logger.error("💀 No customer found in Firestore");
+        return;
+      }
+      await userDoc.update({
+        lastPayment: payment,
+      });
+      logger.info("🥳 Updated customer in Firestore");
     });

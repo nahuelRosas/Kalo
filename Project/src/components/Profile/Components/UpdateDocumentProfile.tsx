@@ -13,7 +13,6 @@ type UpdateDocumentProfileProps = {
 const UpdateDocumentProfile: React.FC<UpdateDocumentProfileProps> = ({ w }) => {
   const { getUserData, userData } = useUserData();
   const [value] = useRecoilState<DocumentData>(UserAtom);
-  console.log(value)
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 

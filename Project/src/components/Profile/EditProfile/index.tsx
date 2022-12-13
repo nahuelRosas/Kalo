@@ -10,7 +10,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import { useRecoilState } from "recoil";
 import { UserAtom } from "../../../atoms/userDataAtom";
 import useUserData from "../../../hooks/useUserData";
 import EditPhotoProfile from "../../Modal/EditProfile/EditPhotoProfile";

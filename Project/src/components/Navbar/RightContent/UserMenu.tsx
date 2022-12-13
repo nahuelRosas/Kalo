@@ -20,12 +20,14 @@ import {
   FiSun,
   FiUser,
 } from "react-icons/fi";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { CartDrawerAtom } from "../../../atoms/cartDrawerAtom";
 import { auth } from "../../../firebase/clientApp";
 import useUserData from "../../../hooks/useUserData";
 import ItemMenu from "./itemMenu";
 import useCartData from "../../../hooks/useCartData";
+//import { useRouter } from "next/router";
+import { isLoggedState } from "../../../atoms/IsLoggedAtom";
 
 const UserMenu: React.FC = () => {
   const { userData } = useUserData();
@@ -33,6 +35,9 @@ const UserMenu: React.FC = () => {
   const text = useColorModeValue("Dark", "Light");
   const toast = useToast();
   const { clearCart } = useCartData();
+
+  const [isLogged, setIsLogged] = useRecoilState(isLoggedState);
+
   const logOut = () => {
     signOut(auth)
       .then(() => {
@@ -43,6 +48,7 @@ const UserMenu: React.FC = () => {
           duration: 3000,
           isClosable: true,
         });
+        setIsLogged({ value: false });
       })
       .catch((error) => {
         toast({
@@ -63,15 +69,6 @@ const UserMenu: React.FC = () => {
   const src = userData?.photoURL;
   return (
     <>
-      {/*  <ButtonContent state={CartDrawerAtom} icon={FiShoppingCart} type={"cart"}>
-        <CartDrawer />
-      </ButtonContent>
-      <ButtonContent
-        state={WishListDrawerAtom}
-        icon={FiHeart}
-        type={"wishList"}>
-        <WishListDrawer />
-      </ButtonContent> */}
       <Menu
         isLazy
         placement="bottom-end"

@@ -1,12 +1,17 @@
 import { Button, Flex, Text, useToast } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { FaGoogle } from "react-icons/fa";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { FaGoogle } from "react-icons/fa";
+import { useRecoilState } from "recoil";
+import { isLoggedState } from "../../../atoms/IsLoggedAtom";
 import { auth } from "../../../firebase/clientApp";
 import { FIREBASE_ERRORS } from "../../../firebase/errors";
 
 const OAuthButtons: React.FC = () => {
   const toast = useToast();
+
+  const [isLogged, setIsLogged] = useRecoilState(isLoggedState);
+
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
 
@@ -18,6 +23,7 @@ const OAuthButtons: React.FC = () => {
         duration: 5000,
         isClosable: true,
       });
+      setIsLogged({ value: true });
     }
 
     if (googleUser?.operationType === "link") {
@@ -27,8 +33,9 @@ const OAuthButtons: React.FC = () => {
         duration: 5000,
         isClosable: true,
       });
+      setIsLogged({ value: true });
     }
-  }, [googleUser, toast]);
+  }, [googleUser, setIsLogged, toast]);
 
   return (
     <Flex direction="column" align="center" width={"100%"}>

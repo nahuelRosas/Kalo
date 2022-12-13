@@ -8,7 +8,7 @@ export interface ProductsAtom {
   isLoadead: boolean;
   orderBy: string | undefined;
   filterBy: string[];
-  
+  orderByPrice: number[];
 }
 
 const defaultProductsState: ProductsAtom = {
@@ -17,6 +17,7 @@ const defaultProductsState: ProductsAtom = {
   isLoadead: false,
   orderBy: undefined,
   filterBy: [],
+  orderByPrice: [],
 };
 
 export const ProductsAtom = atom<ProductsAtom>({

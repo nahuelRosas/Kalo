@@ -18,6 +18,7 @@ import { DocumentData } from "@firebase/firestore-types";
 import React, { useEffect, useState } from "react";
 import { MdFavoriteBorder } from "react-icons/md";
 import useCartData from "../../../hooks/useCartData";
+import useWishlistData from "../../../hooks/useWishlistData";
 import Carousel from "../../Carousel";
 import PriceTag from "../Price";
 import Rating from "../Rating";
@@ -40,6 +41,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
   }, [product?.size]);
 
   const { addOrIncrementProduct } = useCartData();
+  const { addProduct } = useWishlistData();
   return (
     <Container maxW="container.xl" mt="2rem" bg={bg}>
       <Grid
@@ -130,6 +132,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
               colorScheme="purple"
               aria-label="Add to wishlist"
               icon={<MdFavoriteBorder />}
+              onClick={() => addProduct(product, selectedSize)}
             />
           </HStack>
         </Box>
@@ -247,8 +250,8 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
               product?.rating >= 4
                 ? "green.500"
                 : product?.rating >= 3
-                ? "yellow.500"
-                : "red.500"
+                  ? "yellow.500"
+                  : "red.500"
             }>
             {product?.rating}
           </Text>
@@ -264,8 +267,8 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
               product?.numReviews >= 4
                 ? "green.500"
                 : product?.numReviews >= 3
-                ? "yellow.500"
-                : "red.500"
+                  ? "yellow.500"
+                  : "red.500"
             }>
             {product?.numReviews}
           </Text>

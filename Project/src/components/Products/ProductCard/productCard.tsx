@@ -12,8 +12,10 @@ import {
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import useCartData from "../../../hooks/useCartData";
+import useWishlistData from "../../../hooks/useWishlistData";
 import PriceTag from "../Price";
 import Rating from "../Rating";
+import FavouriteButton from "./FavouriteButton";
 
 type ProductCardProps = {
   product: any;
@@ -23,11 +25,24 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const bg = useColorModeValue("white", "gray.700");
   const { addOrIncrementProduct } = useCartData();
   const [image, setImage] = useState<string>("");
+  const { addProduct } = useWishlistData();
+
+
+  const [selectedSize, setSelectedSize] = useState<{
+    label: string;
+    value: string;
+  }>();
+
+  useEffect(() => {
+    setSelectedSize(product?.size[0]);
+  }, [product?.size]);
 
   useEffect(() => {
     const random = Math.floor(Math.random() * product.images.length);
     setImage(product.images[random]);
   }, [product.images]);
+
+
 
   return (
     <Stack
@@ -70,6 +85,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             }
           />
         </Box>
+      </Link>
+
+      <FavouriteButton
+        onClick={() => addProduct(product, selectedSize)}
+        position="absolute"
+        top="4"
+        right="4"
+        aria-label={`Add ${product?.name} to your favourites`}
+      />
+
+      <Link href={`/product/${product?.id}`}>
         <Stack
           p={"10px"}
           spacing="0.5"

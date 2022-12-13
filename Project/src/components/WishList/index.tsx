@@ -1,40 +1,73 @@
-import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
-import { MdFavorite } from "react-icons/md";
-import { useSetRecoilState } from "recoil";
-import { WishListDrawerAtom } from "../../atoms/wishListDrawerAtom";
-import WishListDrawer from "../Drawer/WishListDrawer";
+import { Button, DrawerBody, DrawerFooter, Flex, Grid, Text, IconButton, useBreakpointValue } from "@chakra-ui/react";
+import { useState } from "react";
+import useWishlistData from "../../hooks/useWishlistData";
+import CardWishlist from "./CardWishlist";
+
+
 
 const WishList = () => {
-  const setWishListDrawerstate = useSetRecoilState(WishListDrawerAtom);
+  const {
+    Length,
+    TotalPrice,
+    Wishlist,
+    clearWishlist,
+    toggleDrawer,
+    changeDrawer,
+    getCheckOutSession,
+  } = useWishlistData();
+
 
   return (
     <>
-      <WishListDrawer />
-      <Box
-        display={
-          useBreakpointValue({
-            base: "none",
-            md: "flex",
-          }) as string
-        }
-        position="relative"
-        alignItems="center"
-        justifyContent="center"
-        width="100%"
-        height="100%"
-        mr={4}>
-        <IconButton
-          onClick={() =>
-            setWishListDrawerstate({ isOpen: true, type: "wishList" })
-          }
-          isRound={true}
-          colorScheme="purple"
-          variant="ghost"
-          size="md"
-          aria-label="cart">
-          <MdFavorite />
-        </IconButton>
-      </Box>
+      <DrawerBody>
+        {Length === 0 ? (
+          <Text
+            textAlign="center"
+            fontSize="xl"
+            fontWeight="bold"
+            color="gray.500">
+            Your wishlist is empty
+          </Text>
+        ) : (
+          <Grid>
+            {Wishlist.map((item, index) => (
+              <CardWishlist key={index} itemState={item} />
+            ))}
+          </Grid>
+        )}
+      </DrawerBody>
+      <DrawerFooter>
+        {/* <Flex w="100%" justifyContent="space-between" alignItems="center" p={4}>
+          <Text fontSize="xl" fontWeight="bold">
+            Total: {TotalPrice}
+          </Text> */}
+        <Flex>
+          <Button
+            colorScheme="purple"
+            variant="outline"
+            size="md"
+            mr={2}
+            onClick={() => {
+              // clearWishlist();
+              toggleDrawer();
+            }}>
+            Cancel
+          </Button>
+
+          {Wishlist.length > 0 ? <Button
+            colorScheme="purple"
+            variant="outline"
+            size="md"
+            mr={2}
+            onClick={() => {
+              clearWishlist();
+              // toggleDrawer();
+            }}>
+            Delete all
+          </Button> : false}
+
+        </Flex>
+      </DrawerFooter>
     </>
   );
 };

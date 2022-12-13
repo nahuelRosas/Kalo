@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Layout: React.FC<Props> = ({ children }) => {
-  const { getProducts, } = useProductsData();
+  const { getProducts } = useProductsData();
   const { getUserData, getUsersData } = useUserData();
   useEffect(() => {
     getProducts();

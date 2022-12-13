@@ -13,11 +13,28 @@ import React, { SetStateAction, useState } from "react";
 import { FaChild } from "react-icons/fa";
 import { ImMan, ImManWoman, ImWoman } from "react-icons/im";
 import useProductsData from "../../../../hooks/useProductsData";
+import FormatPrice from "../../../Products/Price/formatPrice";
 import ItemMenu from "./itemMenu";
 import TitleMenu from "./titleMenu";
 
 const LateralMenu: React.FC = () => {
-  const { setOrderBy, setFilterBy, currentFilter } = useProductsData();
+  const {
+    setOrderBy,
+    setFilterBy,
+    currentFilter,
+    setOrderByPrice,
+    currentValueRange,
+  } = useProductsData();
+
+  const Values = (value: number) => {
+    const firstValue = currentValueRange()[0];
+    const firstPrice = FormatPrice({value: firstValue});
+    const secondValue = currentValueRange()[1];
+    const secondPrice = FormatPrice({value: secondValue});
+    if (value === 1) return firstPrice;
+    if (value === 2) return secondPrice;
+  };
+
   return (
     <Box
       display={{ base: "none", md: "block" }}
@@ -25,7 +42,8 @@ const LateralMenu: React.FC = () => {
       px={6}
       bg={useColorModeValue("white", "gray.700")}
       borderBottomWidth={1}
-      borderColor={useColorModeValue("gray.200", "gray.700")}>
+      borderColor={useColorModeValue("gray.200", "gray.700")}
+    >
       <TitleMenu title="Order" />
       <Select
         options={[
@@ -78,7 +96,16 @@ const LateralMenu: React.FC = () => {
       />
       <TitleMenu title="Price" />
       <Grid templateColumns={"repeat(1, 1fr)"} gap={6} m={6}>
-        <RangeSlider min={0} max={50} step={5} colorScheme="purple">
+        <RangeSlider
+          min={0}
+          max={5000}
+          step={5}
+          /* value={currentValueRange()} */
+          onChangeEnd={(e) => {
+            setOrderByPrice(e);
+          }}
+          colorScheme="purple"
+        >
           <RangeSliderTrack>
             <RangeSliderFilledTrack />
           </RangeSliderTrack>
@@ -86,7 +113,7 @@ const LateralMenu: React.FC = () => {
           <RangeSliderThumb index={1} />
         </RangeSlider>
         <Text align="center" mt={6} fontWeight="semibold">
-          {/* €{selectedPrice[0]} - €{selectedPrice[1]} */}
+          {Values(1)} - {Values(2)}
         </Text>
       </Grid>
     </Box>

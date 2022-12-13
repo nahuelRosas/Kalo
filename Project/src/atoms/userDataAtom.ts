@@ -1,7 +1,6 @@
-import { atom } from "recoil";
 import { DocumentData } from "@firebase/firestore-types";
 import { Timestamp } from "firebase/firestore";
-import { persistAtomEffect } from "./SSRCompleted";
+import { atom } from "recoil";
 
 type UserState = {
   isLoadead: boolean;
@@ -24,9 +23,9 @@ type UserState = {
     postal_code: string;
     state: string;
   };
-  WishList: DocumentData[];
   lastRecipe: string;
-  lastPurchase: DocumentData[];
+  lastPurchase: any;
+  wishlist: []
 };
 
 const defaultUserState: UserState = {
@@ -50,9 +49,9 @@ const defaultUserState: UserState = {
     postal_code: "",
     state: "",
   },
-  WishList: [],
   lastRecipe: "",
-  lastPurchase: [],
+  lastPurchase: {},
+  wishlist: []
 };
 
 export const UserAtom = atom<DocumentData>({

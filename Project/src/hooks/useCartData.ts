@@ -24,6 +24,10 @@ const useCartData = () => {
     setDrawerState({ isOpen: !drawerState.isOpen, type: "cart" });
   };
 
+  const closeDrawer = () => {
+    setDrawerState({ ...drawerState, isOpen: false });
+  };
+
   const changeDrawer = (type: "cart" | "checkout" | "precheckout") => {
     setDrawerState({ isOpen: true, type });
   };
@@ -231,7 +235,6 @@ const useCartData = () => {
           const Document = doc.data();
           const url = Document?.url;
           if (url) {
-            console.log(url);
             SetURL(url);
           }
         }
@@ -261,6 +264,7 @@ const useCartData = () => {
     SetURL,
     getCheckOutSession,
     urlCheckOut: State.urlCheckOut,
+    closeDrawer,
   };
 };
 

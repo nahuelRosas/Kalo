@@ -4,15 +4,16 @@ import useCartData from "../../hooks/useCartData";
 import { useRouter } from "next/router";
 
 const CheckOutDrawer: React.FC = () => {
-  const { changeDrawer, urlCheckOut } = useCartData();
+  const { changeDrawer, urlCheckOut, clearCart } = useCartData();
 
   const router = useRouter();
 
   useEffect(() => {
     if (urlCheckOut) {
       router.push(urlCheckOut);
+      clearCart();
     }
-  }, [router, urlCheckOut]);
+  }, [router, clearCart, urlCheckOut]);
 
   return (
     <>

@@ -1,44 +1,44 @@
-import {
-  MenuItem,
-  useBreakpointValue,
-  Icon,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import { MdFavorite } from "react-icons/md";
-import { useSetRecoilState } from "recoil";
-import { WishListDrawerAtom } from "../../atoms/wishListDrawerAtom";
-import React from "react";
+import { Flex, IconButton, Text } from "@chakra-ui/react";
+import WishListDrawer from "../Drawer/WishListDrawer";
+import { MdFavorite } from 'react-icons/md';
+import useWishlistData from "../../hooks/useWishlistData";
 
-const ButtonWishList = () => {
-  const setWishListDrawerstate = useSetRecoilState(WishListDrawerAtom);
+const Wishlist = () => {
+  const { Length, toggleDrawer } = useWishlistData();
 
   return (
     <>
-      <MenuItem
-        width="100%"
-        aria-label="wishList"
-        onClick={() =>
-          setWishListDrawerstate({ isOpen: true, type: "wishList" })
-        }
-        display={useBreakpointValue({
-          base: "flex",
-          md: "none",
-        })}>
-        <Icon
-          as={MdFavorite}
-          boxSize={useBreakpointValue({ base: 4, md: 5 })}
-          color={
-            useColorModeValue("purple.600", "purple.400") as
-              | "purple.600"
-              | "purple.400"
-          }
+      <WishListDrawer />
+      <Flex display={{ base: "none", md: "flex" }}>
+        <IconButton
+          onClick={toggleDrawer}
+          colorScheme="purple"
+          isRound
+          variant="ghost"
+          size="md"
+          aria-label="cart"
           mr={2}
-        />
-        <Text>Cart</Text>
-      </MenuItem>
+          ml={2}
+          icon={
+            <>
+              <MdFavorite />
+              {/* <Text
+                mb={5}
+                color={"white"}
+                fontSize={"xs"}
+                bg={"purple.500"}
+                borderRadius={"full"}
+                w={4}
+                h={4}
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}>
+                {Length}
+              </Text> */}
+            </>
+          }></IconButton>
+      </Flex>
     </>
   );
 };
-
-export default ButtonWishList;
+export default Wishlist;

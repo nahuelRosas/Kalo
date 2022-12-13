@@ -27,6 +27,7 @@ const useProductsData = () => {
             isLoadead: true,
             orderBy: "a-z",
             filterBy: [],
+            orderByPrice: [0, 5000],
           });
         }
       );
@@ -126,11 +127,20 @@ const useProductsData = () => {
     return orderProducts;
   };
 
+  const orderByPrice = (productsList: DocumentData[]) => {
+    const order = ProductsState.orderByPrice
+    const products = new Array(...productsList);
+    const orderProducts = products.filter(
+      (product) => product.price >= order[0] && product.price <= order[1]
+    );
+    return orderProducts;
+  };
+
   const MappingProducts = () => {
     const _filterProducts = filterProducts();
     const _orderProducts = orderProducts(_filterProducts);
-    
-    return _orderProducts;
+    const _orderByPrice = orderByPrice(_orderProducts);
+    return _orderByPrice;
   };
 
   const setOrderBy = (order: string | undefined) => {
@@ -141,6 +151,16 @@ const useProductsData = () => {
       orderBy: order,
     });
   };
+
+  const setOrderByPrice = (order: number[]) => {
+    console.log(order)
+    if (!order) order = [0, 5000]
+
+    setProducts({
+      ...ProductsState,
+      orderByPrice: order,
+    });
+  }
 
   const setFilterBy = (filter: string, forced?: boolean) => {
     if (filter === "all") {
@@ -185,6 +205,11 @@ const useProductsData = () => {
     return false;
   };
 
+  const currentValueRange = () => {
+    const value = ProductsState.orderByPrice;
+    return value;
+  };
+
   const Reload = () => {
     setProducts({
       ...ProductsState,
@@ -194,6 +219,7 @@ const useProductsData = () => {
   };
 
   return {
+    currentValueRange,
     getProducts,
     productsActive,
     productsAll,
@@ -201,6 +227,7 @@ const useProductsData = () => {
     MappingProducts,
     setOrderBy,
     setFilterBy,
+    setOrderByPrice,
     currentFilter,
     Reload,
   };

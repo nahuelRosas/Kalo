@@ -17,7 +17,13 @@ const useUserData = () => {
       const docSnap = await getDoc(userRef);
       if (docSnap.exists()) {
         const userData = docSnap.data();
-        setUserAtom({ ...userData, isLoadead: true });
+        const lastPurchaseSTR = JSON.stringify(userData?.lastPurchase || {});
+        const lastPurchase = JSON.parse(lastPurchaseSTR);
+        setUserAtom({
+          ...userData,
+          isLoadead: true,
+          lastPurchase: lastPurchase,
+        });
       }
     } catch (error) {
       console.log(error);
@@ -31,7 +37,12 @@ const useUserData = () => {
         const docSnap = await getDoc(usersRef);
         if (docSnap.exists()) {
           const usersData = docSnap.data();
-          const users = usersData.customers;
+          const users = usersData.customers.map((user: any) => {
+            const lastPurchaseSTR = JSON.stringify(user?.lastPurchase || {});
+            const lastPurchase = JSON.parse(lastPurchaseSTR);
+            return { ...user, lastPurchase: lastPurchase };
+          });
+
           setUsersAtom({ users: users, isLoadead: true });
         }
       } catch (error) {

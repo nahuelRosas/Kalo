@@ -15,12 +15,12 @@ import { MdFavorite } from "react-icons/md";
 import { useSetRecoilState } from "recoil";
 import { AuthModalState } from "../../../atoms/authModalAtom";
 import { CartDrawerAtom } from "../../../atoms/cartDrawerAtom";
-import { WishListDrawerAtom } from "../../../atoms/wishListDrawerAtom";
+import { WishlistDrawerAtom } from "../../../atoms/wishListDrawerAtom";
 import ItemMenu from "./itemMenu";
 const AuthButtons: React.FC = () => {
   const setAuthModalState = useSetRecoilState(AuthModalState);
   const setCartDrawerState = useSetRecoilState(CartDrawerAtom);
-  const setWishListDrawerState = useSetRecoilState(WishListDrawerAtom);
+  const setWishListDrawerState = useSetRecoilState(WishlistDrawerAtom);
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue("Dark", "Light");
 

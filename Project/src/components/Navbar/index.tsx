@@ -7,12 +7,11 @@ import MobileCategories from "./Categories/MobileCategories";
 import LogoCompany from "./LogoCompany";
 import RightContent from "./RightContent";
 import SearchInput from "./SearchBar/SearchInput";
-
+import Wishlist from '../WishList/ButtonWishList';
 const Navbar: React.FC = () => {
   const [user] = useAuthState(auth);
   return (
     <Flex
-      as="nav"
       align="center"
       justify="space-evenly"
       wrap="wrap"
@@ -28,6 +27,7 @@ const Navbar: React.FC = () => {
       <SearchInput />
       <Flex>
         <Cart />
+        <Wishlist />
         <RightContent user={user} />
       </Flex>
     </Flex>

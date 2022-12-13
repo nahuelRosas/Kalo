@@ -1,16 +1,16 @@
 import { atom } from "recoil";
 
-export interface WishListDrawerAtom {
+export interface WishlistDrawerAtom {
   isOpen: boolean;
   type: "wishList" | "checkout";
 }
 
-const defaultWishListDrawerState: WishListDrawerAtom = {
+const defaultWishlistDrawerState: WishlistDrawerAtom = {
   isOpen: false,
   type: "wishList",
 };
 
-export const WishListDrawerAtom = atom<WishListDrawerAtom>({
+export const WishlistDrawerAtom = atom<WishlistDrawerAtom>({
   key: "wishListDrawerState",
-  default: defaultWishListDrawerState,
+  default: defaultWishlistDrawerState,
 });

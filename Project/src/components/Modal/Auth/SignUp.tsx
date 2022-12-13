@@ -1,12 +1,20 @@
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
-  Button, Flex, IconButton, Input, InputGroup, InputRightElement, Text,
-  useColorModeValue, useToast
+  Button,
+  Flex,
+  IconButton,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Text,
+  useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
 import { AuthModalState } from "../../../atoms/authModalAtom";
+import { isLoggedState } from "../../../atoms/IsLoggedAtom";
 import { auth } from "../../../firebase/clientApp";
 import { FIREBASE_ERRORS } from "../../../firebase/errors";
 import { emailRegex } from "../../../utils/regex";
@@ -28,6 +36,8 @@ const SignUp: React.FC = () => {
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  const isLogged = useSetRecoilState(isLoggedState);
 
   useEffect(() => {
     if (
@@ -85,11 +95,12 @@ const SignUp: React.FC = () => {
         duration: 5000,
         isClosable: true,
       });
+      isLogged({ value: true });
     }
 
     setPasswordError("");
     setEmailError("");
-  }, [SignUpForm, userError, user, toast]);
+  }, [SignUpForm, userError, user, toast, isLogged]);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

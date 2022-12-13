@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
 import { AuthModalState } from "../../../atoms/authModalAtom";
+import { isLoggedState } from "../../../atoms/IsLoggedAtom";
 import { auth } from "../../../firebase/clientApp";
 import { FIREBASE_ERRORS } from "../../../firebase/errors";
 import { emailRegex } from "../../../utils/regex";
@@ -42,6 +43,8 @@ const Login: React.FC = () => {
     }));
   };
   const [errors, setErrors] = useState("");
+
+  const isLogged = useSetRecoilState(isLoggedState);
 
   useEffect(() => {
     if (!emailRegex.test(loginForm.email) && loginForm.email.length > 0) {
@@ -74,10 +77,11 @@ const Login: React.FC = () => {
         duration: 5000,
         isClosable: true,
       });
+      isLogged({ value: true });
     }
 
     setErrors("");
-  }, [loginForm, error, user, toast]);
+  }, [loginForm, error, user, toast, isLogged]);
 
   return (
     <form onSubmit={onSubmit} style={{ width: "100%" }}>

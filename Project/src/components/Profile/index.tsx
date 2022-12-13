@@ -1,5 +1,5 @@
 import { Container, Flex, useColorModeValue } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/clientApp";
 import useUserData from "../../hooks/useUserData";
@@ -11,6 +11,9 @@ import EditProfile from "./EditProfile";
 import Base from "./lateralMenu/Base";
 import Products from "./Products";
 import Users from "./Users";
+import { isLoggedState } from "../../atoms/IsLoggedAtom";
+import { useRecoilValue } from "recoil";
+import { useRouter } from "next/router";
 
 type indexProps = {
   type: string;
@@ -18,6 +21,17 @@ type indexProps = {
 const Index: React.FC<indexProps> = ({ type }) => {
   const [user] = useAuthState(auth);
   const { isAdmin } = useUserData();
+
+  const isLogged = useRecoilValue(isLoggedState);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLogged.value === false) {
+      router.push("/");
+    }
+  }, [isLogged, router]);
+
   return (
     <Container
       maxW="container.xxl"

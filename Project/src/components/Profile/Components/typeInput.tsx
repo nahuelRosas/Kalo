@@ -33,7 +33,7 @@ type typeInputProps = {
   withOutPreview?: boolean;
   subElementState?: string;
   action?: (newValue: any, actionMeta: ActionMeta<any>) => void;
-  ParentType: string;
+  ParentType?: string;
 };
 
 const TypeInput: React.FC<typeInputProps> = ({

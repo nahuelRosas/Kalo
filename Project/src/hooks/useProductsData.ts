@@ -293,7 +293,7 @@ const useProductsData = () => {
     ParentType,
   }: {
     e?: boolean;
-    ParentType: string;
+    ParentType?: string;
   }) => {
     if (ParentType === "CreateProduct") {
       if (e === undefined) {
@@ -315,6 +315,7 @@ const useProductsData = () => {
       });
       return ProductEditState.dontRepet;
     }
+    return false;
   };
 
   return {

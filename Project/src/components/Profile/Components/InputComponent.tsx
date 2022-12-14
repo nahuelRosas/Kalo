@@ -36,7 +36,7 @@ type inputProps = {
   title?: string;
   subElementState?: string;
   action?: (newValue: any, actionMeta: ActionMeta<any>) => void;
-  ParentType: string;
+  ParentType?: string;
 };
 
 const InputComponent: React.FC<inputProps> = ({

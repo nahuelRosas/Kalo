@@ -6,7 +6,7 @@ type handleChangeProps = {
   stateAtom: RecoilState<any>;
   label: string;
   type?: string;
-  ParentType: string;
+  ParentType?: string;
 };
 
 const HandleChange = ({
@@ -27,6 +27,7 @@ const HandleChange = ({
   const [state, setState] = useState(value[labelParse]);
 
   useEffect(() => {
+    if (!ParentType) return;
     if (!DontRepet({ ParentType: ParentType })) {
       setDontRepet(false);
       DontRepet({

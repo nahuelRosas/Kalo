@@ -30,7 +30,7 @@ const Review: React.FC<value> = () => {
   const { userData } = useUserData();
   const toast = useToast();
   const { findProduct } = useProductsData();
-
+  const [isLoaded, setIsLoaded] = useState(false);
   const product = findProduct(id as string);
 
   const [value, setValue] = useState<value>({
@@ -40,10 +40,11 @@ const Review: React.FC<value> = () => {
   });
 
   useEffect(() => {
-    if (userData) {
+    if (userData && !isLoaded) {
       setValue({ ...value, name: userData.displayName });
+      setIsLoaded(true);
     }
-  }, [userData, value]);
+  }, [isLoaded, userData, value]);
 
   const [loading, setLoading] = useState(false);
 

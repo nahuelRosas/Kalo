@@ -184,8 +184,8 @@ export const updateArrayCustomers = functions.firestore
     .document("customers/{customersId}")
     .onUpdate(async (snap) => {
       const customer = snap.after.data();
-      const ArrayCustomers = firestore
-          .collection("ArrayCustomers").doc("Array");
+      const ArrayCustomers = firestore.collection("ArrayCustomers")
+          .doc("Array");
       let ArrayCustomersSnapshot = await ArrayCustomers.get();
       if (!ArrayCustomersSnapshot.exists) {
         await ArrayCustomers.set({
@@ -229,10 +229,19 @@ export const updateLastPurchaseAndAddress = functions
     .firestore.document("/customers/{uid}/payments/{id}")
     .onUpdate(async (snap, context) => {
       const payment = snap.after.data();
-      const customer = await firestore
-          .collection("customers")
+      const customer = firestore.collection("customers")
           .doc(context.params.uid);
+      const customerSnapshot = await customer.get();
+      const customerData = customerSnapshot.data();
+      if (!customerData) {
+        logger.error("💀 No customer found in Firestore");
+        return;
+      }
       logger.info("🥳 Found customer in Firestore", customer);
+
+      const orders = customerData?.orders ?
+      [...customerData.orders, payment] : [payment];
+
       await customer.update({
         lastPurchase: payment,
         address: {
@@ -245,6 +254,39 @@ export const updateLastPurchaseAndAddress = functions
           state: payment?.charges?.data[0]?.billing_details?.address?.state,
         },
         lastReceipt: payment?.charges?.data[0]?.receipt_url,
+        orders: orders,
       });
       logger.info("🥳 Updated customer in Firestore");
+      const ArrayOrders = firestore.collection("ArrayOrders").doc("Array");
+      let ArrayOrdersSnapshot = await ArrayOrders.get();
+      if (!ArrayOrdersSnapshot.exists) {
+        await ArrayOrders.set({
+          orders: [payment],
+        });
+        logger.info("🥳 Created ArrayOrders in Firestore and added order");
+      }
+      ArrayOrdersSnapshot = await ArrayOrders.get();
+      const ArrayOrdersData = ArrayOrdersSnapshot.data();
+      if (!ArrayOrdersData) {
+        logger.error("💀 No ArrayOrders found in Firestore");
+        return;
+      }
+      const ArrayDataOrders = ArrayOrdersData.orders;
+      const orderExist = ArrayDataOrders.find(
+          (c: { id: string }) => c.id === payment.id
+      );
+      logger.info("🥳 We are looking for the order in the array", orderExist);
+      if (orderExist) {
+        const index = ArrayDataOrders.indexOf(orderExist);
+        ArrayDataOrders[index] = payment;
+        logger.info("🥳 We found the order in the array");
+      }
+      if (!orderExist) {
+        ArrayDataOrders.push(payment);
+        logger.info("🥳 We didn't find the order in the array");
+      }
+      await ArrayOrders.update({
+        orders: ArrayDataOrders,
+      });
+      logger.info("🥳 Updated ArrayOrders in Firestore");
     });

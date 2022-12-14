@@ -48,14 +48,21 @@ const useWishlistData = () => {
         const foundIndex = State.wishlist.findIndex(
             (x) => x.id === product.id && x.size.value === size?.value
         );
-
+        const IndexSubType = product.subType.findIndex(
+            (x: { size: { value: string | undefined } }) =>
+              x.size.value === size?.value
+          );
+      
         try {
             if (size === undefined) {
                 throw new Error(errors.noSize);
             }
 
-            if (product.stock < State.wishlist[foundIndex]?.quantity + 1) {
-                throw new Error(errors.noStock);
+            if (
+              product.subType[IndexSubType].stock <
+              State.wishlist[foundIndex]?.quantity + 1
+            ) {
+              throw new Error(errors.noStock);
             }
 
             if (foundIndex >= 0) {
@@ -87,7 +94,7 @@ const useWishlistData = () => {
                 status: "success",
                 duration: 3000,
                 isClosable: true,
-            });
+            })
         } catch (error: any) {
             if (withOutToast) return;
             toast({

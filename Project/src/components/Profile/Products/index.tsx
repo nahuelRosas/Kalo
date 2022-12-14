@@ -92,7 +92,7 @@ const ProductsList: React.FC = () => {
               <Tr>
                 <Th>Product</Th>
                 <Th>Price</Th>
-                <Th>Stock</Th>
+                {/* <Th>Stock</Th> */}
                 <Th>ID</Th>
                 <Th>Date Relased</Th>
                 <Th>Active</Th>
@@ -118,7 +118,7 @@ const ProductsList: React.FC = () => {
                           currency: "EUR",
                         })}
                       </Td>
-                      <Td>{product.stock}</Td>
+                      {/* <Td>{product.stock}</Td> */}
                       <Td>{product.id}</Td>
                       <Td>
                         {date?.toDate().toLocaleDateString("en-US", {
@@ -142,7 +142,7 @@ const ProductsList: React.FC = () => {
               <Tr>
                 <Th>Product</Th>
                 <Th>Price</Th>
-                <Th>Stock</Th>
+                {/* <Th>Stock</Th> */}
                 <Th>ID</Th>
                 <Th>Date Relased</Th>
                 <Th>Active</Th>

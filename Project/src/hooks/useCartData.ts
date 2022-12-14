@@ -48,13 +48,20 @@ const useCartData = () => {
     const foundIndex = State.cart.findIndex(
       (x) => x.id === product.id && x.size.value === size?.value
     );
+    const IndexSubType = product.subType.findIndex(
+      (x: { size: { value: string | undefined } }) =>
+        x.size.value === size?.value
+    );
 
     try {
       if (size === undefined) {
         throw new Error(errors.noSize);
       }
 
-      if (product.stock < State.cart[foundIndex]?.quantity + 1) {
+      if (
+        product.subType[IndexSubType].stock <
+        State.cart[foundIndex]?.quantity + 1
+      ) {
         throw new Error(errors.noStock);
       }
 

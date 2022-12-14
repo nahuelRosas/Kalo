@@ -15,15 +15,18 @@ const CreateProduct: React.FC = () => {
   return (
     <>
       <InputComponent
+        ParentType={"EditProduct"}
         label={"Select Product"}
         placeholder={"Select Product"}
         stateAtom={ProductEditAtom}
         typePrototype="Select"
         options={ProductSelected}
         action={selectProduct}
+
       />
       <GridComponent typeGrid="grid" templateColumns="5fr 1fr">
         <InputComponent
+        ParentType={"EditProduct"}
           label={"Name"}
           placeholder={"Nike Air Max Excee"}
           stateAtom={ProductEditAtom}
@@ -31,6 +34,7 @@ const CreateProduct: React.FC = () => {
           isRequired
         />
         <InputComponent
+        ParentType={"EditProduct"}
           label={"Active"}
           typePrototype={"Switch"}
           compound
@@ -46,6 +50,7 @@ const CreateProduct: React.FC = () => {
         />
       </GridComponent>
       <InputComponent
+        ParentType={"EditProduct"}
         label={"Description"}
         placeholder={"Description"}
         typePrototype={"Textarea"}
@@ -53,6 +58,7 @@ const CreateProduct: React.FC = () => {
         isRequired
       />
       <InputComponent
+        ParentType={"EditProduct"}
         label={"Brand"}
         placeholder={"Brand"}
         stateAtom={ProductEditAtom}
@@ -61,6 +67,7 @@ const CreateProduct: React.FC = () => {
 
       <GridComponent>
         <InputComponent
+        ParentType={"EditProduct"}
           label={"Price"}
           placeholder={"Price"}
           stateAtom={ProductEditAtom}
@@ -74,6 +81,7 @@ const CreateProduct: React.FC = () => {
         />
 
         <InputComponent
+        ParentType={"EditProduct"}
           label={"Discount"}
           placeholder={"Discount"}
           withText
@@ -87,6 +95,7 @@ const CreateProduct: React.FC = () => {
       </GridComponent>
       <GridComponent>
         <InputComponent
+        ParentType={"EditProduct"}
           label={"Stock"}
           placeholder={"Stock"}
           withText
@@ -100,6 +109,7 @@ const CreateProduct: React.FC = () => {
         />
         <GridComponent noFormat>
           <InputComponent
+        ParentType={"EditProduct"}
             label={"Unit of Measurement"}
             compound
             placeholder={"Unit"}
@@ -108,6 +118,7 @@ const CreateProduct: React.FC = () => {
             options={unitOfMeasurementOptions}
           />
           <InputComponent
+        ParentType={"EditProduct"}
             label={"Size"}
             compound
             placeholder={"Size"}
@@ -120,6 +131,7 @@ const CreateProduct: React.FC = () => {
       </GridComponent>
       <GridComponent>
         <InputComponent
+        ParentType={"EditProduct"}
           label={"Genres"}
           placeholder={"Genres"}
           stateAtom={ProductEditAtom}
@@ -129,6 +141,7 @@ const CreateProduct: React.FC = () => {
           isMulti
         />
         <InputComponent
+        ParentType={"EditProduct"}
           label={"Age Group"}
           placeholder={"Age Group"}
           stateAtom={ProductEditAtom}
@@ -140,12 +153,14 @@ const CreateProduct: React.FC = () => {
       </GridComponent>
       <GridComponent>
         <InputComponent
+        ParentType={"EditProduct"}
           label={"Color"}
           placeholder={"Color"}
           stateAtom={ProductEditAtom}
           compound
         />
         <InputComponent
+        ParentType={"EditProduct"}
           label={"Style"}
           placeholder={"Style"}
           stateAtom={ProductEditAtom}
@@ -154,12 +169,14 @@ const CreateProduct: React.FC = () => {
       </GridComponent>
       <GridComponent>
         <InputComponent
+        ParentType={"EditProduct"}
           label={"Recommended Sport"}
           placeholder={"Recommended Sport"}
           stateAtom={ProductEditAtom}
           compound
         />
         <InputComponent
+        ParentType={"EditProduct"}
           label={"Exterior Materials"}
           placeholder={"Exterior Materials"}
           stateAtom={ProductEditAtom}
@@ -169,12 +186,14 @@ const CreateProduct: React.FC = () => {
 
       <GridComponent>
         <InputComponent
+        ParentType={"EditProduct"}
           label={"Sole Materials"}
           placeholder={"Sole Materials"}
           stateAtom={ProductEditAtom}
           compound
         />
         <InputComponent
+        ParentType={"EditProduct"}
           label={"Fit Type"}
           placeholder={"Fit Type"}
           stateAtom={ProductEditAtom}
@@ -183,6 +202,7 @@ const CreateProduct: React.FC = () => {
       </GridComponent>
 
       <InputComponent
+        ParentType={"EditProduct"}
         label={"Images"}
         placeholder={"Images"}
         stateAtom={ProductEditAtom}

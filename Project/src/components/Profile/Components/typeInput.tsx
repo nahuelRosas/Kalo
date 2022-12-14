@@ -33,6 +33,7 @@ type typeInputProps = {
   withOutPreview?: boolean;
   subElementState?: string;
   action?: (newValue: any, actionMeta: ActionMeta<any>) => void;
+  ParentType: string;
 };
 
 const TypeInput: React.FC<typeInputProps> = ({
@@ -47,6 +48,7 @@ const TypeInput: React.FC<typeInputProps> = ({
   withOutPreview,
   subElementState = "none",
   action,
+  ParentType,
 }) => {
   const bgInput = useColorModeValue("alphaWhite", "gray.800");
 
@@ -66,6 +68,7 @@ const TypeInput: React.FC<typeInputProps> = ({
     stateAtom,
     label,
     type,
+    ParentType,
   });
 
   const StateName: string =

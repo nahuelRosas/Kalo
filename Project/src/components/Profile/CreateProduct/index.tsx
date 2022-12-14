@@ -1,5 +1,9 @@
-import React from "react";
-import { ProductCreateAtom } from "../../../atoms/ProductCreateAtom";
+import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import {
+  defaultProductCreateAtom,
+  ProductCreateAtom,
+} from "../../../atoms/ProductCreateAtom";
 import {
   AgeRangeOptions,
   GenresOptions,
@@ -10,6 +14,14 @@ import CreateDocument from "../Components/createDocument";
 import GridComponent from "../Components/grid";
 import InputComponent from "../Components/InputComponent";
 const CreateProduct: React.FC = () => {
+  const [value, setValue] = useRecoilState(ProductCreateAtom);
+
+  // useEffect(() => {
+  //   console.log(value);
+  //   setValue(defaultProductCreateAtom);
+  //   console.log(value);
+  // }, [setValue, value]);
+
   return (
     <>
       <GridComponent typeGrid="grid" templateColumns="5fr 1fr">
@@ -19,8 +31,10 @@ const CreateProduct: React.FC = () => {
           stateAtom={ProductCreateAtom}
           compound
           isRequired
+          ParentType={"CreateProduct"}
         />
         <InputComponent
+          ParentType={"CreateProduct"}
           label={"Active"}
           typePrototype={"Switch"}
           compound
@@ -36,6 +50,7 @@ const CreateProduct: React.FC = () => {
         />
       </GridComponent>
       <InputComponent
+        ParentType={"CreateProduct"}
         label={"Description"}
         placeholder={"Description"}
         typePrototype={"Textarea"}
@@ -43,6 +58,7 @@ const CreateProduct: React.FC = () => {
         isRequired
       />
       <InputComponent
+        ParentType={"CreateProduct"}
         label={"Brand"}
         placeholder={"Brand"}
         stateAtom={ProductCreateAtom}
@@ -51,6 +67,7 @@ const CreateProduct: React.FC = () => {
 
       <GridComponent>
         <InputComponent
+          ParentType={"CreateProduct"}
           label={"Price"}
           placeholder={"Price"}
           stateAtom={ProductCreateAtom}
@@ -64,6 +81,7 @@ const CreateProduct: React.FC = () => {
         />
 
         <InputComponent
+          ParentType={"CreateProduct"}
           label={"Discount"}
           placeholder={"Discount"}
           withText
@@ -77,6 +95,7 @@ const CreateProduct: React.FC = () => {
       </GridComponent>
       <GridComponent>
         <InputComponent
+          ParentType={"CreateProduct"}
           label={"Stock"}
           placeholder={"Stock"}
           withText
@@ -90,6 +109,7 @@ const CreateProduct: React.FC = () => {
         />
         <GridComponent noFormat>
           <InputComponent
+            ParentType={"CreateProduct"}
             label={"Unit of Measurement"}
             compound
             placeholder={"Unit"}
@@ -98,6 +118,7 @@ const CreateProduct: React.FC = () => {
             options={unitOfMeasurementOptions}
           />
           <InputComponent
+            ParentType={"CreateProduct"}
             label={"Size"}
             compound
             placeholder={"Size"}
@@ -110,6 +131,7 @@ const CreateProduct: React.FC = () => {
       </GridComponent>
       <GridComponent>
         <InputComponent
+          ParentType={"CreateProduct"}
           label={"Genres"}
           placeholder={"Genres"}
           stateAtom={ProductCreateAtom}
@@ -119,6 +141,7 @@ const CreateProduct: React.FC = () => {
           isMulti
         />
         <InputComponent
+          ParentType={"CreateProduct"}
           label={"Age Group"}
           placeholder={"Age Group"}
           stateAtom={ProductCreateAtom}
@@ -130,12 +153,14 @@ const CreateProduct: React.FC = () => {
       </GridComponent>
       <GridComponent>
         <InputComponent
+          ParentType={"CreateProduct"}
           label={"Color"}
           placeholder={"Color"}
           stateAtom={ProductCreateAtom}
           compound
         />
         <InputComponent
+          ParentType={"CreateProduct"}
           label={"Style"}
           placeholder={"Style"}
           stateAtom={ProductCreateAtom}
@@ -144,12 +169,14 @@ const CreateProduct: React.FC = () => {
       </GridComponent>
       <GridComponent>
         <InputComponent
+          ParentType={"CreateProduct"}
           label={"Recommended Sport"}
           placeholder={"Recommended Sport"}
           stateAtom={ProductCreateAtom}
           compound
         />
         <InputComponent
+          ParentType={"CreateProduct"}
           label={"Exterior Materials"}
           placeholder={"Exterior Materials"}
           stateAtom={ProductCreateAtom}
@@ -159,12 +186,14 @@ const CreateProduct: React.FC = () => {
 
       <GridComponent>
         <InputComponent
+          ParentType={"CreateProduct"}
           label={"Sole Materials"}
           placeholder={"Sole Materials"}
           stateAtom={ProductCreateAtom}
           compound
         />
         <InputComponent
+          ParentType={"CreateProduct"}
           label={"Fit Type"}
           placeholder={"Fit Type"}
           stateAtom={ProductCreateAtom}
@@ -173,6 +202,7 @@ const CreateProduct: React.FC = () => {
       </GridComponent>
 
       <InputComponent
+        ParentType={"CreateProduct"}
         label={"Images"}
         placeholder={"Images"}
         stateAtom={ProductCreateAtom}

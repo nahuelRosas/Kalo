@@ -6,6 +6,7 @@ import { firestore } from "../firebase/clientApp";
 export const products: ProductCreateAtom[] = [
   {
     active: true,
+    dontRepet: false,
     name: "Puma Karmen Exotics",
     description:
       "The Puma Karmen Exotics Sneakers are urban, sporty and feminine. They are made of leather and have a rubber sole. They have a lace-up closure and a padded tongue and collar. They have a Puma logo on the tongue and on the side. They have a Puma logo on the tongue and on the side.",
@@ -53,6 +54,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Nike Court Vision Lo Vday",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw42b16ddd/products/NI_DJ9297-100/NI_DJ9297-100-1.JPG",
@@ -108,6 +110,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Nike Air Zoom Pegasus",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw845001e9/products/NI_CW7358-400/NI_CW7358-400-1.JPG",
@@ -162,6 +165,7 @@ export const products: ProductCreateAtom[] = [
 
   {
     active: true,
+    dontRepet: false,
     name: "Nike Air Max Excee",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dwe10cec83/products/NI_CD5432-115/NI_CD5432-115-1.JPG",
@@ -220,6 +224,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Adidas Grand Court",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw79c05205/products/AD_F36483/AD_F36483-1.JPG",
@@ -279,6 +284,7 @@ export const products: ProductCreateAtom[] = [
 
   {
     active: true,
+    dontRepet: false,
     name: "Fila Euro Jogger Sport",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dwd71fde3e/products/FI_51U335X-4704/FI_51U335X-4704-1.JPG",
@@ -334,6 +340,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Puma Erupter",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw865377c9/products/PU_377451-08/PU_377451-08-1.JPG",
@@ -391,6 +398,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Topper Tie Break III",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw7281d87f/products/TO_29701/TO_29701-1.JPG",
@@ -447,6 +455,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Nike Court Legacy canvas",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw98b98280/products/NI_CW6539-002/NI_CW6539-002-1.JPG",
@@ -504,6 +513,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Adidas Coreracer",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw3bf3b7c8/products/AD_FX3593/AD_FX3593-1.JPG",
@@ -560,6 +570,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Adidas Advantage Base",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw3207375e/products/AD_GW2064/AD_GW2064-6.JPG",
@@ -617,6 +628,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Converse Chuck Taylor Core ",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw66403c2f/products/CO_156994C/CO_156994C-1.JPG",
@@ -679,6 +691,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Nike Revolution 6 Next Nature",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw2ba64150/products/NI_DC3728-005/NI_DC3728-005-1.JPG",
@@ -743,6 +756,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Puma Softride Sophia Better",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw42b16ddd/products/NI_DJ9297-100/NI_DJ9297-100-1.JPG",
@@ -803,6 +817,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Adidas Tensaur Run 2.0",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw4ee6b22f/products/AD_GW0396/AD_GW0396-1.JPG",
@@ -868,6 +883,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Lotto Ilusion III",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw98e75677/products/LO_ACFW22004/LO_ACFW22004-1.JPG",
@@ -933,6 +949,7 @@ export const products: ProductCreateAtom[] = [
 
   {
     active: true,
+    dontRepet: false,
     name: "Adidas Fluidflow 2.0",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw016c9087/products/AD_GY8597/AD_GY8597-1.JPG",
@@ -993,6 +1010,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Adidas Response Solar",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw5be311ad/products/AD_GV9532/AD_GV9532-1.JPG",
@@ -1053,6 +1071,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Topper Wind Iv",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw7010d93d/products/TO_27837/TO_27837-1.JPG",
@@ -1112,6 +1131,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Nike Star Runner 2",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw01ccc4d6/products/NI_AT1803-603/NI_AT1803-603-1.JPG",
@@ -1171,6 +1191,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Adidas Grand Court 2.0",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw476c7e74/products/AD_GY4764/AD_GY4764-1.JPG",
@@ -1230,6 +1251,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Converse Chuck Taylor All Star ",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw263d67f0/products/CO_A03983C/CO_A03983C-1.JPG",
@@ -1290,6 +1312,7 @@ export const products: ProductCreateAtom[] = [
 
   {
     active: true,
+    dontRepet: false,
     name: "Converse Chuck Taylor Core Ox",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dwbe6d0812/products/CO_156991C/CO_156991C-1.JPG",
@@ -1349,6 +1372,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Topper Ultralight II",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw7f06fc6b/products/TO_26272/TO_26272-1.JPG",
@@ -1408,6 +1432,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Topper Kerala",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw682a8d37/products/TO_27789/TO_27789-1.JPG",
@@ -1467,6 +1492,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Topper Chalpa",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw8a713a4d/products/TO_54915/TO_54915-1.JPG",
@@ -1526,6 +1552,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Topper Zurich II",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw82468c95/products/TO_25540/TO_25540-1.JPG",
@@ -1585,6 +1612,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Nike Downshifter 12",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dwbae14382/products/NI_DD9293-400/NI_DD9293-400-1.JPG",
@@ -1645,6 +1673,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Puma Better Foam Prowl Slip Cryst",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw29dfa0ef/products/PU_377148-01/PU_377148-01-1.JPG",
@@ -1702,6 +1731,7 @@ export const products: ProductCreateAtom[] = [
 
   {
     active: true,
+    dontRepet: false,
     name: "Fila Iconic",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw117df03a/products/FI_F01ST004027-4572/FI_F01ST004027-4572-1.JPG",
@@ -1758,6 +1788,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Adidas Runfalcon 2.0",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dwb8e80fd2/products/AD_GX8238/AD_GX8238-1.JPG",
@@ -1814,6 +1845,7 @@ export const products: ProductCreateAtom[] = [
   },
   {
     active: true,
+    dontRepet: false,
     name: "Nike Court Air Zoom Vapor Pro",
     images: [
       "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw5550f9b4/products/NI_CZ0220-009/NI_CZ0220-009-2.JPG",

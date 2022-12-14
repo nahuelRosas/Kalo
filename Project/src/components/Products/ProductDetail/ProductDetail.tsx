@@ -15,7 +15,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { DocumentData } from "@firebase/firestore-types";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { MdFavoriteBorder } from "react-icons/md";
 import useCartData from "../../../hooks/useCartData";
 import useWishlistData from "../../../hooks/useWishlistData";
@@ -37,8 +37,8 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
   }>();
 
   useEffect(() => {
-    setSelectedSize(product?.size[0]);
-  }, [product?.size]);
+    setSelectedSize(product.subType[0].size);
+  }, [product.subType]);
 
   const { addOrIncrementProduct } = useCartData();
   const { addProduct } = useWishlistData();
@@ -91,27 +91,27 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
 
           <HStack mt="1rem">
             <Grid templateColumns="repeat(6, 1fr)" gap={2} alignItems="center">
-              {product?.size.map(
-                (size: { value: string; label: string }, index: number) => {
-                  return (
-                    <Button
-                      key={index}
-                      borderRadius="full"
-                      p={2}
-                      colorScheme="purple"
-                      size="sm"
-                      onClick={() => setSelectedSize(size)}
-                      _hover={{
-                        color: "white",
-                        bg: "purple.500",
-                      }}
-                      color={selectedSize === size ? "white" : "gray.700"}
-                      bg={selectedSize === size ? "purple.500" : "gray.300"}>
-                      {size.value}
-                    </Button>
-                  );
-                }
-              )}
+              {product?.subType?.map((element: any, index: number) => {
+                return (
+                  <Button
+                    key={index}
+                    borderRadius="full"
+                    p={2}
+                    colorScheme="purple"
+                    size="sm"
+                    onClick={() => setSelectedSize(element.size)}
+                    _hover={{
+                      color: "white",
+                      bg: "purple.500",
+                    }}
+                    color={selectedSize === element.size ? "white" : "gray.700"}
+                    bg={
+                      selectedSize === element.size ? "purple.500" : "gray.300"
+                    }>
+                    {element?.size?.label}
+                  </Button>
+                );
+              })}
             </Grid>
           </HStack>
 
@@ -250,8 +250,8 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
               product?.rating >= 4
                 ? "green.500"
                 : product?.rating >= 3
-                  ? "yellow.500"
-                  : "red.500"
+                ? "yellow.500"
+                : "red.500"
             }>
             {product?.rating}
           </Text>
@@ -267,8 +267,8 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
               product?.numReviews >= 4
                 ? "green.500"
                 : product?.numReviews >= 3
-                  ? "yellow.500"
-                  : "red.500"
+                ? "yellow.500"
+                : "red.500"
             }>
             {product?.numReviews}
           </Text>
@@ -286,7 +286,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
           index: number
         ) => {
           return (
-            <>
+            <Fragment key={index}>
               <Divider mt="1rem" mb="1rem" />
               <Grid
                 gap={5}
@@ -324,7 +324,7 @@ const ProductDetail: React.FC<ProductCardProps> = ({ product }) => {
                   </Text>
                 </Box>
               </Grid>
-            </>
+            </Fragment>
           );
         }
       )}

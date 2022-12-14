@@ -2,12 +2,15 @@ import { useToast } from "@chakra-ui/react";
 import { DocumentData } from "@firebase/firestore-types";
 import { collection, getDocs, Timestamp } from "firebase/firestore";
 import { useRecoilState } from "recoil";
+import { ProductCreateAtom } from "../atoms/ProductCreateAtom";
 import { ProductEditAtom } from "../atoms/ProductEditAtom";
 import { ProductsAtom } from "../atoms/productsAtom";
 import { firestore } from "../firebase/clientApp";
 const useProductsData = () => {
   const [ProductsState, setProducts] = useRecoilState(ProductsAtom);
   const [ProductEditState, setProductEdit] = useRecoilState(ProductEditAtom);
+  const [ProductCreateState, setProductCreate] =
+    useRecoilState(ProductCreateAtom);
   const toast = useToast();
 
   const getProducts = async () => {
@@ -170,7 +173,7 @@ const useProductsData = () => {
     const _searchProducts = searchProducts(_filterProducts);
     const _orderProducts = orderProducts(_searchProducts);
     const _orderByPrice = orderByPrice(_orderProducts);
-    return _orderByPrice
+    return _orderByPrice;
   };
 
   const setOrderBy = (order: string | undefined) => {
@@ -199,7 +202,6 @@ const useProductsData = () => {
       search,
     });
   };
-
 
   const setFilterBy = (filter: string, forced?: boolean) => {
     if (filter === "all") {
@@ -286,13 +288,33 @@ const useProductsData = () => {
       size: product?.size,
     });
   };
-  const DontRepet = (e?: boolean) => {
-    if (e === undefined) return ProductEditState.dontRepet;
-    setProductEdit({
-      ...ProductEditState,
-      dontRepet: e,
-    });
-    return ProductEditState.dontRepet;
+  const DontRepet = ({
+    e,
+    ParentType,
+  }: {
+    e?: boolean;
+    ParentType: string;
+  }) => {
+    if (ParentType === "CreateProduct") {
+      if (e === undefined) {
+        console.log(ProductCreateState);
+        return ProductCreateState.dontRepet;
+      }
+      setProductCreate({
+        ...ProductCreateState,
+        dontRepet: e,
+      });
+      return ProductCreateState.dontRepet;
+    } else if (ParentType === "EditProduct") {
+      if (e === undefined) {
+        return ProductEditState.dontRepet;
+      }
+      setProductEdit({
+        ...ProductEditState,
+        dontRepet: e,
+      });
+      return ProductEditState.dontRepet;
+    }
   };
 
   return {

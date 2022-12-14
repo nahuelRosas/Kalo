@@ -23,6 +23,10 @@ const CardCart: React.FC<CardCartProps> = ({ itemState }) => {
   const bg = useColorModeValue("white", "gray.800");
   const { price, product, quantity, size } = itemState;
 
+  const IndexSubType = product.subType.findIndex(
+    (x: { size: { value: string | undefined } }) => x.size.value === size?.value
+  );
+
   const [image, setImage] = useState<string>("");
   const { addOrIncrementProduct, decrementProduct, deleteProduct } =
     useCartData();
@@ -103,11 +107,11 @@ const CardCart: React.FC<CardCartProps> = ({ itemState }) => {
               variant="ghost"
               fontSize="2xl"
               _hover={
-                quantity >= product.stock
+                quantity >= product.subType[IndexSubType].stock
                   ? { bg: "red.300", color: "black" }
                   : { bg: "green.300", color: "black" }
               }
-              disabled={quantity >= product.stock}
+              disabled={quantity >= product.subType[IndexSubType].stock}
             />
           </Flex>
           <Flex justifyContent={"flex-end"}>

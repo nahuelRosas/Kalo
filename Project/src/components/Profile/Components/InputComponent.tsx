@@ -36,6 +36,7 @@ type inputProps = {
   title?: string;
   subElementState?: string;
   action?: (newValue: any, actionMeta: ActionMeta<any>) => void;
+  ParentType: string;
 };
 
 const InputComponent: React.FC<inputProps> = ({
@@ -56,6 +57,7 @@ const InputComponent: React.FC<inputProps> = ({
   subElementState,
   action,
   title,
+  ParentType,
 }) => {
   const configFlex = FlexPropComponent({ compound, typePrototype });
   const Title = title ? title : label;
@@ -79,6 +81,7 @@ const InputComponent: React.FC<inputProps> = ({
             typeInput={typeInput}
             dependence={dependence}
             withOutPreview={withOutPreview}
+            ParentType={ParentType}
           />
           {withText && (
             <Text

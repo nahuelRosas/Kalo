@@ -27,22 +27,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [image, setImage] = useState<string>("");
   const { addProduct } = useWishlistData();
 
-
   const [selectedSize, setSelectedSize] = useState<{
     label: string;
     value: string;
   }>();
 
   useEffect(() => {
-    setSelectedSize(product?.size[0]);
-  }, [product?.size]);
+    setSelectedSize(product.subType[0].size);
+  }, [product.subType]);
 
   useEffect(() => {
     const random = Math.floor(Math.random() * product.images.length);
     setImage(product.images[random]);
   }, [product.images]);
-
-
 
   return (
     <Stack
@@ -132,7 +129,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         colorScheme="purple"
         variant="ghost"
         borderRadius={0}
-        onClick={() => addOrIncrementProduct(product, product.size[0])}>
+        onClick={() => addOrIncrementProduct(product, product.subType[0].size)}>
         Add Cart
       </Button>
     </Stack>

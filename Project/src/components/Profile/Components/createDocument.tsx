@@ -12,12 +12,40 @@ type createDocumentProps = {
 };
 
 type value = {
+  active: boolean;
   name: string;
   description: string;
   brand: string;
-  price: number;
-  subType: { size: { label: string; value: string }; stock: number }[];
   images: string[];
+  unitofmeasurement: {
+    label: "ARG" | "UK" | "US" | "EUR";
+    value: "ARG" | "UK" | "US" | "EUR";
+  };
+  subType: { size: { label: string; value: string }; stock: number }[];
+  color: string;
+  discount: number;
+  price: number;
+  style: string;
+  recommendedsport: string;
+  exteriormaterials: string;
+  solematerials: string;
+  fittype: string;
+  genres: {
+    label: "Men" | "Women" | "Kids" | "Unisex";
+    value: "Men" | "Women" | "Kids" | "Unisex";
+  };
+  agegroup: {
+    label: "Adult" | "Kids" | "Baby";
+    value: "Adult" | "Kids" | "Baby";
+  };
+  rating: number;
+  reviews: {
+    name: string;
+    rating: number;
+    comment: string;
+  }[];
+  numReviews: number;
+  dontRepet: boolean;
 };
 
 const CreateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {

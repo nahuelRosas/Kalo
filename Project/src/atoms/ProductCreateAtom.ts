@@ -17,11 +17,6 @@ export interface ProductCreateAtom {
   price: number;
   style: string;
   recommendedsport: string;
-  // size: {
-  //   label: string;
-  //   value: string;
-  // }[];
-  // stock: number;
   exteriormaterials: string;
   solematerials: string;
   fittype: string;
@@ -40,6 +35,7 @@ export interface ProductCreateAtom {
     comment: string;
   }[];
   numReviews: number;
+  dontRepet: boolean;
 }
 
 export const defaultProductCreateAtom: ProductCreateAtom = {
@@ -48,8 +44,6 @@ export const defaultProductCreateAtom: ProductCreateAtom = {
   brand: "",
   active: false,
   images: [],
-  // size: [],
-  // stock: 0,
   unitofmeasurement: {
     label: "ARG",
     value: "ARG",
@@ -68,10 +62,11 @@ export const defaultProductCreateAtom: ProductCreateAtom = {
   rating: 0,
   reviews: [],
   numReviews: 0,
+  dontRepet: false,
 };
 
 export const ProductCreateAtom = atom<ProductCreateAtom>({
   key: "productCreateAtom",
   default: defaultProductCreateAtom,
-  effects_UNSTABLE: [persistAtomEffect],
+  // effects_UNSTABLE: [persistAtomEffect],
 });

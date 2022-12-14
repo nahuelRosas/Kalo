@@ -6,9 +6,15 @@ type handleChangeProps = {
   stateAtom: RecoilState<any>;
   label: string;
   type?: string;
+  ParentType: string;
 };
 
-const HandleChange = ({ stateAtom, label, type }: handleChangeProps) => {
+const HandleChange = ({
+  stateAtom,
+  label,
+  type,
+  ParentType,
+}: handleChangeProps) => {
   const [value, setValue] = useRecoilState(stateAtom);
   const [Loading, setLoading] = useState(false);
   const { DontRepet } = useProductsData();
@@ -21,11 +27,14 @@ const HandleChange = ({ stateAtom, label, type }: handleChangeProps) => {
   const [state, setState] = useState(value[labelParse]);
 
   useEffect(() => {
-    if (!DontRepet()) {
+    if (!DontRepet({ ParentType: ParentType })) {
       setDontRepet(false);
-      DontRepet(true);
+      DontRepet({
+        ParentType: ParentType,
+        e: true,
+      });
     }
-  }, [DontRepet, setDontRepet]);
+  }, [DontRepet, ParentType]);
   useEffect(() => {
     if (value && value[labelParse] && !dontRepet) {
       setState(value[labelParse]);

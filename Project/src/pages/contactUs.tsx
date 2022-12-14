@@ -11,11 +11,22 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 import React from "react";
+// import CreateProducts from "../utils/products";
 
 export default function ContactUs() {
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // const [state, setState] = React.useState(true);
+  // try {
+  //   if (state === false) return;
+  //   CreateProducts();
+  //   setState(false);
+  // } catch (e) {
+  //   console.log(e);
+  // }
+
   return (
     <>
       <Box marginRight={"10"} paddingTop={"5"} marginLeft={"5"}>

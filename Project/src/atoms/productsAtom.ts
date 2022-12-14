@@ -5,7 +5,9 @@ import { persistAtomEffect } from "./SSRCompleted";
 export interface ProductsAtom {
   products: DocumentData[];
   productsActive: DocumentData[];
+  productSelected: { value: string; label: string }[];
   isLoadead: boolean;
+  search: string;
   orderBy: string | undefined;
   filterBy: string[];
   orderByPrice: number[];
@@ -14,7 +16,9 @@ export interface ProductsAtom {
 const defaultProductsState: ProductsAtom = {
   products: [],
   productsActive: [],
+  productSelected: [],
   isLoadead: false,
+  search: "",
   orderBy: undefined,
   filterBy: [],
   orderByPrice: [],

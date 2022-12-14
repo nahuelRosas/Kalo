@@ -240,11 +240,11 @@ export const updateLastPurchaseAndAddress = functions
           country: payment?.charges?.data[0]?.billing_details?.address?.country,
           line1: payment?.charges?.data[0]?.billing_details?.address?.line1,
           line2: payment?.charges?.data[0]?.billing_details?.address?.line2,
-          postal_code: payment?.charges?.data[0]?.billing_details?.address
-              ?.postal_code,
+          postal_code:
+          payment?.charges?.data[0]?.billing_details?.address?.postal_code,
           state: payment?.charges?.data[0]?.billing_details?.address?.state,
         },
-        lastRecipe: payment?.charges?.data[0]?.receipt_url,
+        lastReceipt: payment?.charges?.data[0]?.receipt_url,
       });
       logger.info("🥳 Updated customer in Firestore");
     });

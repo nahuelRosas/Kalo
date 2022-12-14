@@ -8,7 +8,7 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
-import { CreatableSelect, Select } from "chakra-react-select";
+import { ActionMeta, CreatableSelect, Select } from "chakra-react-select";
 import React from "react";
 import { FiImage } from "react-icons/fi";
 import { RecoilState } from "recoil";
@@ -32,6 +32,7 @@ type typeInputProps = {
   dependence?: any;
   withOutPreview?: boolean;
   subElementState?: string;
+  action?: (newValue: any, actionMeta: ActionMeta<any>) => void;
 };
 
 const TypeInput: React.FC<typeInputProps> = ({
@@ -45,8 +46,10 @@ const TypeInput: React.FC<typeInputProps> = ({
   dependence,
   withOutPreview,
   subElementState = "none",
+  action,
 }) => {
   const bgInput = useColorModeValue("alphaWhite", "gray.800");
+
   const type =
     typePrototype === "Switch"
       ? "boolean"
@@ -72,6 +75,7 @@ const TypeInput: React.FC<typeInputProps> = ({
   const option = dependence
     ? OptionsDependence({ stateAtom, options: dependence })
     : options || [];
+
   if (typePrototype === "Textarea")
     return (
       <Textarea
@@ -103,7 +107,7 @@ const TypeInput: React.FC<typeInputProps> = ({
   if (typePrototype === "Select")
     return (
       <Select
-        onChange={onChange}
+        onChange={action ? action : onChange}
         isMulti={isMulti}
         colorScheme={colorScheme}
         placeholder={placeholder}

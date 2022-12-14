@@ -2,11 +2,12 @@ import { useToast } from "@chakra-ui/react";
 import { DocumentData } from "@firebase/firestore-types";
 import { collection, getDocs, Timestamp } from "firebase/firestore";
 import { useRecoilState } from "recoil";
+import { ProductEditAtom } from "../atoms/ProductEditAtom";
 import { ProductsAtom } from "../atoms/productsAtom";
 import { firestore } from "../firebase/clientApp";
 const useProductsData = () => {
   const [ProductsState, setProducts] = useRecoilState(ProductsAtom);
-
+  const [ProductEditState, setProductEdit] = useRecoilState(ProductEditAtom);
   const toast = useToast();
 
   const getProducts = async () => {
@@ -21,13 +22,20 @@ const useProductsData = () => {
           const ArrayProductsProductsActive = ArrayProductsProducts.filter(
             (product: DocumentData) => product.active
           );
+          const ArrayProductSelected = ArrayProductsProductsActive.map(
+            (product: DocumentData) => {
+              return { value: product.id, label: product.name };
+            }
+          );
           setProducts({
             products: ArrayProductsProducts,
             productsActive: ArrayProductsProductsActive,
+            productSelected: ArrayProductSelected,
             isLoadead: true,
             orderBy: "a-z",
             filterBy: [],
             orderByPrice: [0, 5000],
+            search: "",
           });
         }
       );
@@ -41,10 +49,14 @@ const useProductsData = () => {
       });
     }
   };
+
   const productsActive = ProductsState.productsActive;
   const productsAll = ProductsState.products;
+
   const findProduct = (id: string) => {
-    const product = ProductsState.products.find((product) => product.id === id);
+    const product = ProductsState.productsActive.find(
+      (product) => product.id === id
+    );
     return product;
   };
 
@@ -55,8 +67,8 @@ const useProductsData = () => {
       let flag = false;
       filter.forEach((filter) => {
         if (
-          product.genres.value
-            .toLowerCase()
+          product?.genres?.value
+            ?.toLowerCase()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "") ===
           filter
@@ -70,6 +82,23 @@ const useProductsData = () => {
       return flag;
     });
     return filtered;
+  };
+
+  const searchProducts = (productList: DocumentData[]) => {
+    const search = ProductsState.search;
+    if (search === "") return productList;
+    const searched = productList.filter((product) => {
+      const name = product.name
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+      const searchName = search
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+      return name.includes(searchName);
+    });
+    return searched;
   };
 
   const orderProducts = (productsList: DocumentData[]) => {
@@ -128,7 +157,7 @@ const useProductsData = () => {
   };
 
   const orderByPrice = (productsList: DocumentData[]) => {
-    const order = ProductsState.orderByPrice
+    const order = ProductsState.orderByPrice;
     const products = new Array(...productsList);
     const orderProducts = products.filter(
       (product) => product.price >= order[0] && product.price <= order[1]
@@ -138,9 +167,10 @@ const useProductsData = () => {
 
   const MappingProducts = () => {
     const _filterProducts = filterProducts();
-    const _orderProducts = orderProducts(_filterProducts);
+    const _searchProducts = searchProducts(_filterProducts);
+    const _orderProducts = orderProducts(_searchProducts);
     const _orderByPrice = orderByPrice(_orderProducts);
-    return _orderByPrice;
+    return _orderByPrice
   };
 
   const setOrderBy = (order: string | undefined) => {
@@ -153,14 +183,23 @@ const useProductsData = () => {
   };
 
   const setOrderByPrice = (order: number[]) => {
-    console.log(order)
-    if (!order) order = [0, 5000]
+    if (!order) order = [0, 5000];
 
     setProducts({
       ...ProductsState,
       orderByPrice: order,
     });
-  }
+  };
+
+  const setSearch = (search: string) => {
+    if (!search) search = "";
+
+    setProducts({
+      ...ProductsState,
+      search,
+    });
+  };
+
 
   const setFilterBy = (filter: string, forced?: boolean) => {
     if (filter === "all") {
@@ -218,6 +257,44 @@ const useProductsData = () => {
     getProducts();
   };
 
+  const selectProduct = (e: { value: string }) => {
+    const product = findProduct(e.value);
+    setProductEdit({
+      name: product?.name,
+      description: product?.description,
+      brand: product?.brand,
+      active: product?.active,
+      images: product?.images,
+      unitofmeasurement: product?.unitofmeasurement,
+      color: product?.color,
+      stock: product?.stock,
+      discount: product?.discount,
+      price: product?.price,
+      style: product?.style,
+      subType: product?.subType,
+      recommendedsport: product?.recommendedsport,
+      exteriormaterials: product?.exteriormaterials,
+      solematerials: product?.solematerials,
+      fittype: product?.fittype,
+      genres: product?.genres,
+      agegroup: product?.agegroup,
+      rating: product?.rating,
+      reviews: product?.reviews,
+      numReviews: product?.numReviews,
+      dontRepet: false,
+      id: product?.id,
+      size: product?.size,
+    });
+  };
+  const DontRepet = (e?: boolean) => {
+    if (e === undefined) return ProductEditState.dontRepet;
+    setProductEdit({
+      ...ProductEditState,
+      dontRepet: e,
+    });
+    return ProductEditState.dontRepet;
+  };
+
   return {
     currentValueRange,
     getProducts,
@@ -230,6 +307,10 @@ const useProductsData = () => {
     setOrderByPrice,
     currentFilter,
     Reload,
+    ProductSelected: ProductsState.productSelected,
+    selectProduct,
+    DontRepet,
+    setSearch,
   };
 };
 export default useProductsData;

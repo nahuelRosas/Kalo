@@ -23,9 +23,9 @@ type UserState = {
     postal_code: string;
     state: string;
   };
-  lastRecipe: string;
+  lastReceipt: string;
   lastPurchase: any;
-  wishlist: []
+  wishlist: [];
 };
 
 const defaultUserState: UserState = {
@@ -49,9 +49,9 @@ const defaultUserState: UserState = {
     postal_code: "",
     state: "",
   },
-  lastRecipe: "",
+  lastReceipt: "",
   lastPurchase: {},
-  wishlist: []
+  wishlist: [],
 };
 
 export const UserAtom = atom<DocumentData>({

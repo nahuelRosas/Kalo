@@ -75,13 +75,13 @@ const LateralMenu: React.FC<LateralMenuProps> = ({ currentComponent }) => {
             href="/configuration/admin/AdmcreateProduct"
             state={currentComponent === "ADMIN — Create Product"}
           />
+          <ItemMenu
+            title="Edit Product"
+            icon={FiEdit}
+            href="/configuration/admin/AdmeditProduct"
+            state={currentComponent === "ADMIN — Edit Product"}
+          />
           {/* <ItemMenu
-          title="Edit Product"
-          icon={FiEdit}
-          href="/configuration/admin/AdmeditProduct"
-          state={currentComponent === "ADMIN — Edit Product"}
-        />
-        <ItemMenu
           title="Categories"
           icon={FiGrid}
           href="/configuration/admin/Admcategories"

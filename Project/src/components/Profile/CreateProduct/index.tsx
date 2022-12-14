@@ -1,5 +1,5 @@
 import React from "react";
-import { ProductCreateAtom } from "../../../atoms/productCreateAtom";
+import { ProductCreateAtom } from "../../../atoms/ProductCreateAtom";
 import {
   AgeRangeOptions,
   GenresOptions,

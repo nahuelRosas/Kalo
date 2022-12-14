@@ -8,14 +8,14 @@ import {
   Image,
   Spinner,
   Text,
-  useColorModeValue,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { DocumentData } from "@firebase/firestore-types";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { FiMinusCircle, FiPlusCircle, FiTrash2 } from "react-icons/fi";
+import { FiTrash2 } from "react-icons/fi";
 import useWishlistData from "../../hooks/useWishlistData";
 import FormatPrice from "../Products/Price/formatPrice";
-import Link from "next/link";
 
 
 type CardWishlistProps = {
@@ -82,7 +82,7 @@ const CardWishlist: React.FC<CardWishlistProps> = ({ itemState }) => {
           </Text>
           <Flex justifyContent={"flex-end"}>
             <Link href={`/product/${product?.id}`}>
-              <Button bg="purple.300" color="white" _hover={{ bg: "purple.300", color: "black" }} onClick={closeDrawer}>view product details</Button>
+              <Button bg="purple.300" color="white" _hover={{ bg: "purple.300", color: "black" }} onClick={closeDrawer}>View in detail</Button>
             </Link>
           </Flex>
         </Flex>

@@ -17,7 +17,11 @@ export interface ProductCreateAtom {
   price: number;
   style: string;
   recommendedsport: string;
-
+  // size: {
+  //   label: string;
+  //   value: string;
+  // }[];
+  // stock: number;
   exteriormaterials: string;
   solematerials: string;
   fittype: string;
@@ -44,6 +48,8 @@ export const defaultProductCreateAtom: ProductCreateAtom = {
   brand: "",
   active: false,
   images: [],
+  // size: [],
+  // stock: 0,
   unitofmeasurement: {
     label: "ARG",
     value: "ARG",

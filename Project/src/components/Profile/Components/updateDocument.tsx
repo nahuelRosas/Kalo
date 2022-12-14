@@ -1,17 +1,18 @@
 import { Button, useToast } from "@chakra-ui/react";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
 import { RecoilState, useRecoilState } from "recoil";
-import { defaultProductCreateAtom } from "../../../atoms/ProductCreateAtom";
 import { firestore } from "../../../firebase/clientApp";
 import useProductsData from "../../../hooks/useProductsData";
+import { defaultProductEditAtom } from "../../../atoms/ProductEditAtom";
 
 type createDocumentProps = {
   stateAtom: RecoilState<any>;
 };
 
 type value = {
+  id: string;
   name: string;
   description: string;
   brand: string;
@@ -20,13 +21,13 @@ type value = {
   images: string[];
 };
 
-const CreateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
+const UpdateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
   const [value, setValue] = useRecoilState<value>(stateAtom);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const { Reload } = useProductsData();
 
-  const createDocument = async () => {
+  const updateDocument = async () => {
     setLoading(true);
     if (
       value.name !== "" &&
@@ -36,12 +37,10 @@ const CreateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
       value.images.length > 0 &&
       value.images.length < 10
     ) {
-      const id = nanoid();
-      const docRef = doc(firestore, "productsFirestore", `prod_M${id}`);
+      const docRef = doc(firestore, "products", value.id);
       try {
-        await setDoc(docRef, {
+        await updateDoc(docRef, {
           ...value,
-          id,
         });
         toast({
           title: "Product created.",
@@ -60,7 +59,7 @@ const CreateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
       } finally {
         setLoading(false);
         Reload();
-        setValue(defaultProductCreateAtom);
+        setValue(defaultProductEditAtom);
       }
     } else {
       toast({
@@ -78,10 +77,10 @@ const CreateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
       type="button"
       colorScheme="purple"
       isLoading={loading}
-      onClick={createDocument}
+      onClick={updateDocument}
       w="100%">
-      Create
+      Update
     </Button>
   );
 };
-export default CreateDocument;
+export default UpdateDocument;

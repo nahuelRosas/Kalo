@@ -54,6 +54,7 @@ const Index: React.FC<indexProps> = ({ type }) => {
           {type === itemMenuTitle["Admproducts"] && isAdmin() ? (
             <Products />
           ) : null}
+
           {type === itemMenuTitle["profile"] ? <EditProfile /> : null}
         </BaseComponent>
       </Flex>

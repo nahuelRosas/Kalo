@@ -5,6 +5,7 @@ import {
   FormLabel,
   Text,
 } from "@chakra-ui/react";
+import { ActionMeta } from "chakra-react-select";
 import React from "react";
 import { RecoilState } from "recoil";
 import FlexPropComponent from "./FlexProp";
@@ -34,6 +35,7 @@ type inputProps = {
   withOutPreview?: boolean;
   title?: string;
   subElementState?: string;
+  action?: (newValue: any, actionMeta: ActionMeta<any>) => void;
 };
 
 const InputComponent: React.FC<inputProps> = ({
@@ -52,6 +54,7 @@ const InputComponent: React.FC<inputProps> = ({
   dependence,
   withOutPreview,
   subElementState,
+  action,
   title,
 }) => {
   const configFlex = FlexPropComponent({ compound, typePrototype });
@@ -70,6 +73,7 @@ const InputComponent: React.FC<inputProps> = ({
             stateAtom={stateAtom}
             label={label}
             options={options}
+            action={action}
             placeholder={placeholder}
             isMulti={isMulti}
             typeInput={typeInput}

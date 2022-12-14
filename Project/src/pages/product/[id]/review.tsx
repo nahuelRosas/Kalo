@@ -1,118 +1,161 @@
-import React, { useState } from "react";
-import { useRouter } from "next/router";
 import {
   Button,
   Container,
   Flex,
   Heading,
-  Textarea,
   Image,
-  Text,
   Input,
+  Text,
+  Textarea,
+  useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
-import { DocumentData } from "@firebase/firestore-types";
+import { doc, updateDoc } from "firebase/firestore";
+import { useRouter } from "next/router";
+import React, { useState, useEffect } from "react";
 import { AiFillStar } from "react-icons/ai";
+import { firestore } from "../../../firebase/clientApp";
 import useProductsData from "../../../hooks/useProductsData";
+import useUserData from "../../../hooks/useUserData";
 
-type ReviewProps = {
-  product: DocumentData;
-  ratingValue: number;
+type value = {
+  name: string;
+  comment: string;
+  rating: number;
 };
 
-const Review: React.FC<ReviewProps> = () => {
+const Review: React.FC<value> = () => {
   const router = useRouter();
   const { id } = router.query;
+  const { userData } = useUserData();
+  const toast = useToast();
+  const { findProduct } = useProductsData();
 
-  const { productsActive } = useProductsData();
+  const product = findProduct(id as string);
 
-  const [review, setReview] = useState("");
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
+  const [value, setValue] = useState<value>({
+    name: userData?.displayName,
+    comment: "",
+    rating: 0,
+  });
 
-  const handleReview = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setReview(e.target.value);
-  };
+  useEffect(() => {
+    if (userData) {
+      setValue({ ...value, name: userData.displayName });
+    }
+  }, [userData, value]);
 
-  const handleSubmit = () => {
-    console.log(review);
-    console.log(rating);
+  const [loading, setLoading] = useState(false);
+
+  const updateReview = async () => {
+    setLoading(true);
+    if (value.comment !== "" && value.rating > 0) {
+      if (!product) return;
+      const docRef = doc(firestore, "products", product.id);
+      try {
+        await updateDoc(docRef, {
+          ...product,
+          reviews: [...product.reviews, value],
+        });
+        toast({
+          title: "Thanks for your review!",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+      } catch (e: unknown | any) {
+        toast({
+          title: "An error occurred.",
+          description: e.message,
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      toast({
+        title: "Please fill all the fields.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+      setLoading(false);
+    }
   };
 
   return (
     <Container
       maxW="2xl"
       mt={20}
-      backgroundColor="whiteAlpha.900"
+      backgroundColor={useColorModeValue("white", "gray.800")}
       centerContent>
-      {productsActive.map((product: DocumentData, index: number) => {
-        if (product.id === id) {
-          return (
-            <Flex
-              key={index}
-              alignContent="center"
-              justifyContent="center"
-              flexDirection="column"
-              alignItems="center"
-              h={"100%"}
-              w={"100%"}>
-              <Text fontWeight={"semibold"}>{product?.name}</Text>
-              <Image
-                src={product?.images[0]}
-                alt={product?.name}
-                w="xs"
-                h="xs"
-                objectFit="cover"
-                objectPosition="center"
-                borderRadius="md"
-              />
-              <Heading as="h1" size="lg">
-                Please review our product
-              </Heading>
+      <Flex
+        alignContent="center"
+        justifyContent="center"
+        flexDirection="column"
+        alignItems="center"
+        h={"100%"}
+        w={"100%"}>
+        <Text fontWeight={"semibold"}>{product?.name}</Text>
+        <Image
+          src={product?.images[0]}
+          alt={product?.name}
+          w="xs"
+          h="xs"
+          objectFit="cover"
+          objectPosition="center"
+          borderRadius="md"
+        />
+        <Heading as="h1" size="lg">
+          Please review our product
+        </Heading>
 
-              <Flex mt="5">
-                {[...Array(5)].map((_star, i) => {
-                  const ratingValue = i + 1;
-                  return (
-                    <label key={i}>
-                      <Input
-                        display={"none"}
-                        type="radio"
-                        name="rating"
-                        value={ratingValue}
-                        onClick={() => {
-                          setRating(ratingValue), console.log(ratingValue);
-                        }}
-                      />
+        <Flex mt="5">
+          {[...Array(5)].map((_star, i) => {
+            const ratingValue = i + 1;
+            return (
+              <label key={i}>
+                <Input
+                  display={"none"}
+                  type="radio"
+                  name="rating"
+                  value={ratingValue}
+                  onClick={() => {
+                    setValue({ ...value, rating: ratingValue });
+                  }}
+                />
 
-                      <AiFillStar
-                        size={40}
-                        cursor={"pointer"}
-                        color={
-                          ratingValue <= (hover || rating)
-                            ? "#ffc107"
-                            : "#e4e6e9"
-                        }
-                        onMouseEnter={() => setHover(ratingValue)}
-                        onMouseLeave={() => setHover(0)}
-                      />
-                    </label>
-                  );
-                })}
-              </Flex>
-              <Textarea
-                variant="filled"
-                mt="5"
-                placeholder="Type your review..."
-                value={review}
-                onChange={handleReview}
-              />
-              <Button colorScheme="teal" mb="5" mt="5" onClick={handleSubmit}>
-                Send review
-              </Button>
-            </Flex>
-          );
-        }
-      })}
+                <AiFillStar
+                  size={40}
+                  cursor={"pointer"}
+                  color={ratingValue <= value.rating ? "#ffc107" : "#e4e6e9"}
+                />
+              </label>
+            );
+          })}
+        </Flex>
+        <Textarea
+          variant="filled"
+          mt="5"
+          placeholder="Type your review..."
+          value={value.comment}
+          onChange={(e) => {
+            setValue({ ...value, comment: e.target.value });
+          }}
+        />
+        <Button
+          colorScheme="purple"
+          mb="5"
+          mt="5"
+          onClick={updateReview}
+          isLoading={loading}
+          loadingText="Sending review"
+          spinnerPlacement="end">
+          Send review
+        </Button>
+      </Flex>
     </Container>
   );
 };

@@ -235,7 +235,6 @@ const useWishlistData = () => {
                     const Document = doc.data();
                     const url = Document?.url;
                     if (url) {
-                        console.log(url);
                         SetURL(url);
                     }
                 }

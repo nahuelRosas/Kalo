@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 import Link from "next/link";
 import {
   Box,
@@ -9,9 +9,14 @@ import {
   VisuallyHidden,
   chakra,
   useColorModeValue,
+  Input,
+  IconButton,
+  Flex,
 } from "@chakra-ui/react";
 import { copyright, kalo } from "../../utils/constant";
 import { FiInstagram, FiFacebook, FiYoutube } from "react-icons/fi";
+import { BiMailSend } from 'react-icons/bi';
+import emailjs from '@emailjs/browser';
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
@@ -54,6 +59,17 @@ const SocialButton = ({
 };
 
 export default function Footer() {
+
+  const formRef: any = useRef()
+
+  const sendEmail = (event: any) => {
+    event.preventDefault();
+
+    emailjs.sendForm('service_7cmqx88', 'template_8c5hxde', event.target, '740Cjql2V5CM06Ab-')
+      .then((response: any) => console.log(response))
+      .catch((error: any) => console.log(error))
+  }
+
   return (
     <>
       <Box
@@ -81,8 +97,39 @@ export default function Footer() {
               <Link href={"/termsOfService"}>Terms of Service</Link>
               <Link href={"/returnPolicy"}>Return Policy</Link>
             </Stack>
+            <Stack align={'flex-start'}>
+              <ListHeader>Subscribe to our newsletter</ListHeader>
+              <Stack direction={'row'}>
+                <form onSubmit={sendEmail} ref={formRef}>
+                  <Flex direction={"row"}>
+                    <Input
+                      name="email"
+                      placeholder={'Your email address'}
+                      bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
+                      border={0}
+                      _focus={{
+                        bg: 'whiteAlpha.300',
+                      }}
+                    />
+                    <IconButton
+                      bg={useColorModeValue('purple.400', 'purple.300')}
+                      color={useColorModeValue('white.500', 'white.300')}
+                      _hover={{
+                        bg: 'green.600',
+                      }}
+                      aria-label="Subscribe"
+                      icon={<BiMailSend />}
+                      type="submit"
+                    />
+                  </Flex>
+                </form>
+              </Stack>
+            </Stack>
           </SimpleGrid>
         </Container>
+
+
+
 
         <Box
           borderTopWidth={1}

@@ -1,236 +1,192 @@
-import React, { useState } from "react";
-import { useRouter } from "next/router";
-import useCartData from "../../hooks/useCartData";
-import useUserData from "../../hooks/useUserData";
 import {
   Box,
-  Button,
-  Center,
-  Container,
-  Divider,
+  Button, Divider,
   Flex,
-  Grid,
-  HStack,
-  Icon,
-  IconButton,
-  Image,
+  Grid, Image,
   Spinner,
   Text,
-  useColorModeValue,
-  VStack,
+  useColorModeValue
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import FormatPrice from "../../components/Products/Price/formatPrice";
-import { Heading } from "@chakra-ui/react";
+import useProductsData from "../../hooks/useProductsData";
+import useUserData from "../../hooks/useUserData";
 
 type SuccessProps = {};
 
 const Success: React.FC<SuccessProps> = () => {
-  const ProductTest = [
-    {
-      active: true,
-      name: "Puma Karmen Exotics",
-      description:
-        "The Puma Karmen Exotics Sneakers are urban, sporty and feminine. They are made of leather and have a rubber sole. They have a lace-up closure and a padded tongue and collar. They have a Puma logo on the tongue and on the side. They have a Puma logo on the tongue and on the side.",
-      brand: "Puma",
-
-      images: [
-        "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dwddf9c570/products/PU_389022-02/PU_389022-02-2.JPG",
-        "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw1c598d0b/products/PU_389022-02/PU_389022-02-1.JPG",
-        "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw4adcd2c6/products/PU_389022-02/PU_389022-02-3.JPG",
-        "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw41f2e969/products/PU_389022-02/PU_389022-02-4.JPG",
-      ],
-      unitofmeasurement: {
-        label: "ARG",
-        value: "ARG",
-      },
-      subType: [
-        { size: { value: "ARG 36.5", label: "ARG 36.5" }, stock: 10 },
-        { size: { value: "ARG 37", label: "ARG 37" }, stock: 10 },
-        { size: { value: "ARG 37.5", label: "ARG 37.5" }, stock: 10 },
-        { size: { value: "ARG 38", label: "ARG 38" }, stock: 10 },
-        { size: { value: "ARG 38.5", label: "ARG 38.5" }, stock: 10 },
-        { size: { value: "ARG 39", label: "ARG 39" }, stock: 10 },
-      ],
-
-      price: 23.0,
-      rating: 4.5,
-      numReviews: 1,
-      reviews: [
-        {
-          name: "Ani",
-          rating: 5,
-          comment: "LOVE!! I will definitely buy more",
-        },
-      ],
-
-      color: "White",
-      genres: { value: "Women", label: "Women" },
-      agegroup: { value: "Adult", label: "Adult" },
-      exteriormaterials: "synthetic",
-      solematerials: "Rubber",
-      fittype: "Regular",
-      recommendedsport: "Running",
-      style: "casual",
-      discount: 0,
-    },
-    {
-      active: true,
-      name: "Nike Court Vision Lo Vday",
-      images: [
-        "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw42b16ddd/products/NI_DJ9297-100/NI_DJ9297-100-1.JPG",
-        "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dwce9303e4/products/NI_DJ9297-100/NI_DJ9297-100-2.JPG",
-        "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw05346929/products/NI_DJ9297-100/NI_DJ9297-100-3.JPG",
-        "https://www.dexter.com.ar/on/demandware.static/-/Sites-dabra-catalog/default/dw7d5e4732/products/NI_DJ9297-100/NI_DJ9297-100-4.JPG",
-      ],
-      description:
-        "The Nike Court Vision Lo Vday Sneakers invade you in style thanks to its canvas upper with cutouts that create a unique look for all your plans. Its floral print fills you with energy and gives you a springtime feel that never fails to remind you of your love for basketball that's currently moving to the city. It features a foam midsole to ensure your cushioning with every step, while the rubber outsole creates unique traction wherever you go.",
-      brand: "Nike",
-
-      price: 25.0,
-      rating: 4,
-      numReviews: 3,
-
-      reviews: [
-        {
-          name: "A",
-          rating: 5,
-          comment: "I love the design, very comfortable",
-        },
-        {
-          name: "B",
-          rating: 4,
-          comment: "I love the design, very comfortable",
-        },
-        {
-          name: "C",
-          rating: 4,
-          comment: "I love the design, very comfortable",
-        },
-      ],
-
-      color: "Beige",
-      genres: { value: "Women", label: "Women" },
-      agegroup: { value: "Adult", label: "Adult" },
-      exteriormaterials: "leather",
-      solematerials: "Rubber",
-      fittype: "Laced",
-      recommendedsport: "Other",
-      style: "casual",
-      discount: 0,
-      subType: [
-        { size: { value: "ARG 36.5", label: "ARG 36.5" }, stock: 10 },
-        { size: { value: "ARG 37", label: "ARG 37" }, stock: 10 },
-        { size: { value: "ARG 37.5", label: "ARG 37.5" }, stock: 10 },
-        { size: { value: "ARG 38", label: "ARG 38" }, stock: 10 },
-      ],
-      unitofmeasurement: {
-        label: "ARG",
-        value: "ARG",
-      },
-    },
-  ];
 
   const router = useRouter();
+  const [disabled, setDisabled] = useState(true);
   const { userData } = useUserData();
-  const { id } = router.query;
-  console.log(userData);
+  const { findProduct } = useProductsData();
   const bg = useColorModeValue("gray.200", "gray.700");
+  const _Date = `${new Date(
+    userData?.lastPurchase?.created * 1000
+  ).toDateString()} — ${new Date(
+    userData?.lastPurchase?.created * 1000
+  ).toTimeString()}
+  `;
+
+  const PaymentMethod =
+    userData?.lastPurchase?.charges?.data[0]?.payment_method_details?.type[0].toUpperCase() +
+    userData?.lastPurchase?.charges?.data[0]?.payment_method_details?.type
+      .slice(1)
+      .toLowerCase();
+
+  const goReceipt = () => {
+    router.push(userData?.lastReceipt);
+  };
+  const TotalPrice = FormatPrice({
+    value: userData?.lastPurchase?.amount,
+    currency: userData?.lastPurchase?.currency,
+  });
+
+  const _Products = userData?.lastPurchase?.items?.map(
+    (product: { price: { product: string } }) => {
+
+      return findProduct(product.price.product);
+    }
+  );
+
+  useEffect(() => {
+    if (userData.lastReceipt) {
+      setDisabled(false);
+    }
+  }, [userData]);
 
   return (
-    <Center
-      w="100%"
-      bg={bg}
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      shadow={"dark-lg"}
-    >
-      <Flex flexDirection={"column"}>
-        <Heading mx={4}>Order Details</Heading>
-        <Flex flexDirection={"row"} m={2}>
-          <Box mx={4}>Orderer on December 27, 2020 //Created At ||</Box>
-          <Box>Order ID: {id}</Box>
+    <Flex
+      flexDirection={"column"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      minH={"80vh"}
+      w={"6xl"}
+      m={"auto"}>
+      <Grid
+        templateColumns="repeat(2, 2fr)"
+        gap={3}
+        m={4}
+        bg={bg}
+        border={"1px"}
+        borderRadius={"md"}
+        borderColor={"gray.300"}>
+        <Flex flexDirection={"column"} justifyContent={"center"} gap={4} m={4}>
+          <Text fontSize={"2xl"} fontWeight={"bold"}>
+            Order Details
+          </Text>
+          <Flex flexDirection={"row"}>
+            <Flex flexDirection={"column"} mr={2}>
+              <Text>Orderer on </Text>
+              <Text fontWeight={"bold"}>{_Date}</Text>
+            </Flex>
+            <Flex flexDirection={"column"}>
+              <Text>Order ID: </Text>
+              <Text fontWeight={"bold"}>{userData?.lastPurchase?.id}</Text>
+            </Flex>
+          </Flex>
         </Flex>
-      </Flex>
+
+        <Flex align={"center"} justify={"center"}>
+          <Button
+            colorScheme={"purple"}
+            onClick={goReceipt}
+            disabled={disabled}>
+            Check Your Receipt
+          </Button>
+        </Flex>
+      </Grid>
+
       <Grid
         templateColumns="repeat(2, 1fr)"
         gap={3}
+        w={"80%"}
         justifyContent={"space-between"}
         borderRadius={"md"}
         shadow="md"
-      >
+        border={"1px"}
+        borderColor={"gray.300"}>
         <Box m={4} p={5}>
-          <Text fontSize={"xl"}>Shipping Address</Text>
-          <Text>{/* {userData?.name} */} Ignacio Calas</Text>
-          <Text>{/* {userData?.address} */} Calle Falsa 123</Text>
-          <Text>{/* {userData?.city} */} Cordoba</Text>
-          <Text>{/* {userData?.country} */}</Text>
-          <Text>{/* userData?.postalCode} */}</Text>
+          <Text fontSize={"xl"} fontWeight={"bold"}>
+            Shipping Address
+          </Text>
+          <Text>{userData?.displayName}</Text>
+          <Text>{userData?.address?.line1}</Text>
+          <Text>
+            {userData?.address?.city}, {userData?.address?.postal_code}
+          </Text>
+          <Text>{userData?.address?.country}</Text>
         </Box>
         <Box m={4} p={5}>
-          <Text>Order Summary</Text>
-          <Text fontSize={"xl"}>Payment Method</Text>
-          <Text>PayPal</Text>
-          <Text fontSize={"xl"}>Item Total</Text>
-          <Text>$25.00</Text>
+          <Text fontSize={"xl"} fontWeight={"bold"}>
+            Order Summary
+          </Text>
+          <Text fontSize={"lg"}>Payment Method</Text>
+          <Text>{PaymentMethod}</Text>
+          <Text fontSize={"lg"}>Item Total</Text>
+          <Text>{TotalPrice}</Text>
         </Box>
       </Grid>
 
-      {ProductTest.map((product) => (
-        <>
-          <Flex flexDirection={"column"}>
-              <Box m="2" p={5} shadow="md" bg={bg} borderRadius={"md"}>
-                <Grid templateColumns="repeat(2, 1fr)">
-                  <Image
-                    src={product.images[0]}
-                    borderRadius="md"
-                    alt="product"
+      <Flex
+        flexDirection={"column"}
+        justifyContent="center"
+        alignItems="center"
+        shadow={"md"}
+        borderRadius={"md"}
+        m={4}
+        w="80%"
+        border={"1px"}
+        borderColor={"gray.300"}>
+        {_Products?.map((product: any, index: number) => (
+          <Box m="2" p={5} w={"100%"} key={index}>
+            <Grid templateColumns="repeat(3, 1fr)">
+              <Image
+                src={product?.images[0]}
+                alt="product"
+                maxHeight={{ base: "5rem", md: "7rem" }}
+                fallback={
+                  <Spinner
+                    thickness="4px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="purple.500"
+                    size="xl"
                     maxHeight={{ base: "5rem", md: "7rem" }}
-                    mt={{ base: "8", md: "none" }}
-                    fallback={
-                      <Spinner
-                        thickness="4px"
-                        speed="0.65s"
-                        emptyColor="gray.200"
-                        color="purple.500"
-                        size="xl"
-                        maxHeight={{ base: "5rem", md: "7rem" }}
-                        mt={{ base: "12", md: "none" }}
-                        ml={{ base: "10", md: "none" }}
-                      />
-                    }
+                    mt={{ base: "12", md: "none" }}
+                    ml={{ base: "10", md: "none" }}
                   />
-                  <Flex
-                    justifyContent={"flex-start"}
-                    ml={-150}
-                    direction="column"
-                  >
-                    <Text
-                      fontWeight="semibold"
-                      mt={{ base: "1", md: "none" }}
-                      fontSize={{ base: "sm", md: "lg" }}
-                      color={"gray.500"}
-                    >
-                      {product.name} - {product.subType[0].size.label}
-                    </Text>
-
-                    <Flex justifyContent={"flex-end"}>
-                      <Text
-                        fontWeight="semibold"
-                        mt={{ base: "6", md: "none" }}
-                      >
-                        Price: {FormatPrice({ value: product.price })}
-                      </Text>
-                    </Flex>
-                  </Flex>
-                </Grid>
-                <Divider />
-              </Box>
-
-          </Flex>
-        </>
-      ))}
-    </Center>
+                }
+              />
+              <Flex justifyContent={"flex-start"} ml="-20" direction="column">
+                <Text
+                  fontWeight="semibold"
+                  fontSize={{ base: "sm", md: "lg" }}
+                  color={"gray.500"}>
+                  {product?.name}
+                </Text>
+                <Text fontSize="sm">{product?.brand}</Text>
+                <Text fontSize="sm">{product?.color}</Text>
+              </Flex>
+              <Flex justifyContent={"space-around"} flexDirection={"column"}>
+                <Button
+                onClick={() => router.push(`/product/${product?.id}/review`)}
+                >Review This product</Button>
+                <Text
+                  display={"flex"}
+                  flexDirection={"row-reverse"}
+                  fontWeight="semibold"
+                  mt={{ base: "6", md: "none" }}>
+                  Price: {FormatPrice({ value: product?.price })}
+                </Text>
+              </Flex>
+            </Grid>
+            <Divider />
+          </Box>
+        ))}
+      </Flex>
+    </Flex>
   );
 };
 export default Success;

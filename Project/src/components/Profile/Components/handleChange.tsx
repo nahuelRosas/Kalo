@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { RecoilState, useRecoilState } from "recoil";
+import useProductsData from "../../../hooks/useProductsData";
 
 type handleChangeProps = {
   stateAtom: RecoilState<any>;
@@ -10,7 +11,9 @@ type handleChangeProps = {
 const HandleChange = ({ stateAtom, label, type }: handleChangeProps) => {
   const [value, setValue] = useRecoilState(stateAtom);
   const [Loading, setLoading] = useState(false);
+  const { DontRepet } = useProductsData();
   const [dontRepet, setDontRepet] = useState(false);
+  const [stateRecoil] = useState();
   let labelParse = label.toLowerCase().split(" ").join("");
   if (label === "Display Name") labelParse = "displayName";
   if (label === "Phone Number") labelParse = "phoneNumber";
@@ -18,14 +21,20 @@ const HandleChange = ({ stateAtom, label, type }: handleChangeProps) => {
   const [state, setState] = useState(value[labelParse]);
 
   useEffect(() => {
+    if (!DontRepet()) {
+      setDontRepet(false);
+      DontRepet(true);
+    }
+  }, [DontRepet, setDontRepet]);
+  useEffect(() => {
     if (value && value[labelParse] && !dontRepet) {
       setState(value[labelParse]);
       setDontRepet(true);
     }
-  }, [Loading, dontRepet, labelParse, state, value]);
+  }, [Loading, dontRepet, labelParse, state, stateRecoil, value]);
 
   useEffect(() => {
-    if (value[labelParse] !== state && Loading === true) {
+    if (value[labelParse] !== state && Loading) {
       setValue({ ...value, [labelParse]: state });
     }
   }, [value, labelParse, setValue, state, setState, stateAtom, Loading]);
@@ -61,12 +70,10 @@ const HandleChange = ({ stateAtom, label, type }: handleChangeProps) => {
             reader.readAsDataURL(_file);
           });
         }
-      } 
-      else if (type === "subElement"){
+      } else if (type === "subElement") {
         const { name, value } = e.target;
         setState((oldState: any) => ({ ...oldState, [name]: value }));
-      }
-      else setState(value);
+      } else setState(value);
     } else {
       setState(e);
     }

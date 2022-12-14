@@ -16,16 +16,11 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
-import { useRecoilState } from "recoil";
-import { searchAtom, SearchState } from "../../../atoms/SearchAtom";
+import useProductsData from "../../../hooks/useProductsData";
 
-type SearchInputProps = {
-  // user:
-};
-
-const SearchInput: React.FC<SearchInputProps> = () => {
+const SearchInput: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [search, setSearch] = useRecoilState(searchAtom);
+  const { setSearch } = useProductsData();
 
   return (
     <Flex flexGrow={1} maxWidth={"6xl"} align="center" mr={4} ml={4}>
@@ -43,10 +38,12 @@ const SearchInput: React.FC<SearchInputProps> = () => {
             bg: useColorModeValue("white", "gray.800"),
             boderColor: "teal.500",
           }}
-          onChange={(e) => setSearch(e.target.value as unknown as SearchState)}
+          onChange={(e) => {
+            setSearch(e?.target.value);
+          }}
         />
         <InputRightElement>
-          <Link href={`/allproducts/${search}`}>
+          <Link href={`/products/`}>
             <IconButton
               aria-label="Search database"
               icon={<SearchIcon />}
@@ -96,19 +93,17 @@ const SearchInput: React.FC<SearchInputProps> = () => {
                   focusBorderColor={"primary"}
                   borderRadius={"999px"}
                   placeholder="Search..."
-                  onChange={(e) =>
-                    setSearch(e.target.value as unknown as SearchState)
-                  }
+                  onChange={(e) => setSearch(e?.target.value)}
                 />
                 <InputRightElement>
-                <Link href={`/allproducts/${search}`}>
-                  <IconButton
-                    aria-label="Search database"
-                    icon={<SearchIcon />}
-                    variant="ghost"
-                    isRound={true}
-                    colorScheme="purple"></IconButton>
-                    </Link>
+                  <Link href={`/products/`}>
+                    <IconButton
+                      aria-label="Search database"
+                      icon={<SearchIcon />}
+                      variant="ghost"
+                      isRound={true}
+                      colorScheme="purple"></IconButton>
+                  </Link>
                 </InputRightElement>
               </InputGroup>
             </DrawerBody>

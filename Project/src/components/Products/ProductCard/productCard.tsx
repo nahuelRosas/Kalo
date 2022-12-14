@@ -90,8 +90,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <FavouriteButton
         onClick={() => addProduct(product, selectedSize)}
         position="absolute"
-        top="4"
-        right="4"
+        // top="4"
+        // right="4"
         aria-label={`Add ${product?.name} to your favourites`}
       />
 

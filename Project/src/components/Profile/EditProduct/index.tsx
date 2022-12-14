@@ -1,22 +1,32 @@
 import React from "react";
-import { ProductCreateAtom } from "../../../atoms/productCreateAtom";
+import { ProductEditAtom } from "../../../atoms/ProductEditAtom";
+import useProductsData from "../../../hooks/useProductsData";
 import {
   AgeRangeOptions,
   GenresOptions,
   Sizes,
   unitOfMeasurementOptions,
 } from "../../../utils/constant";
-import CreateDocument from "../Components/createDocument";
 import GridComponent from "../Components/grid";
 import InputComponent from "../Components/InputComponent";
+import UpdateDocument from '../Components/updateDocument';
 const CreateProduct: React.FC = () => {
+  const { ProductSelected, selectProduct } = useProductsData();
   return (
     <>
+      <InputComponent
+        label={"Select Product"}
+        placeholder={"Select Product"}
+        stateAtom={ProductEditAtom}
+        typePrototype="Select"
+        options={ProductSelected}
+        action={selectProduct}
+      />
       <GridComponent typeGrid="grid" templateColumns="5fr 1fr">
         <InputComponent
           label={"Name"}
           placeholder={"Nike Air Max Excee"}
-          stateAtom={ProductCreateAtom}
+          stateAtom={ProductEditAtom}
           compound
           isRequired
         />
@@ -28,7 +38,7 @@ const CreateProduct: React.FC = () => {
           text={`
               If you want to show this product in the store, you must activate it.
             `}
-          stateAtom={ProductCreateAtom}
+          stateAtom={ProductEditAtom}
           configFormControl={{
             display: "flex",
             alignItems: "initial",
@@ -39,13 +49,13 @@ const CreateProduct: React.FC = () => {
         label={"Description"}
         placeholder={"Description"}
         typePrototype={"Textarea"}
-        stateAtom={ProductCreateAtom}
+        stateAtom={ProductEditAtom}
         isRequired
       />
       <InputComponent
         label={"Brand"}
         placeholder={"Brand"}
-        stateAtom={ProductCreateAtom}
+        stateAtom={ProductEditAtom}
         isRequired
       />
 
@@ -53,7 +63,7 @@ const CreateProduct: React.FC = () => {
         <InputComponent
           label={"Price"}
           placeholder={"Price"}
-          stateAtom={ProductCreateAtom}
+          stateAtom={ProductEditAtom}
           typeInput={"number"}
           isRequired
           compound
@@ -70,7 +80,7 @@ const CreateProduct: React.FC = () => {
           text={`
           The Discount is expressed in percentage. Use (.) period to separate the decimals
           `}
-          stateAtom={ProductCreateAtom}
+          stateAtom={ProductEditAtom}
           typeInput={"number"}
           compound
         />
@@ -83,7 +93,7 @@ const CreateProduct: React.FC = () => {
           text={`
           The stock value, establishes the total value by adding all the available sizes
           `}
-          stateAtom={ProductCreateAtom}
+          stateAtom={ProductEditAtom}
           typeInput={"number"}
           isRequired
           compound
@@ -93,7 +103,7 @@ const CreateProduct: React.FC = () => {
             label={"Unit of Measurement"}
             compound
             placeholder={"Unit"}
-            stateAtom={ProductCreateAtom}
+            stateAtom={ProductEditAtom}
             typePrototype={"Select"}
             options={unitOfMeasurementOptions}
           />
@@ -102,7 +112,7 @@ const CreateProduct: React.FC = () => {
             compound
             placeholder={"Size"}
             isMulti
-            stateAtom={ProductCreateAtom}
+            stateAtom={ProductEditAtom}
             typePrototype={"Select"}
             dependence={Sizes}
           />
@@ -112,7 +122,7 @@ const CreateProduct: React.FC = () => {
         <InputComponent
           label={"Genres"}
           placeholder={"Genres"}
-          stateAtom={ProductCreateAtom}
+          stateAtom={ProductEditAtom}
           compound
           typePrototype="Select"
           options={GenresOptions}
@@ -121,7 +131,7 @@ const CreateProduct: React.FC = () => {
         <InputComponent
           label={"Age Group"}
           placeholder={"Age Group"}
-          stateAtom={ProductCreateAtom}
+          stateAtom={ProductEditAtom}
           compound
           typePrototype="Select"
           options={AgeRangeOptions}
@@ -132,13 +142,13 @@ const CreateProduct: React.FC = () => {
         <InputComponent
           label={"Color"}
           placeholder={"Color"}
-          stateAtom={ProductCreateAtom}
+          stateAtom={ProductEditAtom}
           compound
         />
         <InputComponent
           label={"Style"}
           placeholder={"Style"}
-          stateAtom={ProductCreateAtom}
+          stateAtom={ProductEditAtom}
           compound
         />
       </GridComponent>
@@ -146,13 +156,13 @@ const CreateProduct: React.FC = () => {
         <InputComponent
           label={"Recommended Sport"}
           placeholder={"Recommended Sport"}
-          stateAtom={ProductCreateAtom}
+          stateAtom={ProductEditAtom}
           compound
         />
         <InputComponent
           label={"Exterior Materials"}
           placeholder={"Exterior Materials"}
-          stateAtom={ProductCreateAtom}
+          stateAtom={ProductEditAtom}
           compound
         />
       </GridComponent>
@@ -161,13 +171,13 @@ const CreateProduct: React.FC = () => {
         <InputComponent
           label={"Sole Materials"}
           placeholder={"Sole Materials"}
-          stateAtom={ProductCreateAtom}
+          stateAtom={ProductEditAtom}
           compound
         />
         <InputComponent
           label={"Fit Type"}
           placeholder={"Fit Type"}
-          stateAtom={ProductCreateAtom}
+          stateAtom={ProductEditAtom}
           compound
         />
       </GridComponent>
@@ -175,7 +185,7 @@ const CreateProduct: React.FC = () => {
       <InputComponent
         label={"Images"}
         placeholder={"Images"}
-        stateAtom={ProductCreateAtom}
+        stateAtom={ProductEditAtom}
         typePrototype="Images"
         withText
         text={`
@@ -185,7 +195,7 @@ const CreateProduct: React.FC = () => {
       />
 
       <GridComponent>
-        <CreateDocument stateAtom={ProductCreateAtom} />
+        <UpdateDocument stateAtom={ProductEditAtom} />
       </GridComponent>
     </>
   );

@@ -87,7 +87,7 @@ const UserMenu: React.FC = () => {
             title="Profile"
             href="/configuration/profile"
           />
-          <ItemMenu icon={FiCheckSquare} title="Orders" href="/orders" />
+          <ItemMenu icon={FiCheckSquare} title="Orders" href="/configuration/orders" />
           <ItemMenu
             icon={FiHeart}
             title="Wishlist"

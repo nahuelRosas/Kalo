@@ -1,6 +1,9 @@
 import { Container, Flex, useColorModeValue } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useRecoilValue } from "recoil";
+import { isLoggedState } from "../../atoms/IsLoggedAtom";
 import { auth } from "../../firebase/clientApp";
 import useUserData from "../../hooks/useUserData";
 import { itemMenuTitle } from "../../utils/constant";
@@ -9,11 +12,10 @@ import CreateProduct from "./CreateProduct";
 import EditProduct from "./EditProduct/index";
 import EditProfile from "./EditProfile";
 import Base from "./lateralMenu/Base";
+import AdmOrders from "./Orders/admin";
+import Orders from "./Orders/user";
 import Products from "./Products";
 import Users from "./Users";
-import { isLoggedState } from "../../atoms/IsLoggedAtom";
-import { useRecoilValue } from "recoil";
-import { useRouter } from "next/router";
 
 type indexProps = {
   type: string;
@@ -56,6 +58,9 @@ const Index: React.FC<indexProps> = ({ type }) => {
           ) : null}
 
           {type === itemMenuTitle["profile"] ? <EditProfile /> : null}
+
+          {type === itemMenuTitle["Admorders"] ? <AdmOrders /> : null}
+          {type === itemMenuTitle["orders"] ? <Orders /> : null}
         </BaseComponent>
       </Flex>
     </Container>

@@ -6,6 +6,7 @@ import { RecoilState, useRecoilState } from "recoil";
 import { firestore } from "../../../firebase/clientApp";
 import useProductsData from "../../../hooks/useProductsData";
 import { defaultProductEditAtom } from "../../../atoms/ProductEditAtom";
+import { useRouter } from "next/router";
 
 type createDocumentProps = {
   stateAtom: RecoilState<any>;
@@ -26,6 +27,7 @@ const UpdateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const { Reload } = useProductsData();
+  const router = useRouter();
 
   const updateDocument = async () => {
     setLoading(true);
@@ -57,7 +59,9 @@ const UpdateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
           isClosable: true,
         });
       } finally {
+
         setLoading(false);
+        router.push("/")
         Reload();
         setValue(defaultProductEditAtom);
       }

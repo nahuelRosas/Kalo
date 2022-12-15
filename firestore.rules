@@ -41,5 +41,8 @@ service cloud.firestore {
     match /ArrayCustomers/{id}{
      allow read: if isAdmin(request);
     }
+      match /ArrayOrders/{id}{
+     allow read: if isAdmin(request);
+    }
   }
 }

@@ -86,7 +86,6 @@ export default function Footer() {
       event.target,
       "740Cjql2V5CM06Ab-"
     ).then((result) => {
-      console.log(result.text);
       toast({
         title: "Check your email!❤️ ",
         description: "You are now suscribed to Kalo Newsletter!",

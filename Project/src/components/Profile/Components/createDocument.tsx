@@ -1,6 +1,7 @@
 import { Button, useToast } from "@chakra-ui/react";
 import { doc, setDoc } from "firebase/firestore";
 import { nanoid } from "nanoid";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { RecoilState, useRecoilState } from "recoil";
 import { defaultProductCreateAtom } from "../../../atoms/ProductCreateAtom";
@@ -53,6 +54,7 @@ const CreateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const { Reload } = useProductsData();
+  const router = useRouter();
 
   const createDocument = async () => {
     setLoading(true);
@@ -86,6 +88,7 @@ const CreateDocument: React.FC<createDocumentProps> = ({ stateAtom }) => {
           isClosable: true,
         });
       } finally {
+        router.push("/")
         setLoading(false);
         Reload();
         setValue(defaultProductCreateAtom);

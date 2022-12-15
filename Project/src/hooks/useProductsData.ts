@@ -297,7 +297,6 @@ const useProductsData = () => {
   }) => {
     if (ParentType === "CreateProduct") {
       if (e === undefined) {
-        console.log(ProductCreateState);
         return ProductCreateState.dontRepet;
       }
       setProductCreate({

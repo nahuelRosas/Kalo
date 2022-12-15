@@ -1,11 +1,13 @@
 import {
   Box,
-  Button, Divider,
+  Button,
+  Divider,
   Flex,
-  Grid, Image,
+  Grid,
+  Image,
   Spinner,
   Text,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -16,7 +18,6 @@ import useUserData from "../../hooks/useUserData";
 type SuccessProps = {};
 
 const Success: React.FC<SuccessProps> = () => {
-
   const router = useRouter();
   const [disabled, setDisabled] = useState(true);
   const { userData } = useUserData();
@@ -45,7 +46,6 @@ const Success: React.FC<SuccessProps> = () => {
 
   const _Products = userData?.lastPurchase?.items?.map(
     (product: { price: { product: string } }) => {
-
       return findProduct(product.price.product);
     }
   );
@@ -171,8 +171,10 @@ const Success: React.FC<SuccessProps> = () => {
               </Flex>
               <Flex justifyContent={"space-around"} flexDirection={"column"}>
                 <Button
-                onClick={() => router.push(`/product/${product?.id}/review`)}
-                >Review This product</Button>
+                  colorScheme={"purple"}
+                  onClick={() => router.push(`/product/${product?.id}/review`)}>
+                  Review This product
+                </Button>
                 <Text
                   display={"flex"}
                   flexDirection={"row-reverse"}

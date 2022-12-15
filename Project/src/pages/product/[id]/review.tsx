@@ -25,6 +25,7 @@ type value = {
 };
 
 const Review: React.FC<value> = () => {
+  
   const router = useRouter();
   const { id } = router.query;
   const { userData } = useUserData();
@@ -74,6 +75,7 @@ const Review: React.FC<value> = () => {
         });
       } finally {
         setLoading(false);
+        router.push("/");
       }
     } else {
       toast({

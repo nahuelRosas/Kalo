@@ -8,7 +8,7 @@ import {
   Image,
   Spinner,
   Text,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { DocumentData } from "@firebase/firestore-types";
 import Link from "next/link";
@@ -17,18 +17,16 @@ import { FiTrash2 } from "react-icons/fi";
 import useWishlistData from "../../hooks/useWishlistData";
 import FormatPrice from "../Products/Price/formatPrice";
 
-
 type CardWishlistProps = {
   itemState: DocumentData;
 };
 
 const CardWishlist: React.FC<CardWishlistProps> = ({ itemState }) => {
   const bg = useColorModeValue("white", "gray.800");
-  const { price, product, quantity, size } = itemState;
+  const { product, size } = itemState;
 
   const [image, setImage] = useState<string>("");
-  const { deleteProduct, closeDrawer } =
-    useWishlistData();
+  const { deleteProduct, closeDrawer } = useWishlistData();
   useEffect(() => {
     const random = Math.floor(Math.random() * product.images.length);
     setImage(product.images[random]);
@@ -78,11 +76,18 @@ const CardWishlist: React.FC<CardWishlistProps> = ({ itemState }) => {
           </Text>
 
           <Text fontWeight="semibold" mt={{ base: "6", md: "none" }}>
-            Price: {FormatPrice({ value: price })}
+            Price: {FormatPrice({ value: product.price })}
           </Text>
           <Flex justifyContent={"flex-end"}>
             <Link href={`/product/${product?.id}`}>
-              <Button bg="purple.300" color="white" _hover={{ bg: "purple.300", color: "black" }} onClick={closeDrawer}>View in detail</Button>
+              <Button
+                bg="purple.300"
+                color="white"
+                mb={2}
+                _hover={{ bg: "purple.300", color: "black" }}
+                onClick={closeDrawer}>
+                View in detail
+              </Button>
             </Link>
           </Flex>
         </Flex>

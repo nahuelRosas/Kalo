@@ -1,9 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useRecoilState } from "recoil";
-import {
-  defaultProductCreateAtom,
-  ProductCreateAtom,
-} from "../../../atoms/ProductCreateAtom";
+import { ProductCreateAtom } from "../../../atoms/ProductCreateAtom";
 import {
   AgeRangeOptions,
   GenresOptions,
@@ -15,12 +12,6 @@ import GridComponent from "../Components/grid";
 import InputComponent from "../Components/InputComponent";
 const CreateProduct: React.FC = () => {
   const [value, setValue] = useRecoilState(ProductCreateAtom);
-
-  // useEffect(() => {
-  //   console.log(value);
-  //   setValue(defaultProductCreateAtom);
-  //   console.log(value);
-  // }, [setValue, value]);
 
   return (
     <>

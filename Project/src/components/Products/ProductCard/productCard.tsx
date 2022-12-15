@@ -33,7 +33,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   }>();
 
   useEffect(() => {
-    setSelectedSize(product.subType[0].size);
+    setSelectedSize(product.subType[0]);
   }, [product.subType]);
 
   useEffect(() => {

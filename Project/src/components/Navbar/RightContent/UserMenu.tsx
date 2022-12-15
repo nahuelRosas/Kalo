@@ -26,16 +26,15 @@ import { auth } from "../../../firebase/clientApp";
 import useUserData from "../../../hooks/useUserData";
 import ItemMenu from "./itemMenu";
 import useCartData from "../../../hooks/useCartData";
-//import { useRouter } from "next/router";
 import { isLoggedState } from "../../../atoms/IsLoggedAtom";
-
+import useWishlistData from "../../../hooks/useWishlistData";
 const UserMenu: React.FC = () => {
   const { userData } = useUserData();
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue("Dark", "Light");
   const toast = useToast();
   const { clearCart } = useCartData();
-
+  const { clearWishlist } = useWishlistData();
   const [isLogged, setIsLogged] = useRecoilState(isLoggedState);
 
   const logOut = () => {
@@ -116,6 +115,7 @@ const UserMenu: React.FC = () => {
             onClick={() => {
               logOut();
               clearCart();
+              clearWishlist(true);
             }}
           />
         </MenuList>

@@ -36,18 +36,19 @@ const LateralMenu: React.FC<LateralMenuProps> = ({ currentComponent }) => {
         href="/configuration/profile"
         state={currentComponent === "Profile"}
       />
-      {/* <ItemMenu
-        title="Settings"
-        icon={FiSettings}
-        href="/configuration/settings"
-        state={currentComponent === "Settings"}
-      />
       <ItemMenu
         title="Orders"
         icon={FiCheckSquare}
         href="/configuration/orders"
         state={currentComponent === "Orders"}
       />
+      {/* <ItemMenu
+        title="Settings"
+        icon={FiSettings}
+        href="/configuration/settings"
+        state={currentComponent === "Settings"}
+      />
+     
       <ItemMenu
         title="Payments"
         icon={FiCreditCard}
@@ -86,13 +87,13 @@ const LateralMenu: React.FC<LateralMenuProps> = ({ currentComponent }) => {
           icon={FiGrid}
           href="/configuration/admin/Admcategories"
           state={currentComponent === "ADMIN — Categories"}
-        />
-        <ItemMenu
-          title="Orders"
-          icon={FiCheckSquare}
-          href="/configuration/admin/Admorders"
-          state={currentComponent === "ADMIN — Orders"}
         />*/}
+          <ItemMenu
+            title="Orders"
+            icon={FiCheckSquare}
+            href="/configuration/admin/Admorders"
+            state={currentComponent === "ADMIN — Orders"}
+          />
           <ItemMenu
             title="Users"
             icon={FiUsers}

@@ -26,7 +26,7 @@
     "firebase-admin": "^11.3.0",
     "framer-motion": "^6.5.1",
     "fs": "^0.0.1-security",
-    "next": "^13.0.3",
+    "next": "^13.5.1",
     "next-firebase-auth": "^1.0.0-canary.17",
     "pure-react-carousel": "^1.30.1",
     "react": "^18.2.0",
